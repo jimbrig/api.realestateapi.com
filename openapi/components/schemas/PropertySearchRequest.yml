@@ -1,0 +1,172 @@
+type: object
+description: Request schema for PropertySearch endpoint
+properties:
+  count:
+    type: boolean
+    description: Return only the count of matching properties
+  ids:
+    type: array
+    description: List of specific property IDs to retrieve
+    items:
+      oneOf:
+        - type: string
+        - type: integer
+  ids_only:
+    type: boolean
+    description: Return only property IDs, not full property data
+  obfuscate:
+    type: boolean
+    description: Obfuscate sensitive property information
+  summary:
+    type: boolean
+    description: Return summarized property data
+  resultIndex:
+    type: integer
+    minimum: 0
+    description: Starting index for pagination
+  size:
+    type: integer
+    minimum: 1
+    maximum: 1000
+    description: Number of results to return
+    default: 10
+  limit:
+    type: integer
+    minimum: 0
+    description: Maximum number of results
+  county:
+    type: string
+    description: County name to search within
+    example: Forsyth
+  state:
+    type: string
+    description: State abbreviation
+    pattern: ^[A-Z]{2}$
+    example: GA
+  city:
+    type: string
+    description: City name
+  address:
+    type: string
+    description: Full address string
+  latitude:
+    type: number
+    minimum: -90
+    maximum: 90
+    description: Latitude for radius search
+  longitude:
+    type: number
+    minimum: -180
+    maximum: 180
+    description: Longitude for radius search
+  radius:
+    type: number
+    minimum: 0.01
+    maximum: 1000
+    description: Search radius in miles
+  polygon:
+    type: array
+    description: Polygon coordinates for geographic search
+    items:
+      type: array
+      items:
+        type: number
+  beds_min:
+    type: integer
+    minimum: 0
+    maximum: 99
+    description: Minimum number of bedrooms
+  beds_max:
+    type: integer
+    minimum: 0
+    maximum: 99
+    description: Maximum number of bedrooms
+  baths_min:
+    type: number
+    minimum: 0
+    maximum: 99
+    description: Minimum number of bathrooms
+  baths_max:
+    type: number
+    minimum: 0
+    maximum: 99
+    description: Maximum number of bathrooms
+  value_min:
+    type: number
+    minimum: 0
+    description: Minimum property value
+  value_max:
+    type: number
+    minimum: 0
+    description: Maximum property value
+  year_built_min:
+    type: integer
+    minimum: 1800
+    maximum: 2100
+    description: Minimum year built
+  year_built_max:
+    type: integer
+    minimum: 1800
+    maximum: 2100
+    description: Maximum year built
+  lot_size_min:
+    type: number
+    minimum: 0
+    description: Minimum lot size in square feet
+  lot_size_max:
+    type: number
+    minimum: 0
+    description: Maximum lot size in square feet
+  building_size_min:
+    type: number
+    minimum: 0
+    description: Minimum building size in square feet
+  building_size_max:
+    type: number
+    minimum: 0
+    description: Maximum building size in square feet
+  property_type:
+    type: array
+    description: Property type filters
+    items:
+      type: string
+      enum:
+        - SFR
+        - MFR
+        - CON
+        - TH
+        - MOB
+        - APT
+        - COM
+        - IND
+        - VAC
+  for_sale:
+    type: boolean
+    description: Filter for properties currently for sale
+  owner_occupied:
+    type: boolean
+    description: Filter for owner-occupied properties
+  absentee_owner:
+    type: boolean
+    description: Filter for absentee owner properties
+  corporate_owned:
+    type: boolean
+    description: Filter for corporate-owned properties
+  high_equity:
+    type: boolean
+    description: Filter for high equity properties
+  foreclosure:
+    type: boolean
+    description: Filter for properties in foreclosure
+  pre_foreclosure:
+    type: boolean
+    description: Filter for properties in pre-foreclosure
+  auction:
+    type: boolean
+    description: Filter for properties going to auction
+  cash_buyer:
+    type: boolean
+    description: Filter for cash buyer properties
+  investor_buyer:
+    type: boolean
+    description: Filter for investor buyer properties

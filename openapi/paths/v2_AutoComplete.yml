@@ -1,0 +1,76 @@
+post:
+  summary: Address and Location AutoComplete
+  description: >
+    Search for addresses, cities, neighborhoods, and other location types with
+    autocomplete functionality.
+
+    Supports various search types including addresses, streets, cities,
+    neighborhoods, counties, APNs, states, and ZIP codes.
+  operationId: autoComplete
+  tags:
+    - v2
+    - Search
+  parameters:
+    - $ref: ../components/parameters/ApiKeyHeader.yml
+    - $ref: ../components/parameters/UserIdHeader.yml
+  requestBody:
+    description: AutoComplete search request
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/AutoCompleteRequest.yml
+        examples:
+          basic:
+            summary: Basic search
+            value:
+              search: peachtree
+          withLocation:
+            summary: Search with location bias
+            value:
+              search: peachtree
+              latitude: 33.749
+              longitude: -84.388
+          filtered:
+            summary: Search with type filters
+            value:
+              search: peachtree
+              search_types:
+                - A
+                - C
+              latitude: 33.749
+              longitude: -84.388
+  responses:
+    '200':
+      description: Successful response with autocomplete suggestions
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/AutoCompleteResponse.yml
+          examples:
+            success:
+              summary: Autocomplete response
+              value:
+                input:
+                  search: peachtree
+                  latitude: 33.749
+                  longitude: -84.388
+                data:
+                  - city: Peachtree City
+                    searchType: C
+                    state: GA
+                    title: Peachtree City, GA
+                  - city: Peachtree Corners
+                    searchType: C
+                    state: GA
+                    title: Peachtree Corners, GA
+                totalResults: 25
+                returnedResults: 2
+                statusCode: 200
+                live: true
+    '400':
+      $ref: ../components/responses/BadRequest.yml
+    '401':
+      $ref: ../components/responses/Unauthorized.yml
+    '500':
+      $ref: ../components/responses/InternalServerError.yml

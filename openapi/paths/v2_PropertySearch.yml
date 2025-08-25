@@ -1,0 +1,30 @@
+post:
+  summary: Property Search and Filtering
+  description: >
+    Search and filter properties with advanced criteria including geographic,
+    demographic, and financial filters.
+
+    Supports pagination and various output formats. Perfect for list building
+    and property analytics.
+  operationId: propertySearch
+  tags:
+    - v2
+    - Search
+  parameters:
+    - $ref: ../components/parameters/ApiKeyHeader.yml
+    - $ref: ../components/parameters/UserIdHeader.yml
+  requestBody:
+    $ref: ../components/requestBodies/PropertySearch.yml
+  responses:
+    '200':
+      description: Successful response with property search results
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/PropertySearchResponse.yml
+    '400':
+      $ref: ../components/responses/400.yml
+    '401':
+      $ref: ../components/responses/401.yml
+    '404':
+      $ref: ../components/responses/404.yml

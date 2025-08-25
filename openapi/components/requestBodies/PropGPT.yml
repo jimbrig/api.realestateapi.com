@@ -1,0 +1,5 @@
+description: PropGPT request body schema
+content:
+  application/json:
+    schema:
+      $ref: ../schemas/PropGPTRequest.yml

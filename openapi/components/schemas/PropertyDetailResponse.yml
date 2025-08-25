@@ -1,0 +1,40 @@
+type: object
+description: Response schema for PropertyDetail endpoint
+properties:
+  input:
+    type: object
+    description: Echo of the input parameters
+  data:
+    type: object
+    description: Comprehensive property details
+    properties:
+      id:
+        type: string
+        description: Unique property identifier
+      address:
+        type: object
+        description: Property address information
+      location:
+        type: object
+        description: Geographic coordinates
+      characteristics:
+        type: object
+        description: Property characteristics
+      valuation:
+        type: object
+        description: Property valuation information
+      ownership:
+        type: object
+        description: Property ownership information
+      sales:
+        type: object
+        description: Sales history information
+      features:
+        type: object
+        description: Property features and amenities
+  statusCode:
+    type: integer
+    description: HTTP status code
+  live:
+    type: boolean
+    description: Indicates if data is live

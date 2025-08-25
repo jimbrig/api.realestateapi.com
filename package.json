@@ -1,0 +1,16 @@
+{
+  "name": "reapi-openapi",
+  "version": "1.0.0",
+  "dependencies": {
+  },
+  "private": true,
+  "scripts": {
+    "lint": "npx @redocly/cli@latest lint src/openapi.yml",
+    "start": "npx @redocly/cli@latest preview-docs",
+    "build": "npx @redocly/cli@latest bundle -o dist/openapi.yml",
+    "test": "npx @redocly/cli@latest lint",
+    "split": "npx @redocly/cli@latest split swagger.json --outDir src",
+    "bundle": "npx @redocly/cli@latest bundle swagger.json -o dist/openapi.yml",
+    "generate-client": "npx @openapitools/openapi-generator-cli generate -i dist/openapi.yml -g r -o dist/client/"
+  }
+}

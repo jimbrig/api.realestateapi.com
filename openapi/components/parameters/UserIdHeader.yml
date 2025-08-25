@@ -1,0 +1,6 @@
+name: x-user-id
+in: header
+description: Optional user identifier for tracking and analytics
+required: false
+schema:
+  type: string

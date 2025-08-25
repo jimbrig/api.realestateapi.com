@@ -1,0 +1,128 @@
+openapi: 3.1.0
+
+info:
+  title: Real Estate API - Focused Specification
+  version: 2.0.0
+  termsOfService: https://developer.realestateapi.com/reference/
+  x-logo:
+    altText: Real Estate API Logo
+    url: https://files.readme.io/06c0d730f64296d5fbee8f6dd105e2d5f92a9188c6d08b9d4f84c61a4fc6b9cc-realestateapi-logo-color_2.svg
+    href: https://developer.realestateapi.com
+  summary: >
+    OpenAPI specification for Real Estate API, tailored for use with the `{landrise.reapi}` R package.
+  description:
+    $ref: ./description.md
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+  contact:
+    name: Real Estate API Support
+    url: https://developer.realestateapi.com
+
+externalDocs:
+  url: https://developer.realestateapi.com
+  description: Official Real Estate API Documentation
+
+servers:
+  - url: https://api.realestateapi.com
+    description: Production server
+
+security:
+  - apiKey: []
+
+paths:
+  /v1/PropertyParcel:
+    $ref: paths/v1_PropertyParcel.yml
+  /v2/AutoComplete:
+    $ref: paths/v2_AutoComplete.yml
+  /v2/PropertyDetail:
+    $ref: paths/v2_PropertyDetail.yml
+  /v2/PropertySearch:
+    $ref: paths/v2_PropertySearch.yml
+  /v2/PropertySearch/odata:
+    $ref: paths/v2_PropertySearch_odata.yml
+  /v2/PropGPT:
+    $ref: paths/v2_PropGPT.yml
+  /v3/PropertyComps:
+    $ref: paths/v3_PropertyComps.yml
+
+components:
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      in: header
+      name: x-api-key
+      description: API key provided by Real Estate API
+  examples: 
+    PropertySearchRequestBasic:
+      $ref: components/examples/PropertySearchRequestBasic.yml
+      description: Basic Property Search Request
+    PropertySearchRequestCount:
+      $ref: components/examples/PropertySearchRequestCount.yml
+      description: Count Property Search Request
+    PropertySearchRequestIDsOnly:
+      $ref: components/examples/PropertySearchrequestIDsOnly.yml
+      description: IDs Only Property Search Request
+    PropertySearchRequestRadius:
+      $ref: components/examples/PropertySearchRequestRadius.yml
+      description: Radius Property Search Request
+    PropertySearchRequestSummary:
+      $ref: components/examples/PropertySearchRequestSummary.yml
+      description: Summary Property Search Request
+    PropertySearchRequestObfuscated:
+      $ref: components/examples/PropertySearchRequestObfuscated.yml
+      description: Obfuscated Property Search Request
+    PropertySearchRequestCompound:
+      $ref: components/examples/PropertySearchRequestCompound.yml
+      description: Compound Property Search Request
+    PropertySearchRequestPolygon:
+      $ref: components/examples/PropertySearchRequestPolygon.yml
+      description: Polygon Property Search Request
+  parameters:
+    ApiKeyHeader:
+      $ref: components/parameters/ApiKeyHeader.yml
+    OpenAIApiKeyHeader:
+      $ref: components/parameters/OpenAIApiKeyHeader.yml
+    UserIdHeader:
+      $ref: components/parameters/UserIdHeader.yml
+  requestBodies: 
+    PropertySearch:
+      $ref: components/requestBodies/PropertySearch.yml
+    PropGPT:
+      $ref: components/requestBodies/PropGPT.yml
+  schemas:
+    AutoCompleteRequest:
+      $ref: components/schemas/AutoCompleteRequest.yml
+    AutoCompleteResponse:
+      $ref: components/schemas/AutoCompleteResponse.yml
+    PropertyCompsRequest:
+      $ref: components/schemas/PropertyCompsRequest.yml
+    PropertyCompsResponse:
+      $ref: components/schemas/PropertyCompsResponse.yml
+    PropertyDetailRequest:
+      $ref: components/schemas/PropertyDetailRequest.yml
+    PropertyDetailResponse:
+      $ref: components/schemas/PropertyDetailResponse.yml
+    PropertyParcelRequest:
+      $ref: components/schemas/PropertyParcelRequest.yml
+    PropertyParcelResponse:
+      $ref: components/schemas/PropertyParcelResponse.yml
+    PropertySearchRequest:
+      $ref: components/schemas/PropertySearchRequest.yml
+    PropertySearchResponse:
+      $ref: components/schemas/PropertySearchResponse.yml
+    PropGPTRequest:
+      $ref: components/schemas/PropGPTRequest.yml
+    PropGPTResponse:
+      $ref: components/schemas/PropGPTResponse.yml
+    PropertyObject:
+      $ref: components/schemas/PropertyObject.yml
+    PropertyAddress:
+      $ref: components/schemas/PropertyAddress.yml
+    MailingAddress:
+      $ref: components/schemas/MailingAddress.yml
+  responses:
+    400BadRequest:
+      $ref: components/responses/400.yml
+    401Unauthorized:
+      $ref: components/responses/401.yml

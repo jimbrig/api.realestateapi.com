@@ -1,0 +1,59 @@
+post:
+  summary: Detailed Property Information
+  description: >
+    Get comprehensive details about a specific property including ownership,
+    valuation, characteristics,
+
+    sales history, and financial indicators. Can search by ID, address, or APN.
+  operationId: propertyDetail
+  tags:
+    - v2
+    - Detail
+  parameters:
+    - $ref: ../components/parameters/ApiKeyHeader.yml
+    - $ref: ../components/parameters/UserIdHeader.yml
+  requestBody:
+    description: Property detail request
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/PropertyDetailRequest.yml
+        examples:
+          byId:
+            summary: Lookup by property ID
+            value:
+              id: '148046016'
+          byAddress:
+            summary: Lookup by full address
+            value:
+              address: 2025 Peachtree Rd NE, Atlanta GA 30309
+          byAddressParts:
+            summary: Lookup by address components
+            value:
+              house: '2025'
+              street: Peachtree Rd NE
+              city: Atlanta
+              state: GA
+              zip: '30309'
+          byApn:
+            summary: Lookup by APN
+            value:
+              apn: 170110LL0333
+              state: GA
+              county: Fulton
+  responses:
+    '200':
+      description: Successful response with detailed property information
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/PropertyDetailResponse.yml
+    '400':
+      $ref: ../components/responses/BadRequest.yml
+    '401':
+      $ref: ../components/responses/Unauthorized.yml
+    '404':
+      $ref: ../components/responses/NotFound.yml
+    '500':
+      $ref: ../components/responses/InternalServerError.yml

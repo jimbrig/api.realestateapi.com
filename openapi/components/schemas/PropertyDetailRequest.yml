@@ -1,0 +1,69 @@
+type: object
+description: Request schema for PropertyDetail endpoint
+properties:
+  id:
+    oneOf:
+      - type: string
+      - type: integer
+    description: Unique property identifier
+    example: '148046016'
+  address:
+    type: string
+    description: Full property address
+    minLength: 5
+    example: 2025 Peachtree Rd NE, Atlanta GA 30309
+  house:
+    type: string
+    description: House number component
+    example: '2025'
+  unit:
+    type: string
+    description: Unit number component
+  street:
+    type: string
+    description: Street name component
+    example: Peachtree Rd NE
+  city:
+    type: string
+    description: City name
+    example: Atlanta
+  state:
+    type: string
+    description: State abbreviation
+    pattern: ^[A-Z]{2}$
+    example: GA
+  zip:
+    type: string
+    description: ZIP code
+    pattern: ^[0-9]{5}(-[0-9]{4})?$
+    example: '30309'
+  county:
+    type: string
+    description: County name
+    example: Fulton
+  apn:
+    type: string
+    description: Assessor's Parcel Number
+    example: 170110LL0333
+  exact_match:
+    type: boolean
+    description: Require exact address match
+    default: true
+  prior_owner:
+    type: boolean
+    description: Include prior owner information
+    default: false
+  comps:
+    type: boolean
+    description: Include comparable properties
+    default: false
+  lat:
+    type: number
+    description: Property latitude
+    minimum: -90
+    maximum: 90
+  lon:
+    type: number
+    description: Property longitude
+    minimum: -180
+    maximum: 180

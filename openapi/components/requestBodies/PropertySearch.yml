@@ -1,0 +1,31 @@
+description: Property Search Request Body
+required: true
+content:
+  application/json:
+    schema:
+      $ref: ../schemas/PropertySearchRequest.yml
+    examples:
+      Basic:
+        $ref: ../examples/PropertySearchRequestBasic.yml
+        description: Basic Property Search Request
+      Count:
+        $ref: ../examples/PropertySearchRequestCount.yml
+        description: Count Property Search Request
+      IDsOnly:
+        $ref: ../examples/PropertySearchrequestIDsOnly.yml
+        description: IDs Only Property Search Request
+      Radius:
+        $ref: ../examples/PropertySearchRequestRadius.yml
+        description: Radius Property Search Request
+      Summary:
+        $ref: ../examples/PropertySearchRequestSummary.yml
+        description: Summary Property Search Request
+      Obfuscated:
+        $ref: ../examples/PropertySearchRequestObfuscated.yml
+        description: Obfuscated Property Search Request
+      Compound:
+        $ref: ../examples/PropertySearchRequestCompound.yml
+        description: Compound Property Search Request
+      Polygon:
+        $ref: ../examples/PropertySearchRequestPolygon.yml
+        description: Polygon Property Search Request

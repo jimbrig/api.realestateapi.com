@@ -1,0 +1,47 @@
+type: object
+description: Response schema for PropertyParcel endpoint
+properties:
+  input:
+    type: object
+    description: Echo of the input parameters
+  data:
+    type: object
+    description: Property parcel data with GeoJSON boundaries
+    properties:
+      id:
+        type: string
+        description: Property identifier
+      address:
+        type: object
+        description: Property address information
+      apn:
+        type: string
+        description: Assessor's Parcel Number
+      geometry:
+        type: object
+        description: GeoJSON geometry for property boundaries
+        properties:
+          type:
+            type: string
+            enum:
+              - Polygon
+              - MultiPolygon
+          coordinates:
+            type: array
+            description: GeoJSON coordinate arrays
+      properties:
+        type: object
+        description: Additional property metadata
+        properties:
+          acres:
+            type: number
+            description: Property size in acres
+          sqft:
+            type: number
+            description: Property size in square feet
+  statusCode:
+    type: integer
+    description: HTTP status code
+  live:
+    type: boolean
+    description: Indicates if data is live

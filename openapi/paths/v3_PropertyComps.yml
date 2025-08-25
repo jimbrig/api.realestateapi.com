@@ -1,0 +1,59 @@
+post:
+  summary: Property Comparables Analysis
+  description: |
+    Find comparable properties for valuation and analysis purposes.
+    Includes advanced filtering and market analysis features.
+  operationId: propertyComps
+  tags:
+    - v3
+    - Comparables
+    - Valuation
+  parameters:
+    - $ref: ../components/parameters/ApiKeyHeader.yml
+    - $ref: ../components/parameters/UserIdHeader.yml
+  requestBody:
+    description: Property comparables request
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/PropertyCompsRequest.yml
+        examples:
+          basic:
+            summary: Find comps by property ID
+            value:
+              id: '148046016'
+              comp_count: 10
+              radius: 1.5
+          by_address:
+            summary: Find comps by address
+            value:
+              address: 2025 Peachtree Rd NE, Atlanta GA 30309
+              comp_count: 15
+              radius: 2
+          filtered:
+            summary: Find comps with filters
+            value:
+              id: '148046016'
+              comp_count: 20
+              radius: 3
+              bedrooms: 3
+              bathrooms: 2
+              property_type:
+                - SFR
+              sale_date_min: '2022-01-01'
+  responses:
+    '200':
+      description: Successful response with comparable properties
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/PropertyCompsResponse.yml
+    '400':
+      $ref: ../components/responses/BadRequest.yml
+    '401':
+      $ref: ../components/responses/Unauthorized.yml
+    '404':
+      $ref: ../components/responses/NotFound.yml
+    '500':
+      $ref: ../components/responses/InternalServerError.yml

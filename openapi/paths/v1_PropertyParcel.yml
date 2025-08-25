@@ -1,0 +1,81 @@
+post:
+  summary: Property Parcel and Boundary Information
+  description: |
+    Get property parcel boundaries and information in GeoJSON format.
+    Perfect for mapping applications showing property boundaries.
+  operationId: propertyParcel
+  tags:
+    - v1
+    - Parcel
+  parameters:
+    - $ref: ../components/parameters/ApiKeyHeader.yml
+    - $ref: ../components/parameters/UserIdHeader.yml
+  requestBody:
+    description: Property parcel request
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/PropertyParcelRequest.yml
+        examples:
+          byId:
+            summary: Lookup by property ID
+            value:
+              id: '148046016'
+          byAddress:
+            summary: Lookup by address
+            value:
+              address: 2025 Peachtree Rd NE, Atlanta GA 30309
+              state: GA
+              county: Fulton
+  responses:
+    '200':
+      description: Successful response with property parcel data
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/PropertyParcelResponse.yml
+          examples:
+            success:
+              summary: Property parcel with GeoJSON boundary
+              value:
+                input:
+                  id: '148046016'
+                data:
+                  id: '148046016'
+                  address:
+                    address: 2025 Peachtree Rd NE, Atlanta GA 30309
+                    street: 2025 Peachtree Rd NE
+                    city: Atlanta
+                    county: Fulton
+                    state: GA
+                    zip: '30309'
+                  apn: 170110LL0333
+                  geometry:
+                    type: Polygon
+                    coordinates:
+                      - - - -84.387901
+                          - 33.748912
+                        - - -84.387801
+                          - 33.748912
+                        - - -84.387801
+                          - 33.749012
+                        - - -84.387901
+                          - 33.749012
+                        - - -84.387901
+                          - 33.748912
+                  properties:
+                    acres: 0.25
+                    sqft: 10890
+                statusCode: 200
+                live: true
+    '400':
+      $ref: ../components/responses/BadRequest.yml
+    '401':
+      $ref: ../components/responses/Unauthorized.yml
+    '404':
+      $ref: ../components/responses/NotFound.yml
+    '500':
+      $ref: ../components/responses/InternalServerError.yml
+  security:
+    - apiKey: []

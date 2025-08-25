@@ -1,0 +1,6 @@
+name: x-openai-key
+in: header
+description: OpenAI API Key to attach to all your requests to this endpoint for token spend tracking.
+required: true
+schema:
+  type: string

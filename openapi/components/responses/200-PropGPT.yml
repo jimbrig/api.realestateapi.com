@@ -1,0 +1,5 @@
+description: 200 OK Response for PropGPT endpoint
+content:
+  application/json:
+    schema:
+      $ref: '#/components/schemas/PropGPTResponse'

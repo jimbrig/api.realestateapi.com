@@ -1,0 +1,38 @@
+type: object
+description: Response schema for PropertySearch endpoint
+properties:
+  live:
+    type: boolean
+    description: Indicates if the data is live from the API
+    example: true
+  input:
+    $ref: PropertySearchRequestInput.yml
+  data:
+    type: array
+    description: Array of property results
+    items:
+      $ref: PropertyObject.yml
+  resultCount:
+    type: integer
+    description: Total number of results found
+    example: 150
+  resultIndex:
+    type: integer
+    description: Index of the last record returned in the current response data
+    example: 250
+  recordCount:
+    type: integer
+    description: Number of records returned in the current response data
+    example: 50
+  statusCode:
+    type: integer
+    description: HTTP status code of the response
+    example: 200
+  statusMessage:
+    type: string
+    description: Status message corresponding to the status code
+    example: OK
+  requestExecutionTimeMS:
+    type: string
+    description: Time taken to execute the request in milliseconds
+    example: "150ms"

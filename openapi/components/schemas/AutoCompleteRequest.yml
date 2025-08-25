@@ -1,0 +1,67 @@
+type: object
+description: Request schema for AutoComplete endpoint
+required:
+  - search
+properties:
+  search:
+    type: string
+    minLength: 2
+    maxLength: 100
+    description: The search query string (minimum 2 characters)
+    example: peachtree
+  search_types:
+    oneOf:
+      - type: string
+        enum:
+          - A
+          - C
+          - G
+          - 'N'
+          - P
+          - S
+          - T
+          - Z
+      - type: array
+        items:
+          type: string
+          enum:
+            - A
+            - C
+            - G
+            - 'N'
+            - P
+            - S
+            - T
+            - Z
+        uniqueItems: true
+    description: |
+      Search type codes:
+      - A: Address
+      - S: Street
+      - C: City
+      - G: Neighborhood
+      - N: County
+      - P: APN (Assessor's Parcel Number)
+      - T: State
+      - Z: ZIP Code
+    example:
+      - A
+      - C
+  latitude:
+    type: number
+    minimum: -90
+    maximum: 90
+    description: Latitude to bias the search results
+    example: 33.749
+  longitude:
+    type: number
+    minimum: -180
+    maximum: 180
+    description: Longitude to bias the search results
+    example: -84.388
+  precision:
+    type: integer
+    minimum: 1
+    maximum: 10
+    description: Number of precision digits for coordinates
+    default: 3

@@ -1,0 +1,6 @@
+name: x-api-key
+in: header
+description: API key for authentication
+required: true
+schema:
+  type: string

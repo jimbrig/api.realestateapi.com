@@ -1,0 +1,7 @@
+summary: IDs Only Only Property Search Request
+value:
+  ids_only: true
+  state: GA
+  county: Fulton
+  property_type: LAND
+  size: 10

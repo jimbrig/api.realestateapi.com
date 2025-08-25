@@ -1,0 +1,44 @@
+type: object
+description: Request schema for PropertyParcel endpoint
+properties:
+  id:
+    oneOf:
+      - type: string
+      - type: integer
+    description: Unique property identifier
+    example: '148046016'
+  address:
+    type: string
+    description: Full property address
+    minLength: 5
+    example: 2025 Peachtree Rd NE, Atlanta GA 30309
+  apn:
+    type: string
+    description: Assessor's Parcel Number
+    example: 170110LL0333
+  house:
+    type: string
+    description: House number
+    example: '2025'
+  street:
+    type: string
+    description: Street name
+    example: Peachtree Rd NE
+  city:
+    type: string
+    description: City name
+    example: Atlanta
+  state:
+    type: string
+    description: State abbreviation
+    pattern: ^[A-Z]{2}$
+    example: GA
+  zip:
+    type: string
+    description: ZIP code
+    pattern: ^[0-9]{5}(-[0-9]{4})?$
+    example: '30309'
+  county:
+    type: string
+    description: County name
+    example: Fulton

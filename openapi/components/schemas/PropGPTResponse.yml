@@ -1,0 +1,60 @@
+type: object
+description: Response schema for PropGPT endpoint
+properties:
+  input:
+    type: object
+    description: Echo of the input parameters
+  data:
+    type: array
+    description: Array of properties found matching the query
+    items:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Property identifier
+        address:
+          type: object
+          description: Property address
+        confidence:
+          type: number
+          description: AI confidence score for this match
+          minimum: 0
+          maximum: 1
+  gpt_response:
+    type: object
+    description: GPT model analysis and explanation
+    properties:
+      analysis:
+        type: string
+        description: AI analysis of the query and results
+      reasoning:
+        type: string
+        description: Explanation of why these properties were selected
+      suggestions:
+        type: array
+        description: Suggestions for refining the search
+        items:
+          type: string
+  totalResults:
+    type: integer
+    description: Total number of matching properties
+  returnedResults:
+    type: integer
+    description: Number of results returned
+  statusCode:
+    type: integer
+    description: HTTP status code
+  live:
+    type: boolean
+    description: Indicates if data is live
+  usage:
+    type: object
+    description: Token usage information
+    properties:
+      prompt_tokens:
+        type: integer
+      completion_tokens:
+        type: integer
+      total_tokens:
+        type: integer

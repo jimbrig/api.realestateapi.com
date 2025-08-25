@@ -1,0 +1,15 @@
+description: Not Found - Resource not found
+content:
+  application/json:
+    schema:
+      type: object
+      properties:
+        error:
+          type: string
+          example: Not Found
+        message:
+          type: string
+          example: Property not found
+        statusCode:
+          type: integer
+          example: 404

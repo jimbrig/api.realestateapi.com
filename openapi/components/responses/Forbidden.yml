@@ -1,0 +1,15 @@
+description: Forbidden - Access denied or quota exceeded
+content:
+  application/json:
+    schema:
+      type: object
+      properties:
+        error:
+          type: string
+          example: Forbidden
+        message:
+          type: string
+          example: Access denied or quota exceeded
+        statusCode:
+          type: integer
+          example: 403

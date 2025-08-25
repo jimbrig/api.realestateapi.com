@@ -1,0 +1,55 @@
+type: object
+description: Response schema for PropertyComps endpoint
+properties:
+  input:
+    type: object
+    description: Echo of the input parameters
+  subject_property:
+    type: object
+    description: Details of the subject property
+  data:
+    type: array
+    description: Array of comparable properties
+    items:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Comparable property identifier
+        address:
+          type: object
+          description: Comparable property address
+        distance:
+          type: number
+          description: Distance from subject property in miles
+        similarity_score:
+          type: number
+          description: Similarity score compared to subject property
+          minimum: 0
+          maximum: 1
+  analysis:
+    type: object
+    description: Comparative market analysis
+    properties:
+      estimated_value:
+        type: number
+        description: Estimated value based on comps
+      value_range:
+        type: object
+        properties:
+          low:
+            type: number
+          high:
+            type: number
+  totalResults:
+    type: integer
+    description: Total comparable properties found
+  returnedResults:
+    type: integer
+    description: Number of comps returned
+  statusCode:
+    type: integer
+    description: HTTP status code
+  live:
+    type: boolean
+    description: Indicates if data is live

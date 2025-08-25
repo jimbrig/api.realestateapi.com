@@ -1,0 +1,51 @@
+type: object
+description: Response schema for AutoComplete endpoint
+properties:
+  input:
+    type: object
+    description: Echo of the input parameters
+  data:
+    type: array
+    description: Array of autocomplete suggestions
+    items:
+      type: object
+      properties:
+        title:
+          type: string
+          description: Display title for the suggestion
+        searchType:
+          type: string
+          enum:
+            - A
+            - C
+            - G
+            - 'N'
+            - P
+            - S
+            - T
+            - Z
+          description: Type of the suggestion
+        city:
+          type: string
+          description: City name
+        state:
+          type: string
+          description: State abbreviation
+        zip:
+          type: string
+          description: ZIP code
+        county:
+          type: string
+          description: County name
+  totalResults:
+    type: integer
+    description: Total number of suggestions found
+  returnedResults:
+    type: integer
+    description: Number of suggestions returned
+  statusCode:
+    type: integer
+    description: HTTP status code
+  live:
+    type: boolean
+    description: Indicates if data is live

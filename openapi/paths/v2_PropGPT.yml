@@ -1,0 +1,63 @@
+post:
+  summary: AI-Powered Property Search and Analysis
+  description: >
+    Use natural language queries to search for properties and get AI-powered
+    insights and analysis.
+
+    Leverages GPT models to understand complex search requirements and provide
+    intelligent results.
+  operationId: propGPT
+  tags:
+    - v2
+    - AI
+    - Search
+  parameters:
+    - $ref: ../components/parameters/ApiKeyHeader.yml
+    - $ref: ../components/parameters/UserIdHeader.yml
+    - name: X-OpenAI-Key
+      in: header
+      description: OpenAI API key for GPT processing (optional if configured server-side)
+      required: false
+      schema:
+        type: string
+  requestBody:
+    description: PropGPT natural language query
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/PropGPTRequest.yml
+        examples:
+          basic:
+            summary: Basic natural language query
+            value:
+              query: Properties in Forsyth County Georgia
+              size: 5
+              model: gpt-4o-mini
+          detailed:
+            summary: Complex investment query
+            value:
+              query: >-
+                Find high equity single family homes in Atlanta with 3+ bedrooms
+                under $400k
+              size: 10
+              model: gpt-4o
+          market_analysis:
+            summary: Market analysis query
+            value:
+              query: What are the trends in the Buckhead neighborhood?
+              size: 5
+              model: gpt-4o
+  responses:
+    '200':
+      description: Successful AI-powered search response
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/PropGPTResponse.yml
+    '400':
+      $ref: ../components/responses/BadRequest.yml
+    '401':
+      $ref: ../components/responses/Unauthorized.yml
+    '500':
+      $ref: ../components/responses/InternalServerError.yml

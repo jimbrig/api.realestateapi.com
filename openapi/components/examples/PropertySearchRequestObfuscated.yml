@@ -1,0 +1,9 @@
+summary: Basic Property Search Request
+value:
+  obfuscate: true
+  size: 10
+  state: GA
+  county: Forsyth
+  lot_size_min: 435600
+  lot_size_max: 8712000
+  property_type: LAND

@@ -1,0 +1,347 @@
+type: object
+properties:
+  absenteeOwner:
+    type: boolean
+    example: false
+    default: true
+  address:
+    type: object
+    properties:
+      address:
+        type: string
+        example: "13723 Neil Armstrong Ave Unit 308, Herndon, Va 20171"
+      city:
+        type: string
+        example: "Herndon"
+      county:
+        type: string
+        example: "Fairfax"
+      state:
+        type: string
+        example: "VA"
+      street:
+        type: string
+        example: "13723 Neil Armstrong Ave Unit 308"
+      zip:
+        type: string
+        example: "20171"
+  adjustableRate:
+    type: boolean
+    example: false
+    default: true
+  airConditioningAvailable:
+    type: boolean
+    example: false
+    default: true
+  assessedImprovementValue:
+    type: integer
+    example: 326590
+    default: 0
+  assessedLandValue:
+    type: integer
+    example: 82000
+    default: 0
+  assessedValue:
+    type: integer
+    example: 408590
+    default: 0
+  auction:
+    type: boolean
+    example: false
+    default: true
+  basement:
+    type: boolean
+    example: false
+    default: true
+  bathrooms:
+    type: integer
+    example: 2
+    default: 0
+  bedrooms:
+    type: integer
+    example: 2
+    default: 0
+  cashBuyer:
+    type: boolean
+    example: false
+    default: true
+  corporateOwned:
+    type: boolean
+    example: false
+    default: true
+  death:
+    type: boolean
+    example: false
+    default: true
+  distressed:
+    type: boolean
+    example: false
+    default: true
+  documentType:
+    type: string
+    example: "Grant Deed"
+  documentTypeCode:
+    type: string
+    example: "DTGD"
+  equity:
+    type: boolean
+    example: false
+    default: true
+  equityPercent:
+    type: integer
+    example: 38
+    default: 0
+  estimatedEquity:
+    type: integer
+    example: 189084
+    default: 0
+  estimatedValue:
+    type: integer
+    example: 490308
+    default: 0
+  floodZone:
+    type: boolean
+    example: true
+    default: true
+  floodZoneDescription:
+    type: string
+    example: "AREA OF MINIMAL FLOOD HAZARD"
+  floodZoneType:
+    type: string
+    example: "X"
+  foreclosure:
+    type: boolean
+    example: false
+    default: true
+  forSale:
+    type: boolean
+    example: false
+    default: true
+  freeClear:
+    type: boolean
+    example: false
+    default: true
+  garage:
+    type: boolean
+    example: false
+    default: true
+  highEquity:
+    type: boolean
+    example: false
+    default: true
+  id:
+    type: string
+    example: "253175355"
+  inherited:
+    type: boolean
+    example: false
+    default: true
+  inStateAbsenteeOwner:
+    type: boolean
+    example: false
+    default: true
+  investorBuyer:
+    type: boolean
+    example: false
+    default: true
+  landUse:
+    type: string
+    example: "Residential"
+  lastMortgage1Amount: {}
+  lastSaleAmount:
+    type: string
+    example: "418000"
+  lastSaleDate:
+    type: string
+    example: "2020-07-23"
+  latitude:
+    type: number
+    example: 38.9207
+    default: 0
+  lenderName:
+    type: string
+    example: "One American Mtg"
+  listingAmount: {}
+  longitude:
+    type: number
+    example: -77.4218
+    default: 0
+  lotSquareFeet:
+    type: integer
+    example: 0
+    default: 0
+  mailAddress:
+    type: object
+    properties:
+      address:
+        type: string
+        example: "13723 Neil Armstrong Ave Unit 308, Herndon, Va 20171"
+      city:
+        type: string
+        example: "Herndon"
+      county:
+        type: string
+        example: "Fairfax"
+      state:
+        type: string
+        example: "VA"
+      street:
+        type: string
+        example: "13723 Neil Armstrong Ave Unit 308"
+      zip:
+        type: string
+        example: "20171"
+  medianIncome:
+    type: string
+    example: "150066"
+  MFH2to4:
+    type: boolean
+    example: false
+    default: true
+  MFH5plus:
+    type: boolean
+    example: false
+    default: true
+  mlsActive:
+    type: boolean
+    example: true
+    default: true
+  mlsCancelled:
+    type: boolean
+    example: false
+    default: true
+  mlsDaysOnMarket:
+    type: integer
+    example: 101
+    default: 0
+  mlsFailed:
+    type: boolean
+    example: false
+    default: true
+  mlsHasPhotos:
+    type: boolean
+    example: false
+    default: true
+  mlsLastSaleDate:
+    type: string
+    example: "2020-07-23"
+  mlsLastStatusDate:
+    type: string
+    example: "2023-04-15"
+  mlsListingDate:
+    type: string
+    example: "2023-04-15"
+  mlsListingPrice:
+    type: integer
+    example: 2500
+    default: 0
+  mlsPending:
+    type: boolean
+    example: false
+    default: true
+  mlsSold:
+    type: boolean
+    example: false
+    default: true
+  mlsStatus:
+    type: string
+    example: "Active"
+  mlsType:
+    type: string
+    example: "ForSale"
+  negativeEquity:
+    type: boolean
+    example: false
+    default: true
+  neighborhood:
+    type: object
+    properties:
+      center:
+        type: string
+        example: "POINT(-77.421701188095 38.919564722822)"
+      id:
+        type: string
+        example: "63205"
+      name:
+        type: string
+        example: "Discovery Square"
+      type:
+        type: string
+        example: "subdivision"
+  openMortgageBalance:
+    type: integer
+    example: 313500
+    default: 0
+  outOfStateAbsenteeOwner:
+    type: boolean
+    example: false
+    default: true
+  owner1FirstName:
+    type: string
+    example: "Attili"
+  owner1LastName:
+    type: string
+    example: "Srinivas"
+  owner2FirstName:
+    type: string
+    example: "Attili"
+  owner2LastName:
+    type: string
+    example: "Manjusha"
+  ownerOccupied:
+    type: boolean
+    example: true
+    default: true
+  preForeclosure:
+    type: boolean
+    example: false
+    default: true
+  privateLender:
+    type: boolean
+    example: false
+    default: true
+  propertyId:
+    type: string
+    example: "253175355"
+  propertyType:
+    type: string
+    example: "CONDO"
+  propertyUse:
+    type: string
+    example: "Condominium"
+  propertyUseCode:
+    type: integer
+    example: 366
+    default: 0
+  rentAmount: {}
+  reo:
+    type: boolean
+    example: false
+    default: true
+  roomsCount:
+    type: integer
+    example: 5
+    default: 0
+  squareFeet:
+    type: integer
+    example: 1323
+    default: 0
+  suggestedRent:
+    type: string
+    example: "2070"
+  unitsCount:
+    type: integer
+    example: 0
+    default: 0
+  vacant:
+    type: boolean
+    example: false
+    default: true
+  yearBuilt:
+    type: integer
+    example: 2015
+    default: 0
+  yearsOwned:
+    type: integer
+    example: 3
+    default: 0

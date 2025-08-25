@@ -1,0 +1,33 @@
+type: object
+properties:
+  address:
+    type: string
+    description: "Full address of the property"
+    example: "Mashburn Dr, Cumming, GA 30041"
+  city:
+    type: string
+    description: "City where the property is located"
+    example: "Cumming"
+  county:
+    type: string
+    description: "County where the property is located"
+    example: "Forsyth County"
+  fips:
+    type: string
+    maxLength: 5
+    description: "Federal Information Processing Standard (FIPS) Code"
+    example: "13117"
+  state:
+    type: string
+    description: "State abbreviation where the property is located"
+    example: "GA"
+    maxLength: 2
+  street:
+    type: string
+    description: "Street address of the property"
+    example: "Mashburn Dr"
+  zip:
+    type: string
+    description: "ZIP code where the property is located"
+    example: "30041"
+    maxLength: 5

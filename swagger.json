@@ -1,0 +1,4706 @@
+{
+  "info": {
+    "title": "RealEstateAPI Documentation",
+    "version": "2.0.0",
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://api.realestateapi.com"
+    }
+  ],
+  "x-constraint": "Defined allowable limit for a string request field",
+  "x-format": "Defined format for a string request field, i.e. url pattern is required",
+  "security": [
+    {
+      "apiKey": []
+    }
+  ],
+  "openapi": "3.0.0",
+  "components": {
+    "securitySchemes": {
+      "apiKey": {
+        "type": "apiKey",
+        "name": "Authorization",
+        "in": "header"
+      }
+    },
+    "schemas": {
+      "AddressVerificationAddress": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string",
+            "nullable": true
+          },
+          "id": {
+            "type": "number"
+          },
+          "address": {
+            "type": "string",
+            "nullable": true
+          },
+          "street": {
+            "type": "string",
+            "nullable": true
+          },
+          "city": {
+            "type": "string",
+            "nullable": true
+          },
+          "state": {
+            "type": "string",
+            "nullable": true
+          },
+          "zip": {
+            "type": "string",
+            "nullable": true
+          },
+          "apn": {
+            "type": "string",
+            "nullable": true
+          },
+          "fips": {
+            "type": "string",
+            "nullable": true
+          }
+        }
+      },
+      "AddressVerificationAddressList": {
+        "type": "array",
+        "maxItems": 100,
+        "items": {
+          "$ref": "#/components/schemas/AddressVerificationAddress"
+        }
+      },
+      "AddressVerificationRequest": {
+        "type": "object",
+        "properties": {
+          "strict": {
+            "type": "boolean",
+            "default": true
+          },
+          "addresses": {
+            "$ref": "#/components/schemas/AddressVerificationAddressList"
+          }
+        },
+        "required": [
+          "addresses"
+        ]
+      },
+      "AutoCompleteRequest": {
+        "type": "object",
+        "properties": {
+          "search": {
+            "type": "string",
+            "minLength": 2
+          },
+          "search_types": {
+            "anyOf": [
+              {
+                "$ref": "#/x-alt-definitions/AutoCompleteSearchTypeEnums"
+              },
+              {
+                "$ref": "#/x-alt-definitions/AutoCompleteSearchTypeEnumArray"
+              }
+            ]
+          },
+          "latitude": {
+            "type": "number"
+          },
+          "longitude": {
+            "type": "number"
+          },
+          "precision": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 10
+          }
+        },
+        "required": [
+          "search"
+        ]
+      },
+      "PropertySearchRangeEnums": {
+        "type": "string",
+        "enum": [
+          "1_MONTH",
+          "2_MONTH",
+          "3_MONTH",
+          "6_MONTH",
+          "1_YEAR"
+        ]
+      },
+      "PropertySearchSortEnums": {
+        "type": "object",
+        "description": "sort by field and pass values [asc, desc]"
+      },
+      "PropertySearchOperatorEnums": {
+        "type": "string",
+        "enum": [
+          "lt",
+          "lte",
+          "gt",
+          "gte"
+        ]
+      },
+      "PropertySearchPolygonLocation": {
+        "type": "object",
+        "properties": {
+          "lat": {
+            "type": "number"
+          },
+          "lon": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "lat",
+          "lon"
+        ]
+      },
+      "PropertySearchPolygonLocationList": {
+        "type": "array",
+        "minItems": 1,
+        "items": {
+          "$ref": "#/components/schemas/PropertySearchPolygonLocation"
+        }
+      },
+      "PropertySearchMultiPolygonLocation": {
+        "type": "array",
+        "minItems": 1,
+        "items": {
+          "$ref": "#/components/schemas/PropertySearchPolygonLocationList"
+        }
+      },
+      "PropertySearchIDList": {
+        "type": "array",
+        "items": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "string"
+            }
+          ]
+        }
+      },
+      "PropertySearchPropertyTypeEnums": {
+        "type": "string",
+        "enum": [
+          "SFR",
+          "MFR",
+          "LAND",
+          "CONDO",
+          "OTHER",
+          "MOBILE"
+        ]
+      },
+      "PropertySearchNoticeTypeEnums": {
+        "type": "string",
+        "enum": [
+          "NOL",
+          "NOD",
+          "FOR",
+          "NTS",
+          "REO"
+        ]
+      },
+      "PropertySearchLoanTypeEnums": {
+        "type": "string",
+        "enum": [
+          "ARM",
+          "ASM",
+          "BAL",
+          "CON",
+          "CSH",
+          "CEM",
+          "COM",
+          "COV",
+          "CPI",
+          "FHA",
+          "LCO",
+          "LOC",
+          "MOD",
+          "NEG",
+          "REV",
+          "RFA",
+          "SDP",
+          "SEL",
+          "SBA",
+          "SAF",
+          "SAR",
+          "SAS",
+          "SVA",
+          "UNKNOWN",
+          "USDA",
+          "VA"
+        ]
+      },
+      "AutoCompleteSearchTypeEnums": {
+        "type": "string",
+        "enum": [
+          "A",
+          "S",
+          "C",
+          "G",
+          "N",
+          "Z",
+          "P"
+        ]
+      },
+      "PropertySearchExistsObject": {
+        "type": "object",
+        "properties": {
+          "house": {
+            "type": "boolean"
+          },
+          "unit": {
+            "type": "boolean"
+          },
+          "street": {
+            "type": "boolean"
+          },
+          "city": {
+            "type": "boolean"
+          },
+          "state": {
+            "type": "boolean"
+          },
+          "county": {
+            "type": "boolean"
+          },
+          "zip": {
+            "type": "boolean"
+          },
+          "mail_house": {
+            "type": "boolean"
+          },
+          "mail_unit": {
+            "type": "boolean"
+          },
+          "mail_street": {
+            "type": "boolean"
+          },
+          "mail_city": {
+            "type": "boolean"
+          },
+          "mail_state": {
+            "type": "boolean"
+          },
+          "mail_county": {
+            "type": "boolean"
+          },
+          "mail_zip": {
+            "type": "boolean"
+          },
+          "last_sale_date": {
+            "type": "boolean"
+          },
+          "bedrooms": {
+            "type": "boolean"
+          },
+          "bathrooms": {
+            "type": "boolean"
+          },
+          "year_built": {
+            "type": "boolean"
+          },
+          "years_owned": {
+            "type": "boolean"
+          },
+          "living_square_feet": {
+            "type": "boolean"
+          },
+          "building_square_feet": {
+            "type": "boolean"
+          },
+          "stories": {
+            "type": "boolean"
+          },
+          "equity_percent": {
+            "type": "boolean"
+          },
+          "properties_owned": {
+            "type": "boolean"
+          },
+          "hoa": {
+            "type": "boolean"
+          }
+        }
+      },
+      "values": {
+        "type": "array",
+        "maxItems": 10000,
+        "items": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "string"
+            }
+          ]
+        }
+      },
+      "PropertySearchFilterObject": {
+        "type": "object",
+        "properties": {
+          "field": {
+            "type": "string"
+          },
+          "values": {
+            "$ref": "#/components/schemas/values"
+          }
+        }
+      },
+      "PropertySearchExcludeSchema": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "type": "number",
+            "minimum": 1
+          },
+          "greatest_listing_price": {
+            "type": "boolean"
+          },
+          "least_listing_price": {
+            "type": "boolean"
+          },
+          "average_listing_price": {
+            "type": "boolean"
+          },
+          "median_listing_price": {
+            "type": "boolean"
+          },
+          "greatest_sold_price": {
+            "type": "boolean"
+          },
+          "least_sold_price": {
+            "type": "boolean"
+          },
+          "average_sold_price": {
+            "type": "boolean"
+          },
+          "median_sold_price": {
+            "type": "boolean"
+          },
+          "mls_type": {
+            "type": "string"
+          },
+          "mls_listing_key": {
+            "type": "string"
+          },
+          "mls_failed": {
+            "type": "boolean"
+          },
+          "mls_investor_owned": {
+            "type": "boolean"
+          },
+          "mls_last_status_date_min": {
+            "type": "string",
+            "format": "date"
+          },
+          "mls_last_status_date_max": {
+            "type": "string",
+            "format": "date"
+          },
+          "mls_failed_date_min": {
+            "type": "string",
+            "format": "date"
+          },
+          "mls_failed_date_max": {
+            "type": "string",
+            "format": "date"
+          },
+          "mls_last_sale_date_min": {
+            "type": "string",
+            "format": "date"
+          },
+          "mls_last_sale_date_max": {
+            "type": "string",
+            "format": "date"
+          },
+          "mls_contract_date_min": {
+            "type": "string",
+            "format": "date"
+          },
+          "mls_contract_date_max": {
+            "type": "string",
+            "format": "date"
+          },
+          "mls_days_on_market_min": {
+            "type": "number",
+            "minimum": 1
+          },
+          "mls_days_on_market_max": {
+            "type": "number",
+            "minimum": 1
+          },
+          "zip": {
+            "anyOf": [
+              {
+                "type": "string",
+                "x-constraint": {
+                  "length": 5
+                }
+              },
+              {
+                "$ref": "#/x-alt-definitions/zip"
+              }
+            ]
+          },
+          "mfh_5plus": {
+            "type": "boolean"
+          },
+          "mfh_2to4": {
+            "type": "boolean"
+          },
+          "mls_active": {
+            "type": "boolean"
+          },
+          "mls_sold": {
+            "type": "boolean"
+          },
+          "mls_pending": {
+            "type": "boolean"
+          },
+          "mls_cancelled": {
+            "type": "boolean"
+          },
+          "mls_contract": {
+            "type": "boolean"
+          },
+          "mls_listing_price": {
+            "type": "number",
+            "minimum": 1
+          },
+          "mls_listing_price_operator": {
+            "$ref": "#/components/schemas/PropertySearchOperatorEnums"
+          },
+          "mls_listing_price_min": {
+            "type": "number"
+          },
+          "mls_listing_price_max": {
+            "type": "number",
+            "minimum": 1
+          },
+          "for_sale": {
+            "type": "boolean"
+          },
+          "owner_occupied": {
+            "type": "boolean"
+          },
+          "flood_zone": {
+            "type": "boolean"
+          },
+          "negative_equity": {
+            "type": "boolean"
+          },
+          "high_equity": {
+            "type": "boolean"
+          },
+          "equity": {
+            "type": "boolean"
+          },
+          "cash_buyer": {
+            "type": "boolean"
+          },
+          "investor_buyer": {
+            "type": "boolean"
+          },
+          "private_lender": {
+            "type": "boolean"
+          },
+          "death": {
+            "type": "boolean"
+          },
+          "quit_claim": {
+            "type": "boolean"
+          },
+          "tax_lien": {
+            "type": "boolean"
+          },
+          "inherited": {
+            "type": "boolean"
+          },
+          "corporate_owned": {
+            "type": "boolean"
+          },
+          "free_clear": {
+            "type": "boolean"
+          },
+          "absentee_owner": {
+            "type": "boolean"
+          },
+          "out_of_state_owner": {
+            "type": "boolean"
+          },
+          "in_state_owner": {
+            "type": "boolean"
+          },
+          "vacant": {
+            "type": "boolean"
+          },
+          "auction": {
+            "type": "boolean"
+          },
+          "reo": {
+            "type": "boolean"
+          },
+          "foreclosure": {
+            "type": "boolean"
+          },
+          "pre_foreclosure": {
+            "type": "boolean"
+          },
+          "judgment": {
+            "type": "boolean"
+          },
+          "basement": {
+            "type": "boolean"
+          },
+          "garage": {
+            "type": "boolean"
+          },
+          "adjustable_rate": {
+            "type": "boolean"
+          },
+          "assumable": {
+            "type": "boolean"
+          },
+          "patio": {
+            "type": "boolean"
+          },
+          "pool": {
+            "type": "boolean"
+          },
+          "deck": {
+            "type": "boolean"
+          },
+          "fire_sprinklers": {
+            "type": "boolean"
+          },
+          "attic": {
+            "type": "boolean"
+          },
+          "carport": {
+            "type": "boolean"
+          },
+          "rv_parking": {
+            "type": "boolean"
+          },
+          "feature_balcony": {
+            "type": "boolean"
+          },
+          "breezeway": {
+            "type": "boolean"
+          },
+          "sewage": {
+            "type": "string",
+            "minLength": 1
+          },
+          "water_source": {
+            "type": "string",
+            "minLength": 1
+          },
+          "construction": {
+            "type": "string",
+            "minLength": 1
+          },
+          "census_block_group": {
+            "type": "string",
+            "minLength": 1
+          },
+          "census_block": {
+            "type": "string",
+            "minLength": 1
+          },
+          "census_tract": {
+            "type": "string",
+            "minLength": 1
+          },
+          "prior_owner_individual": {
+            "type": "boolean"
+          },
+          "trust_owned": {
+            "type": "boolean"
+          },
+          "usps_mail_state": {
+            "type": "boolean"
+          },
+          "hoa": {
+            "type": "boolean"
+          },
+          "last_sale_arms_length": {
+            "type": "boolean"
+          },
+          "individual_owned": {
+            "type": "boolean"
+          },
+          "median_income_min": {
+            "type": "number",
+            "minimum": 0
+          },
+          "median_income_max": {
+            "type": "number",
+            "minimum": 0
+          },
+          "beds_min": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 99
+          },
+          "beds_max": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 99
+          },
+          "baths_min": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 99
+          },
+          "baths_max": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 99
+          },
+          "year_min": {
+            "type": "number",
+            "minimum": 1900,
+            "maximum": 2100
+          },
+          "year_max": {
+            "type": "number",
+            "minimum": 1900,
+            "maximum": 2100
+          },
+          "lot_size_min": {
+            "type": "number",
+            "minimum": 0
+          },
+          "lot_size_max": {
+            "type": "number",
+            "minimum": 0
+          },
+          "building_size_min": {
+            "type": "number",
+            "minimum": 0
+          },
+          "building_size_max": {
+            "type": "number",
+            "minimum": 0
+          },
+          "mortgage_min": {
+            "type": "number",
+            "minimum": 0
+          },
+          "mortgage_max": {
+            "type": "number",
+            "minimum": 0
+          },
+          "value_min": {
+            "type": "number",
+            "minimum": 0
+          },
+          "value_max": {
+            "type": "number",
+            "minimum": 0
+          },
+          "rooms_min": {
+            "type": "number",
+            "minimum": 0
+          },
+          "rooms_max": {
+            "type": "number",
+            "minimum": 0
+          },
+          "units_min": {
+            "type": "number",
+            "minimum": 0
+          },
+          "units_max": {
+            "type": "number",
+            "minimum": 0
+          },
+          "stories_min": {
+            "type": "number",
+            "minimum": 0
+          },
+          "stories_max": {
+            "type": "number",
+            "minimum": 0
+          },
+          "assessed_value_min": {
+            "type": "number",
+            "minimum": 0
+          },
+          "assessed_value_max": {
+            "type": "number",
+            "minimum": 0
+          },
+          "assessed_land_value_min": {
+            "type": "number",
+            "minimum": 0
+          },
+          "assessed_land_value_max": {
+            "type": "number",
+            "minimum": 0
+          },
+          "years_owned_min": {
+            "type": "number",
+            "minimum": 0
+          },
+          "years_owned_max": {
+            "type": "number",
+            "minimum": 0
+          },
+          "year_built_min": {
+            "type": "number",
+            "minimum": 0
+          },
+          "year_built_max": {
+            "type": "number",
+            "minimum": 0
+          },
+          "maturity_date_first_min": {
+            "type": "string",
+            "format": "date"
+          },
+          "maturity_date_first_max": {
+            "type": "string",
+            "format": "date"
+          },
+          "last_sale_date_min": {
+            "type": "string",
+            "format": "date"
+          },
+          "last_sale_date_max": {
+            "type": "string",
+            "format": "date"
+          },
+          "last_sale_price_min": {
+            "type": "number",
+            "minimum": 0
+          },
+          "last_sale_price_max": {
+            "type": "number",
+            "minimum": 0
+          },
+          "mls_last_sale_price_min": {
+            "type": "number",
+            "minimum": 0
+          },
+          "mls_last_sale_price_max": {
+            "type": "number",
+            "minimum": 0
+          },
+          "tax_delinquent_year_min": {
+            "type": "number",
+            "minimum": 1900
+          },
+          "tax_delinquent_year_max": {
+            "type": "number",
+            "maximum": 2100
+          },
+          "estimated_equity_min": {
+            "type": "number",
+            "minimum": 0
+          },
+          "estimated_equity_max": {
+            "type": "number",
+            "minimum": 0
+          },
+          "equity_percent_min": {
+            "type": "number",
+            "minimum": 0
+          },
+          "equity_percent_max": {
+            "type": "number",
+            "minimum": 0
+          },
+          "ltv_min": {
+            "type": "number",
+            "minimum": 0
+          },
+          "ltv_max": {
+            "type": "number",
+            "minimum": 0
+          },
+          "assessed_improvement_value_min": {
+            "type": "number",
+            "minimum": 0
+          },
+          "assessed_improvement_value_max": {
+            "type": "number",
+            "minimum": 0
+          },
+          "properties_owned_min": {
+            "type": "number",
+            "minimum": 0
+          },
+          "properties_owned_max": {
+            "type": "number",
+            "minimum": 0
+          },
+          "portfolio_value_min": {
+            "type": "number",
+            "minimum": 0
+          },
+          "portfolio_value_max": {
+            "type": "number",
+            "minimum": 0
+          },
+          "portfolio_equity_min": {
+            "type": "number",
+            "minimum": 0
+          },
+          "portfolio_equity_max": {
+            "type": "number",
+            "minimum": 0
+          },
+          "portfolio_mortgage_balance_min": {
+            "type": "number",
+            "minimum": 0
+          },
+          "portfolio_mortgage_balance_max": {
+            "type": "number",
+            "minimum": 0
+          },
+          "portfolio_purchased_last12_min": {
+            "type": "number",
+            "minimum": 0
+          },
+          "portfolio_purchased_last12_max": {
+            "type": "number",
+            "minimum": 0
+          },
+          "portfolio_purchased_last6_min": {
+            "type": "number",
+            "minimum": 0
+          },
+          "portfolio_purchased_last6_max": {
+            "type": "number",
+            "minimum": 0
+          },
+          "patio_area_min": {
+            "type": "number",
+            "minimum": 0
+          },
+          "patio_area_max": {
+            "type": "number",
+            "minimum": 0
+          },
+          "pool_area_min": {
+            "type": "number",
+            "minimum": 0
+          },
+          "pool_area_max": {
+            "type": "number",
+            "minimum": 0
+          },
+          "deck_area_min": {
+            "type": "number",
+            "minimum": 0
+          },
+          "deck_area_max": {
+            "type": "number",
+            "minimum": 0
+          },
+          "prior_owner_months_owned_min": {
+            "type": "number",
+            "minimum": 0
+          },
+          "prior_owner_months_owned_max": {
+            "type": "number",
+            "minimum": 0
+          },
+          "pre_foreclosure_date_min": {
+            "type": "string",
+            "format": "date"
+          },
+          "pre_foreclosure_date_max": {
+            "type": "string",
+            "format": "date"
+          },
+          "auction_date_min": {
+            "type": "string",
+            "format": "date"
+          },
+          "auction_date_max": {
+            "type": "string",
+            "format": "date"
+          },
+          "recording_date_min": {
+            "type": "string",
+            "format": "date"
+          },
+          "recording_date_max": {
+            "type": "string",
+            "format": "date"
+          },
+          "last_update_date_min": {
+            "type": "string",
+            "format": "date"
+          },
+          "last_update_date_max": {
+            "type": "string",
+            "format": "date"
+          },
+          "foreclosure_date_min": {
+            "type": "string",
+            "format": "date"
+          },
+          "foreclosure_date_max": {
+            "type": "string",
+            "format": "date"
+          },
+          "living_square_feet_min": {
+            "type": "number",
+            "minimum": 0
+          },
+          "living_square_feet_max": {
+            "type": "number",
+            "minimum": 0
+          },
+          "building_square_feet_min": {
+            "type": "number",
+            "minimum": 0
+          },
+          "building_square_feet_max": {
+            "type": "number",
+            "minimum": 0
+          },
+          "search_range_min": {
+            "type": "string",
+            "format": "date"
+          },
+          "search_range_max": {
+            "type": "string",
+            "format": "date"
+          },
+          "polygon": {
+            "$ref": "#/components/schemas/PropertySearchPolygonLocationList"
+          },
+          "multi_polygon": {
+            "$ref": "#/components/schemas/PropertySearchMultiPolygonLocation"
+          },
+          "latitude": {
+            "type": "number"
+          },
+          "longitude": {
+            "type": "number"
+          },
+          "radius": {
+            "type": "number",
+            "minimum": 0.01,
+            "maximum": 1000
+          },
+          "ids": {
+            "$ref": "#/components/schemas/PropertySearchIDList"
+          },
+          "property_type": {
+            "$ref": "#/components/schemas/PropertySearchPropertyTypeEnums"
+          },
+          "property_use_code": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "$ref": "#/x-alt-definitions/property_use_code"
+              }
+            ]
+          },
+          "notice_type": {
+            "$ref": "#/components/schemas/PropertySearchNoticeTypeEnums"
+          },
+          "document_type_code": {
+            "anyOf": [
+              {
+                "type": "string",
+                "x-constraint": {
+                  "length": 4
+                }
+              },
+              {
+                "$ref": "#/x-alt-definitions/document_type_code"
+              }
+            ]
+          },
+          "document_type": {
+            "type": "string"
+          },
+          "flood_zone_type": {
+            "type": "string"
+          },
+          "loan_type_code_first": {
+            "$ref": "#/components/schemas/PropertySearchLoanTypeEnums"
+          },
+          "loan_type_code_second": {
+            "$ref": "#/components/schemas/PropertySearchLoanTypeEnums"
+          },
+          "loan_type_code_third": {
+            "$ref": "#/components/schemas/PropertySearchLoanTypeEnums"
+          },
+          "parcel_account_number": {
+            "type": "string"
+          },
+          "roof_construction_code": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "$ref": "#/x-alt-definitions/roof_construction_code"
+              }
+            ]
+          },
+          "roof_material_code": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "$ref": "#/x-alt-definitions/roof_material_code"
+              }
+            ]
+          },
+          "id": {
+            "type": "number"
+          },
+          "apn": {
+            "type": "string"
+          },
+          "stateId": {
+            "type": "string"
+          },
+          "countyId": {
+            "type": "string"
+          },
+          "searchType": {
+            "$ref": "#/components/schemas/AutoCompleteSearchTypeEnums"
+          },
+          "fips": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "neighborhood_id": {
+            "type": "number"
+          },
+          "neighborhood_name": {
+            "type": "string"
+          },
+          "year_built": {
+            "type": "number",
+            "minimum": 1
+          },
+          "year_built_operator": {
+            "$ref": "#/components/schemas/PropertySearchOperatorEnums"
+          },
+          "beds": {
+            "type": "number",
+            "minimum": 1
+          },
+          "baths": {
+            "type": "number",
+            "minimum": 1
+          },
+          "median_income": {
+            "type": "number",
+            "minimum": 1
+          },
+          "median_income_operator": {
+            "$ref": "#/components/schemas/PropertySearchOperatorEnums"
+          },
+          "years_owned": {
+            "type": "number",
+            "minimum": 1
+          },
+          "years_owned_operator": {
+            "$ref": "#/components/schemas/PropertySearchOperatorEnums"
+          },
+          "estimated_equity": {
+            "type": "number",
+            "minimum": 1
+          },
+          "equity_operator": {
+            "$ref": "#/components/schemas/PropertySearchOperatorEnums"
+          },
+          "equity_percent": {
+            "type": "number",
+            "minimum": 1,
+            "maximum": 100
+          },
+          "equity_percent_operator": {
+            "$ref": "#/components/schemas/PropertySearchOperatorEnums"
+          },
+          "last_sale_date": {
+            "type": "string",
+            "format": "date"
+          },
+          "last_sale_date_operator": {
+            "$ref": "#/components/schemas/PropertySearchOperatorEnums"
+          },
+          "mail_house": {
+            "type": "string"
+          },
+          "mail_unit": {
+            "type": "string"
+          },
+          "mail_street": {
+            "type": "string"
+          },
+          "mail_city": {
+            "type": "string"
+          },
+          "mail_state": {
+            "type": "string",
+            "x-constraint": {
+              "length": 2
+            }
+          },
+          "mail_county": {
+            "type": "string"
+          }
+        }
+      },
+      "PropertySearchExcludeList": {
+        "type": "array",
+        "minItems": 1,
+        "items": {
+          "$ref": "#/components/schemas/PropertySearchExcludeSchema"
+        }
+      },
+      "CSVBuilderMap": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "minLength": 3
+        }
+      },
+      "CSVBuilderRequest": {
+        "type": "object",
+        "properties": {
+          "count": {
+            "type": "boolean"
+          },
+          "obfuscate": {
+            "type": "boolean"
+          },
+          "summary": {
+            "type": "boolean"
+          },
+          "ids_only": {
+            "type": "boolean"
+          },
+          "size": {
+            "type": "number",
+            "minimum": 1,
+            "maximum": 50000
+          },
+          "resultIndex": {
+            "type": "number",
+            "minimum": 0
+          },
+          "search_range": {
+            "$ref": "#/components/schemas/PropertySearchRangeEnums"
+          },
+          "sort": {
+            "$ref": "#/components/schemas/PropertySearchSortEnums"
+          },
+          "limit": {
+            "type": "number",
+            "minimum": 1
+          },
+          "greatest_listing_price": {
+            "type": "boolean"
+          },
+          "least_listing_price": {
+            "type": "boolean"
+          },
+          "average_listing_price": {
+            "type": "boolean"
+          },
+          "median_listing_price": {
+            "type": "boolean"
+          },
+          "greatest_sold_price": {
+            "type": "boolean"
+          },
+          "least_sold_price": {
+            "type": "boolean"
+          },
+          "average_sold_price": {
+            "type": "boolean"
+          },
+          "median_sold_price": {
+            "type": "boolean"
+          },
+          "mls_type": {
+            "type": "string"
+          },
+          "mls_listing_key": {
+            "type": "string"
+          },
+          "mls_failed": {
+            "type": "boolean"
+          },
+          "mls_investor_owned": {
+            "type": "boolean"
+          },
+          "mls_last_status_date_min": {
+            "type": "string",
+            "format": "date"
+          },
+          "mls_last_status_date_max": {
+            "type": "string",
+            "format": "date"
+          },
+          "mls_failed_date_min": {
+            "type": "string",
+            "format": "date"
+          },
+          "mls_failed_date_max": {
+            "type": "string",
+            "format": "date"
+          },
+          "mls_last_sale_date_min": {
+            "type": "string",
+            "format": "date"
+          },
+          "mls_last_sale_date_max": {
+            "type": "string",
+            "format": "date"
+          },
+          "mls_contract_date_min": {
+            "type": "string",
+            "format": "date"
+          },
+          "mls_contract_date_max": {
+            "type": "string",
+            "format": "date"
+          },
+          "mls_days_on_market_min": {
+            "type": "number",
+            "minimum": 1
+          },
+          "mls_days_on_market_max": {
+            "type": "number",
+            "minimum": 1
+          },
+          "address": {
+            "type": "string",
+            "minLength": 10
+          },
+          "house": {
+            "type": "string"
+          },
+          "unit": {
+            "type": "string"
+          },
+          "street": {
+            "type": "string"
+          },
+          "city": {
+            "type": "string"
+          },
+          "state": {
+            "type": "string",
+            "x-constraint": {
+              "length": 2
+            }
+          },
+          "county": {
+            "type": "string"
+          },
+          "zip": {
+            "anyOf": [
+              {
+                "type": "string",
+                "x-constraint": {
+                  "length": 5
+                }
+              },
+              {
+                "$ref": "#/x-alt-definitions/zip"
+              }
+            ]
+          },
+          "mfh_5plus": {
+            "type": "boolean"
+          },
+          "mfh_2to4": {
+            "type": "boolean"
+          },
+          "mls_active": {
+            "type": "boolean"
+          },
+          "mls_sold": {
+            "type": "boolean"
+          },
+          "mls_pending": {
+            "type": "boolean"
+          },
+          "mls_cancelled": {
+            "type": "boolean"
+          },
+          "mls_contract": {
+            "type": "boolean"
+          },
+          "mls_listing_price": {
+            "type": "number",
+            "minimum": 1
+          },
+          "mls_listing_price_operator": {
+            "$ref": "#/components/schemas/PropertySearchOperatorEnums"
+          },
+          "mls_listing_price_min": {
+            "type": "number"
+          },
+          "mls_listing_price_max": {
+            "type": "number",
+            "minimum": 1
+          },
+          "for_sale": {
+            "type": "boolean"
+          },
+          "owner_occupied": {
+            "type": "boolean"
+          },
+          "flood_zone": {
+            "type": "boolean"
+          },
+          "negative_equity": {
+            "type": "boolean"
+          },
+          "high_equity": {
+            "type": "boolean"
+          },
+          "equity": {
+            "type": "boolean"
+          },
+          "cash_buyer": {
+            "type": "boolean"
+          },
+          "investor_buyer": {
+            "type": "boolean"
+          },
+          "private_lender": {
+            "type": "boolean"
+          },
+          "death": {
+            "type": "boolean"
+          },
+          "quit_claim": {
+            "type": "boolean"
+          },
+          "tax_lien": {
+            "type": "boolean"
+          },
+          "inherited": {
+            "type": "boolean"
+          },
+          "corporate_owned": {
+            "type": "boolean"
+          },
+          "free_clear": {
+            "type": "boolean"
+          },
+          "absentee_owner": {
+            "type": "boolean"
+          },
+          "out_of_state_owner": {
+            "type": "boolean"
+          },
+          "in_state_owner": {
+            "type": "boolean"
+          },
+          "vacant": {
+            "type": "boolean"
+          },
+          "auction": {
+            "type": "boolean"
+          },
+          "reo": {
+            "type": "boolean"
+          },
+          "foreclosure": {
+            "type": "boolean"
+          },
+          "pre_foreclosure": {
+            "type": "boolean"
+          },
+          "judgment": {
+            "type": "boolean"
+          },
+          "basement": {
+            "type": "boolean"
+          },
+          "garage": {
+            "type": "boolean"
+          },
+          "adjustable_rate": {
+            "type": "boolean"
+          },
+          "assumable": {
+            "type": "boolean"
+          },
+          "patio": {
+            "type": "boolean"
+          },
+          "pool": {
+            "type": "boolean"
+          },
+          "deck": {
+            "type": "boolean"
+          },
+          "fire_sprinklers": {
+            "type": "boolean"
+          },
+          "attic": {
+            "type": "boolean"
+          },
+          "carport": {
+            "type": "boolean"
+          },
+          "rv_parking": {
+            "type": "boolean"
+          },
+          "feature_balcony": {
+            "type": "boolean"
+          },
+          "breezeway": {
+            "type": "boolean"
+          },
+          "sewage": {
+            "type": "string",
+            "minLength": 1
+          },
+          "water_source": {
+            "type": "string",
+            "minLength": 1
+          },
+          "construction": {
+            "type": "string",
+            "minLength": 1
+          },
+          "census_block_group": {
+            "type": "string",
+            "minLength": 1
+          },
+          "census_block": {
+            "type": "string",
+            "minLength": 1
+          },
+          "census_tract": {
+            "type": "string",
+            "minLength": 1
+          },
+          "prior_owner_individual": {
+            "type": "boolean"
+          },
+          "trust_owned": {
+            "type": "boolean"
+          },
+          "usps_mail_state": {
+            "type": "boolean"
+          },
+          "hoa": {
+            "type": "boolean"
+          },
+          "last_sale_arms_length": {
+            "type": "boolean"
+          },
+          "individual_owned": {
+            "type": "boolean"
+          },
+          "median_income_min": {
+            "type": "number",
+            "minimum": 0
+          },
+          "median_income_max": {
+            "type": "number",
+            "minimum": 0
+          },
+          "beds_min": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 99
+          },
+          "beds_max": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 99
+          },
+          "baths_min": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 99
+          },
+          "baths_max": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 99
+          },
+          "year_min": {
+            "type": "number",
+            "minimum": 1900,
+            "maximum": 2100
+          },
+          "year_max": {
+            "type": "number",
+            "minimum": 1900,
+            "maximum": 2100
+          },
+          "lot_size_min": {
+            "type": "number",
+            "minimum": 0
+          },
+          "lot_size_max": {
+            "type": "number",
+            "minimum": 0
+          },
+          "building_size_min": {
+            "type": "number",
+            "minimum": 0
+          },
+          "building_size_max": {
+            "type": "number",
+            "minimum": 0
+          },
+          "mortgage_min": {
+            "type": "number",
+            "minimum": 0
+          },
+          "mortgage_max": {
+            "type": "number",
+            "minimum": 0
+          },
+          "value_min": {
+            "type": "number",
+            "minimum": 0
+          },
+          "value_max": {
+            "type": "number",
+            "minimum": 0
+          },
+          "rooms_min": {
+            "type": "number",
+            "minimum": 0
+          },
+          "rooms_max": {
+            "type": "number",
+            "minimum": 0
+          },
+          "units_min": {
+            "type": "number",
+            "minimum": 0
+          },
+          "units_max": {
+            "type": "number",
+            "minimum": 0
+          },
+          "stories_min": {
+            "type": "number",
+            "minimum": 0
+          },
+          "stories_max": {
+            "type": "number",
+            "minimum": 0
+          },
+          "assessed_value_min": {
+            "type": "number",
+            "minimum": 0
+          },
+          "assessed_value_max": {
+            "type": "number",
+            "minimum": 0
+          },
+          "assessed_land_value_min": {
+            "type": "number",
+            "minimum": 0
+          },
+          "assessed_land_value_max": {
+            "type": "number",
+            "minimum": 0
+          },
+          "years_owned_min": {
+            "type": "number",
+            "minimum": 0
+          },
+          "years_owned_max": {
+            "type": "number",
+            "minimum": 0
+          },
+          "year_built_min": {
+            "type": "number",
+            "minimum": 0
+          },
+          "year_built_max": {
+            "type": "number",
+            "minimum": 0
+          },
+          "maturity_date_first_min": {
+            "type": "string",
+            "format": "date"
+          },
+          "maturity_date_first_max": {
+            "type": "string",
+            "format": "date"
+          },
+          "last_sale_date_min": {
+            "type": "string",
+            "format": "date"
+          },
+          "last_sale_date_max": {
+            "type": "string",
+            "format": "date"
+          },
+          "last_sale_price_min": {
+            "type": "number",
+            "minimum": 0
+          },
+          "last_sale_price_max": {
+            "type": "number",
+            "minimum": 0
+          },
+          "mls_last_sale_price_min": {
+            "type": "number",
+            "minimum": 0
+          },
+          "mls_last_sale_price_max": {
+            "type": "number",
+            "minimum": 0
+          },
+          "tax_delinquent_year_min": {
+            "type": "number",
+            "minimum": 1900
+          },
+          "tax_delinquent_year_max": {
+            "type": "number",
+            "maximum": 2100
+          },
+          "estimated_equity_min": {
+            "type": "number",
+            "minimum": 0
+          },
+          "estimated_equity_max": {
+            "type": "number",
+            "minimum": 0
+          },
+          "equity_percent_min": {
+            "type": "number",
+            "minimum": 0
+          },
+          "equity_percent_max": {
+            "type": "number",
+            "minimum": 0
+          },
+          "ltv_min": {
+            "type": "number",
+            "minimum": 0
+          },
+          "ltv_max": {
+            "type": "number",
+            "minimum": 0
+          },
+          "assessed_improvement_value_min": {
+            "type": "number",
+            "minimum": 0
+          },
+          "assessed_improvement_value_max": {
+            "type": "number",
+            "minimum": 0
+          },
+          "properties_owned_min": {
+            "type": "number",
+            "minimum": 0
+          },
+          "properties_owned_max": {
+            "type": "number",
+            "minimum": 0
+          },
+          "portfolio_value_min": {
+            "type": "number",
+            "minimum": 0
+          },
+          "portfolio_value_max": {
+            "type": "number",
+            "minimum": 0
+          },
+          "portfolio_equity_min": {
+            "type": "number",
+            "minimum": 0
+          },
+          "portfolio_equity_max": {
+            "type": "number",
+            "minimum": 0
+          },
+          "portfolio_mortgage_balance_min": {
+            "type": "number",
+            "minimum": 0
+          },
+          "portfolio_mortgage_balance_max": {
+            "type": "number",
+            "minimum": 0
+          },
+          "portfolio_purchased_last12_min": {
+            "type": "number",
+            "minimum": 0
+          },
+          "portfolio_purchased_last12_max": {
+            "type": "number",
+            "minimum": 0
+          },
+          "portfolio_purchased_last6_min": {
+            "type": "number",
+            "minimum": 0
+          },
+          "portfolio_purchased_last6_max": {
+            "type": "number",
+            "minimum": 0
+          },
+          "patio_area_min": {
+            "type": "number",
+            "minimum": 0
+          },
+          "patio_area_max": {
+            "type": "number",
+            "minimum": 0
+          },
+          "pool_area_min": {
+            "type": "number",
+            "minimum": 0
+          },
+          "pool_area_max": {
+            "type": "number",
+            "minimum": 0
+          },
+          "deck_area_min": {
+            "type": "number",
+            "minimum": 0
+          },
+          "deck_area_max": {
+            "type": "number",
+            "minimum": 0
+          },
+          "prior_owner_months_owned_min": {
+            "type": "number",
+            "minimum": 0
+          },
+          "prior_owner_months_owned_max": {
+            "type": "number",
+            "minimum": 0
+          },
+          "pre_foreclosure_date_min": {
+            "type": "string",
+            "format": "date"
+          },
+          "pre_foreclosure_date_max": {
+            "type": "string",
+            "format": "date"
+          },
+          "auction_date_min": {
+            "type": "string",
+            "format": "date"
+          },
+          "auction_date_max": {
+            "type": "string",
+            "format": "date"
+          },
+          "recording_date_min": {
+            "type": "string",
+            "format": "date"
+          },
+          "recording_date_max": {
+            "type": "string",
+            "format": "date"
+          },
+          "last_update_date_min": {
+            "type": "string",
+            "format": "date"
+          },
+          "last_update_date_max": {
+            "type": "string",
+            "format": "date"
+          },
+          "foreclosure_date_min": {
+            "type": "string",
+            "format": "date"
+          },
+          "foreclosure_date_max": {
+            "type": "string",
+            "format": "date"
+          },
+          "living_square_feet_min": {
+            "type": "number",
+            "minimum": 0
+          },
+          "living_square_feet_max": {
+            "type": "number",
+            "minimum": 0
+          },
+          "building_square_feet_min": {
+            "type": "number",
+            "minimum": 0
+          },
+          "building_square_feet_max": {
+            "type": "number",
+            "minimum": 0
+          },
+          "search_range_min": {
+            "type": "string",
+            "format": "date"
+          },
+          "search_range_max": {
+            "type": "string",
+            "format": "date"
+          },
+          "polygon": {
+            "$ref": "#/components/schemas/PropertySearchPolygonLocationList"
+          },
+          "multi_polygon": {
+            "$ref": "#/components/schemas/PropertySearchMultiPolygonLocation"
+          },
+          "latitude": {
+            "type": "number"
+          },
+          "longitude": {
+            "type": "number"
+          },
+          "radius": {
+            "type": "number",
+            "minimum": 0.01,
+            "maximum": 1000
+          },
+          "ids": {
+            "$ref": "#/components/schemas/PropertySearchIDList"
+          },
+          "property_type": {
+            "$ref": "#/components/schemas/PropertySearchPropertyTypeEnums"
+          },
+          "property_use_code": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "$ref": "#/x-alt-definitions/property_use_code"
+              }
+            ]
+          },
+          "notice_type": {
+            "$ref": "#/components/schemas/PropertySearchNoticeTypeEnums"
+          },
+          "document_type_code": {
+            "anyOf": [
+              {
+                "type": "string",
+                "x-constraint": {
+                  "length": 4
+                }
+              },
+              {
+                "$ref": "#/x-alt-definitions/document_type_code"
+              }
+            ]
+          },
+          "document_type": {
+            "type": "string"
+          },
+          "flood_zone_type": {
+            "type": "string"
+          },
+          "loan_type_code_first": {
+            "$ref": "#/components/schemas/PropertySearchLoanTypeEnums"
+          },
+          "loan_type_code_second": {
+            "$ref": "#/components/schemas/PropertySearchLoanTypeEnums"
+          },
+          "loan_type_code_third": {
+            "$ref": "#/components/schemas/PropertySearchLoanTypeEnums"
+          },
+          "parcel_account_number": {
+            "type": "string"
+          },
+          "roof_construction_code": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "$ref": "#/x-alt-definitions/roof_construction_code"
+              }
+            ]
+          },
+          "roof_material_code": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "$ref": "#/x-alt-definitions/roof_material_code"
+              }
+            ]
+          },
+          "id": {
+            "type": "number"
+          },
+          "apn": {
+            "type": "string"
+          },
+          "stateId": {
+            "type": "string"
+          },
+          "countyId": {
+            "type": "string"
+          },
+          "searchType": {
+            "$ref": "#/components/schemas/AutoCompleteSearchTypeEnums"
+          },
+          "fips": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "neighborhood_id": {
+            "type": "number"
+          },
+          "neighborhood_name": {
+            "type": "string"
+          },
+          "year_built": {
+            "type": "number",
+            "minimum": 1
+          },
+          "year_built_operator": {
+            "$ref": "#/components/schemas/PropertySearchOperatorEnums"
+          },
+          "beds": {
+            "type": "number",
+            "minimum": 1
+          },
+          "baths": {
+            "type": "number",
+            "minimum": 1
+          },
+          "median_income": {
+            "type": "number",
+            "minimum": 1
+          },
+          "median_income_operator": {
+            "$ref": "#/components/schemas/PropertySearchOperatorEnums"
+          },
+          "years_owned": {
+            "type": "number",
+            "minimum": 1
+          },
+          "years_owned_operator": {
+            "$ref": "#/components/schemas/PropertySearchOperatorEnums"
+          },
+          "estimated_equity": {
+            "type": "number",
+            "minimum": 1
+          },
+          "equity_operator": {
+            "$ref": "#/components/schemas/PropertySearchOperatorEnums"
+          },
+          "equity_percent": {
+            "type": "number",
+            "minimum": 1,
+            "maximum": 100
+          },
+          "equity_percent_operator": {
+            "$ref": "#/components/schemas/PropertySearchOperatorEnums"
+          },
+          "last_sale_date": {
+            "type": "string",
+            "format": "date"
+          },
+          "last_sale_date_operator": {
+            "$ref": "#/components/schemas/PropertySearchOperatorEnums"
+          },
+          "exists": {
+            "$ref": "#/components/schemas/PropertySearchExistsObject"
+          },
+          "and": {
+            "type": "string"
+          },
+          "or": {
+            "type": "string"
+          },
+          "minimum_or_matches": {
+            "type": "number",
+            "minimum": 1
+          },
+          "filter": {
+            "$ref": "#/components/schemas/PropertySearchFilterObject"
+          },
+          "exclude": {
+            "$ref": "#/components/schemas/PropertySearchExcludeList"
+          },
+          "file_name": {
+            "type": "string",
+            "minLength": 5,
+            "maxLength": 60
+          },
+          "map": {
+            "$ref": "#/components/schemas/CSVBuilderMap"
+          },
+          "webcomplete_url": {
+            "type": "string",
+            "x-format": {
+              "uri": true
+            }
+          }
+        }
+      },
+      "MLSDetailRequest": {
+        "type": "object",
+        "properties": {
+          "listing_id": {
+            "type": "number"
+          },
+          "id": {
+            "type": "number"
+          },
+          "address": {
+            "type": "string",
+            "minLength": 10
+          },
+          "house": {
+            "type": "string"
+          },
+          "unit": {
+            "type": "string"
+          },
+          "unit_type": {
+            "type": "string"
+          },
+          "street": {
+            "type": "string"
+          },
+          "city": {
+            "type": "string"
+          },
+          "state": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 2
+          },
+          "zip": {
+            "type": "string"
+          },
+          "county": {
+            "type": "string"
+          }
+        }
+      },
+      "MLSSearchRangeEnums": {
+        "type": "string",
+        "enum": [
+          "1_MONTH",
+          "2_MONTH",
+          "3_MONTH",
+          "6_MONTH",
+          "1_YEAR"
+        ]
+      },
+      "MLSSearchListingPropertyTypeEnums": {
+        "type": "string",
+        "enum": [
+          "RENTAL",
+          "RESIDENTIAL_LEASE",
+          "LAND",
+          "COMMERCIAL",
+          "BUSINESS_OPPORTUNITY",
+          "RESIDENTIAL_INCOME",
+          "RESIDENTIAL",
+          "COMMERCIAL_FOR_LEASE"
+        ]
+      },
+      "listing_property_type": {
+        "type": "string",
+        "enum": [
+          "RENTAL",
+          "RESIDENTIAL_LEASE",
+          "LAND",
+          "COMMERCIAL",
+          "BUSINESS_OPPORTUNITY",
+          "RESIDENTIAL_INCOME",
+          "RESIDENTIAL",
+          "COMMERCIAL_FOR_LEASE"
+        ]
+      },
+      "Model1": {
+        "type": "object",
+        "properties": {
+          "listing_property_type": {
+            "$ref": "#/components/schemas/listing_property_type"
+          }
+        }
+      },
+      "MLSSearchExcludeList": {
+        "type": "array",
+        "minItems": 1,
+        "items": {
+          "$ref": "#/components/schemas/Model1"
+        }
+      },
+      "MLSSearchSortEnums": {
+        "type": "object",
+        "description": "sort by field and pass values [asc, desc]"
+      },
+      "MLSSearchPolygonLocation": {
+        "type": "object",
+        "properties": {
+          "lat": {
+            "type": "number"
+          },
+          "lon": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "lat",
+          "lon"
+        ]
+      },
+      "MLSSearchPolygonLocationList": {
+        "type": "array",
+        "minItems": 1,
+        "items": {
+          "$ref": "#/components/schemas/MLSSearchPolygonLocation"
+        }
+      },
+      "MLSSearchMultiPolygonLocation": {
+        "type": "array",
+        "minItems": 1,
+        "items": {
+          "$ref": "#/components/schemas/MLSSearchPolygonLocationList"
+        }
+      },
+      "MLSSearchRequest": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "listing_id": {
+            "type": "number"
+          },
+          "address": {
+            "type": "string"
+          },
+          "house": {
+            "type": "string"
+          },
+          "unit": {
+            "type": "string"
+          },
+          "unit_type": {
+            "type": "string"
+          },
+          "street": {
+            "type": "string"
+          },
+          "city": {
+            "type": "string"
+          },
+          "state": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 2
+          },
+          "zip": {
+            "type": "string"
+          },
+          "county": {
+            "type": "string"
+          },
+          "listing_agent_phone": {
+            "type": "string"
+          },
+          "selling_agent_phone": {
+            "type": "string"
+          },
+          "listing_office_phone": {
+            "type": "string"
+          },
+          "selling_office_phone": {
+            "type": "string"
+          },
+          "count": {
+            "type": "boolean"
+          },
+          "obfuscate": {
+            "type": "boolean"
+          },
+          "summary": {
+            "type": "boolean"
+          },
+          "include_photos": {
+            "type": "boolean"
+          },
+          "ids_only": {
+            "type": "boolean"
+          },
+          "size": {
+            "type": "number",
+            "minimum": 0
+          },
+          "resultIndex": {
+            "type": "number",
+            "minimum": 0
+          },
+          "search_range": {
+            "$ref": "#/components/schemas/MLSSearchRangeEnums"
+          },
+          "listing_property_type": {
+            "$ref": "#/components/schemas/MLSSearchListingPropertyTypeEnums"
+          },
+          "exclude": {
+            "$ref": "#/components/schemas/MLSSearchExcludeList"
+          },
+          "sort": {
+            "$ref": "#/components/schemas/MLSSearchSortEnums"
+          },
+          "active": {
+            "type": "boolean"
+          },
+          "cancelled": {
+            "type": "boolean"
+          },
+          "failed": {
+            "type": "boolean"
+          },
+          "pending": {
+            "type": "boolean"
+          },
+          "sold": {
+            "type": "boolean"
+          },
+          "has_photos": {
+            "type": "boolean"
+          },
+          "has_pool": {
+            "type": "boolean"
+          },
+          "has_basement": {
+            "type": "boolean"
+          },
+          "is_city_view": {
+            "type": "boolean"
+          },
+          "is_mountain_view": {
+            "type": "boolean"
+          },
+          "is_park_view": {
+            "type": "boolean"
+          },
+          "is_water_view": {
+            "type": "boolean"
+          },
+          "is_water_front": {
+            "type": "boolean"
+          },
+          "status": {
+            "type": "string"
+          },
+          "custom_status": {
+            "type": "string"
+          },
+          "mls_number": {
+            "type": "string"
+          },
+          "mls_board_code": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "$ref": "#/x-alt-definitions/mls_board_code"
+              }
+            ]
+          },
+          "mls_type": {
+            "type": "string"
+          },
+          "listing_agent_email": {
+            "type": "string",
+            "x-format": {
+              "email": true
+            }
+          },
+          "listing_agent_id": {
+            "type": "string"
+          },
+          "selling_agent_email": {
+            "type": "string",
+            "x-format": {
+              "email": true
+            }
+          },
+          "selling_agent_id": {
+            "type": "string"
+          },
+          "property_type": {
+            "type": "string"
+          },
+          "property_sub_type": {
+            "type": "string"
+          },
+          "bedrooms": {
+            "type": "integer"
+          },
+          "bathrooms": {
+            "type": "integer"
+          },
+          "living_area": {
+            "type": "number"
+          },
+          "year_built": {
+            "type": "integer"
+          },
+          "stories": {
+            "type": "integer"
+          },
+          "sold_price": {
+            "type": "number"
+          },
+          "lot_size": {
+            "type": "number"
+          },
+          "bedrooms_min": {
+            "type": "integer"
+          },
+          "bedrooms_max": {
+            "type": "integer"
+          },
+          "bathrooms_min": {
+            "type": "integer"
+          },
+          "bathrooms_max": {
+            "type": "integer"
+          },
+          "year_built_min": {
+            "type": "integer"
+          },
+          "year_built_max": {
+            "type": "integer"
+          },
+          "price_per_sqft_min": {
+            "type": "number"
+          },
+          "price_per_sqft_max": {
+            "type": "number"
+          },
+          "days_on_market_min": {
+            "type": "integer"
+          },
+          "days_on_market_max": {
+            "type": "integer"
+          },
+          "listing_price_min": {
+            "type": "number"
+          },
+          "listing_price_max": {
+            "type": "number"
+          },
+          "living_area_min": {
+            "type": "number"
+          },
+          "living_area_max": {
+            "type": "number"
+          },
+          "lot_size_min": {
+            "type": "number"
+          },
+          "lot_size_max": {
+            "type": "number"
+          },
+          "listing_association_fee_min": {
+            "type": "integer"
+          },
+          "listing_association_fee_max": {
+            "type": "integer"
+          },
+          "public_absentee_type": {
+            "type": "string"
+          },
+          "public_document_type": {
+            "type": "string"
+          },
+          "public_document_type_code": {
+            "type": "string"
+          },
+          "public_land_use": {
+            "type": "string"
+          },
+          "public_property_use": {
+            "type": "string"
+          },
+          "public_property_use_code": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "$ref": "#/x-alt-definitions/public_property_use_code"
+              }
+            ]
+          },
+          "listing_date_min": {
+            "type": "string",
+            "format": "date"
+          },
+          "listing_date_max": {
+            "type": "string",
+            "format": "date"
+          },
+          "sold_date_min": {
+            "type": "string",
+            "format": "date"
+          },
+          "sold_date_max": {
+            "type": "string",
+            "format": "date"
+          },
+          "listing_contract_date_min": {
+            "type": "string",
+            "format": "date"
+          },
+          "listing_contract_date_max": {
+            "type": "string",
+            "format": "date"
+          },
+          "last_status_change_date_min": {
+            "type": "string",
+            "format": "date"
+          },
+          "last_status_change_date_max": {
+            "type": "string",
+            "format": "date"
+          },
+          "modification_timestamp_min": {
+            "type": "string",
+            "format": "date"
+          },
+          "modification_timestamp_max": {
+            "type": "string",
+            "format": "date"
+          },
+          "price_change_timestamp_min": {
+            "type": "string",
+            "format": "date"
+          },
+          "price_change_timestamp_max": {
+            "type": "string",
+            "format": "date"
+          },
+          "polygon": {
+            "$ref": "#/components/schemas/MLSSearchPolygonLocationList"
+          },
+          "multi_polygon": {
+            "$ref": "#/components/schemas/MLSSearchMultiPolygonLocation"
+          },
+          "latitude": {
+            "type": "number"
+          },
+          "longitude": {
+            "type": "number"
+          },
+          "radius": {
+            "type": "number",
+            "minimum": 0.01,
+            "maximum": 1000
+          },
+          "and": {
+            "type": "string"
+          },
+          "or": {
+            "type": "string"
+          },
+          "minimum_or_matches": {
+            "type": "number",
+            "minimum": 1
+          }
+        }
+      },
+      "PropertyAVMRequest": {
+        "type": "object",
+        "properties": {
+          "strict": {
+            "type": "boolean",
+            "default": false
+          },
+          "key": {
+            "type": "string",
+            "nullable": true
+          },
+          "id": {
+            "type": "number"
+          },
+          "address": {
+            "type": "string",
+            "nullable": true
+          }
+        }
+      },
+      "PropertyAVMBulkRequestPropertyModel": {
+        "type": "object",
+        "properties": {
+          "strict": {
+            "type": "boolean",
+            "default": false
+          },
+          "id": {
+            "type": "number"
+          },
+          "address": {
+            "type": "string"
+          },
+          "key": {
+            "type": "string",
+            "nullable": true
+          }
+        }
+      },
+      "PropertyAVMBulkRequestPropertyList": {
+        "type": "array",
+        "minItems": 1,
+        "maxItems": 100,
+        "items": {
+          "$ref": "#/components/schemas/PropertyAVMBulkRequestPropertyModel"
+        }
+      },
+      "PropertyAVMBulkRequest": {
+        "type": "object",
+        "properties": {
+          "properties": {
+            "$ref": "#/components/schemas/PropertyAVMBulkRequestPropertyList"
+          }
+        },
+        "required": [
+          "properties"
+        ]
+      },
+      "PropertyDetailRequest": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "exact_match": {
+            "type": "boolean"
+          },
+          "prior_owner": {
+            "type": "boolean"
+          },
+          "comps": {
+            "type": "boolean"
+          },
+          "address": {
+            "type": "string",
+            "minLength": 10
+          },
+          "house": {
+            "type": "string"
+          },
+          "unit": {
+            "type": "string"
+          },
+          "street": {
+            "type": "string"
+          },
+          "city": {
+            "type": "string"
+          },
+          "state": {
+            "type": "string",
+            "x-constraint": {
+              "length": 2
+            }
+          },
+          "county": {
+            "type": "string"
+          },
+          "zip": {
+            "type": "string",
+            "x-constraint": {
+              "length": 5
+            }
+          },
+          "apn": {
+            "type": "string",
+            "nullable": true
+          },
+          "fips": {
+            "type": "string",
+            "nullable": true,
+            "x-constraint": {
+              "length": 5
+            }
+          }
+        }
+      },
+      "PropertyDetailIDList": {
+        "type": "array",
+        "minItems": 1,
+        "maxItems": 1000,
+        "items": {
+          "type": "number"
+        }
+      },
+      "PropertyDetailBulkRequest": {
+        "type": "object",
+        "properties": {
+          "ids": {
+            "$ref": "#/components/schemas/PropertyDetailIDList"
+          },
+          "prior_owner": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "ids"
+        ]
+      },
+      "PropertySearchRequest": {
+        "type": "object",
+        "properties": {
+          "count": {
+            "type": "boolean"
+          },
+          "obfuscate": {
+            "type": "boolean"
+          },
+          "summary": {
+            "type": "boolean"
+          },
+          "ids_only": {
+            "type": "boolean"
+          },
+          "size": {
+            "type": "number",
+            "minimum": 0
+          },
+          "resultIndex": {
+            "type": "number",
+            "minimum": 0
+          },
+          "search_range": {
+            "$ref": "#/components/schemas/PropertySearchRangeEnums"
+          },
+          "sort": {
+            "$ref": "#/components/schemas/PropertySearchSortEnums"
+          },
+          "limit": {
+            "type": "number",
+            "minimum": 1
+          },
+          "greatest_listing_price": {
+            "type": "boolean"
+          },
+          "least_listing_price": {
+            "type": "boolean"
+          },
+          "average_listing_price": {
+            "type": "boolean"
+          },
+          "median_listing_price": {
+            "type": "boolean"
+          },
+          "greatest_sold_price": {
+            "type": "boolean"
+          },
+          "least_sold_price": {
+            "type": "boolean"
+          },
+          "average_sold_price": {
+            "type": "boolean"
+          },
+          "median_sold_price": {
+            "type": "boolean"
+          },
+          "mls_type": {
+            "type": "string"
+          },
+          "mls_listing_key": {
+            "type": "string"
+          },
+          "mls_failed": {
+            "type": "boolean"
+          },
+          "mls_investor_owned": {
+            "type": "boolean"
+          },
+          "mls_last_status_date_min": {
+            "type": "string",
+            "format": "date"
+          },
+          "mls_last_status_date_max": {
+            "type": "string",
+            "format": "date"
+          },
+          "mls_failed_date_min": {
+            "type": "string",
+            "format": "date"
+          },
+          "mls_failed_date_max": {
+            "type": "string",
+            "format": "date"
+          },
+          "mls_last_sale_date_min": {
+            "type": "string",
+            "format": "date"
+          },
+          "mls_last_sale_date_max": {
+            "type": "string",
+            "format": "date"
+          },
+          "mls_contract_date_min": {
+            "type": "string",
+            "format": "date"
+          },
+          "mls_contract_date_max": {
+            "type": "string",
+            "format": "date"
+          },
+          "mls_days_on_market_min": {
+            "type": "number",
+            "minimum": 1
+          },
+          "mls_days_on_market_max": {
+            "type": "number",
+            "minimum": 1
+          },
+          "address": {
+            "type": "string",
+            "minLength": 10
+          },
+          "house": {
+            "type": "string"
+          },
+          "unit": {
+            "type": "string"
+          },
+          "street": {
+            "type": "string"
+          },
+          "city": {
+            "type": "string"
+          },
+          "state": {
+            "type": "string",
+            "x-constraint": {
+              "length": 2
+            }
+          },
+          "county": {
+            "type": "string"
+          },
+          "zip": {
+            "anyOf": [
+              {
+                "type": "string",
+                "x-constraint": {
+                  "length": 5
+                }
+              },
+              {
+                "$ref": "#/x-alt-definitions/zip"
+              }
+            ]
+          },
+          "mfh_5plus": {
+            "type": "boolean"
+          },
+          "mfh_2to4": {
+            "type": "boolean"
+          },
+          "mls_active": {
+            "type": "boolean"
+          },
+          "mls_sold": {
+            "type": "boolean"
+          },
+          "mls_pending": {
+            "type": "boolean"
+          },
+          "mls_cancelled": {
+            "type": "boolean"
+          },
+          "mls_contract": {
+            "type": "boolean"
+          },
+          "mls_listing_price": {
+            "type": "number",
+            "minimum": 1
+          },
+          "mls_listing_price_operator": {
+            "$ref": "#/components/schemas/PropertySearchOperatorEnums"
+          },
+          "mls_listing_price_min": {
+            "type": "number"
+          },
+          "mls_listing_price_max": {
+            "type": "number",
+            "minimum": 1
+          },
+          "for_sale": {
+            "type": "boolean"
+          },
+          "owner_occupied": {
+            "type": "boolean"
+          },
+          "flood_zone": {
+            "type": "boolean"
+          },
+          "negative_equity": {
+            "type": "boolean"
+          },
+          "high_equity": {
+            "type": "boolean"
+          },
+          "equity": {
+            "type": "boolean"
+          },
+          "cash_buyer": {
+            "type": "boolean"
+          },
+          "investor_buyer": {
+            "type": "boolean"
+          },
+          "private_lender": {
+            "type": "boolean"
+          },
+          "death": {
+            "type": "boolean"
+          },
+          "quit_claim": {
+            "type": "boolean"
+          },
+          "tax_lien": {
+            "type": "boolean"
+          },
+          "inherited": {
+            "type": "boolean"
+          },
+          "corporate_owned": {
+            "type": "boolean"
+          },
+          "free_clear": {
+            "type": "boolean"
+          },
+          "absentee_owner": {
+            "type": "boolean"
+          },
+          "out_of_state_owner": {
+            "type": "boolean"
+          },
+          "in_state_owner": {
+            "type": "boolean"
+          },
+          "vacant": {
+            "type": "boolean"
+          },
+          "auction": {
+            "type": "boolean"
+          },
+          "reo": {
+            "type": "boolean"
+          },
+          "foreclosure": {
+            "type": "boolean"
+          },
+          "pre_foreclosure": {
+            "type": "boolean"
+          },
+          "judgment": {
+            "type": "boolean"
+          },
+          "basement": {
+            "type": "boolean"
+          },
+          "garage": {
+            "type": "boolean"
+          },
+          "adjustable_rate": {
+            "type": "boolean"
+          },
+          "assumable": {
+            "type": "boolean"
+          },
+          "patio": {
+            "type": "boolean"
+          },
+          "pool": {
+            "type": "boolean"
+          },
+          "deck": {
+            "type": "boolean"
+          },
+          "fire_sprinklers": {
+            "type": "boolean"
+          },
+          "attic": {
+            "type": "boolean"
+          },
+          "carport": {
+            "type": "boolean"
+          },
+          "rv_parking": {
+            "type": "boolean"
+          },
+          "feature_balcony": {
+            "type": "boolean"
+          },
+          "breezeway": {
+            "type": "boolean"
+          },
+          "sewage": {
+            "type": "string",
+            "minLength": 1
+          },
+          "water_source": {
+            "type": "string",
+            "minLength": 1
+          },
+          "construction": {
+            "type": "string",
+            "minLength": 1
+          },
+          "census_block_group": {
+            "type": "string",
+            "minLength": 1
+          },
+          "census_block": {
+            "type": "string",
+            "minLength": 1
+          },
+          "census_tract": {
+            "type": "string",
+            "minLength": 1
+          },
+          "prior_owner_individual": {
+            "type": "boolean"
+          },
+          "trust_owned": {
+            "type": "boolean"
+          },
+          "usps_mail_state": {
+            "type": "boolean"
+          },
+          "hoa": {
+            "type": "boolean"
+          },
+          "last_sale_arms_length": {
+            "type": "boolean"
+          },
+          "individual_owned": {
+            "type": "boolean"
+          },
+          "median_income_min": {
+            "type": "number",
+            "minimum": 0
+          },
+          "median_income_max": {
+            "type": "number",
+            "minimum": 0
+          },
+          "beds_min": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 99
+          },
+          "beds_max": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 99
+          },
+          "baths_min": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 99
+          },
+          "baths_max": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 99
+          },
+          "year_min": {
+            "type": "number",
+            "minimum": 1900,
+            "maximum": 2100
+          },
+          "year_max": {
+            "type": "number",
+            "minimum": 1900,
+            "maximum": 2100
+          },
+          "lot_size_min": {
+            "type": "number",
+            "minimum": 0
+          },
+          "lot_size_max": {
+            "type": "number",
+            "minimum": 0
+          },
+          "building_size_min": {
+            "type": "number",
+            "minimum": 0
+          },
+          "building_size_max": {
+            "type": "number",
+            "minimum": 0
+          },
+          "mortgage_min": {
+            "type": "number",
+            "minimum": 0
+          },
+          "mortgage_max": {
+            "type": "number",
+            "minimum": 0
+          },
+          "value_min": {
+            "type": "number",
+            "minimum": 0
+          },
+          "value_max": {
+            "type": "number",
+            "minimum": 0
+          },
+          "rooms_min": {
+            "type": "number",
+            "minimum": 0
+          },
+          "rooms_max": {
+            "type": "number",
+            "minimum": 0
+          },
+          "units_min": {
+            "type": "number",
+            "minimum": 0
+          },
+          "units_max": {
+            "type": "number",
+            "minimum": 0
+          },
+          "stories_min": {
+            "type": "number",
+            "minimum": 0
+          },
+          "stories_max": {
+            "type": "number",
+            "minimum": 0
+          },
+          "assessed_value_min": {
+            "type": "number",
+            "minimum": 0
+          },
+          "assessed_value_max": {
+            "type": "number",
+            "minimum": 0
+          },
+          "assessed_land_value_min": {
+            "type": "number",
+            "minimum": 0
+          },
+          "assessed_land_value_max": {
+            "type": "number",
+            "minimum": 0
+          },
+          "years_owned_min": {
+            "type": "number",
+            "minimum": 0
+          },
+          "years_owned_max": {
+            "type": "number",
+            "minimum": 0
+          },
+          "year_built_min": {
+            "type": "number",
+            "minimum": 0
+          },
+          "year_built_max": {
+            "type": "number",
+            "minimum": 0
+          },
+          "maturity_date_first_min": {
+            "type": "string",
+            "format": "date"
+          },
+          "maturity_date_first_max": {
+            "type": "string",
+            "format": "date"
+          },
+          "last_sale_date_min": {
+            "type": "string",
+            "format": "date"
+          },
+          "last_sale_date_max": {
+            "type": "string",
+            "format": "date"
+          },
+          "last_sale_price_min": {
+            "type": "number",
+            "minimum": 0
+          },
+          "last_sale_price_max": {
+            "type": "number",
+            "minimum": 0
+          },
+          "mls_last_sale_price_min": {
+            "type": "number",
+            "minimum": 0
+          },
+          "mls_last_sale_price_max": {
+            "type": "number",
+            "minimum": 0
+          },
+          "tax_delinquent_year_min": {
+            "type": "number",
+            "minimum": 1900
+          },
+          "tax_delinquent_year_max": {
+            "type": "number",
+            "maximum": 2100
+          },
+          "estimated_equity_min": {
+            "type": "number",
+            "minimum": 0
+          },
+          "estimated_equity_max": {
+            "type": "number",
+            "minimum": 0
+          },
+          "equity_percent_min": {
+            "type": "number",
+            "minimum": 0
+          },
+          "equity_percent_max": {
+            "type": "number",
+            "minimum": 0
+          },
+          "ltv_min": {
+            "type": "number",
+            "minimum": 0
+          },
+          "ltv_max": {
+            "type": "number",
+            "minimum": 0
+          },
+          "assessed_improvement_value_min": {
+            "type": "number",
+            "minimum": 0
+          },
+          "assessed_improvement_value_max": {
+            "type": "number",
+            "minimum": 0
+          },
+          "properties_owned_min": {
+            "type": "number",
+            "minimum": 0
+          },
+          "properties_owned_max": {
+            "type": "number",
+            "minimum": 0
+          },
+          "portfolio_value_min": {
+            "type": "number",
+            "minimum": 0
+          },
+          "portfolio_value_max": {
+            "type": "number",
+            "minimum": 0
+          },
+          "portfolio_equity_min": {
+            "type": "number",
+            "minimum": 0
+          },
+          "portfolio_equity_max": {
+            "type": "number",
+            "minimum": 0
+          },
+          "portfolio_mortgage_balance_min": {
+            "type": "number",
+            "minimum": 0
+          },
+          "portfolio_mortgage_balance_max": {
+            "type": "number",
+            "minimum": 0
+          },
+          "portfolio_purchased_last12_min": {
+            "type": "number",
+            "minimum": 0
+          },
+          "portfolio_purchased_last12_max": {
+            "type": "number",
+            "minimum": 0
+          },
+          "portfolio_purchased_last6_min": {
+            "type": "number",
+            "minimum": 0
+          },
+          "portfolio_purchased_last6_max": {
+            "type": "number",
+            "minimum": 0
+          },
+          "patio_area_min": {
+            "type": "number",
+            "minimum": 0
+          },
+          "patio_area_max": {
+            "type": "number",
+            "minimum": 0
+          },
+          "pool_area_min": {
+            "type": "number",
+            "minimum": 0
+          },
+          "pool_area_max": {
+            "type": "number",
+            "minimum": 0
+          },
+          "deck_area_min": {
+            "type": "number",
+            "minimum": 0
+          },
+          "deck_area_max": {
+            "type": "number",
+            "minimum": 0
+          },
+          "prior_owner_months_owned_min": {
+            "type": "number",
+            "minimum": 0
+          },
+          "prior_owner_months_owned_max": {
+            "type": "number",
+            "minimum": 0
+          },
+          "pre_foreclosure_date_min": {
+            "type": "string",
+            "format": "date"
+          },
+          "pre_foreclosure_date_max": {
+            "type": "string",
+            "format": "date"
+          },
+          "auction_date_min": {
+            "type": "string",
+            "format": "date"
+          },
+          "auction_date_max": {
+            "type": "string",
+            "format": "date"
+          },
+          "recording_date_min": {
+            "type": "string",
+            "format": "date"
+          },
+          "recording_date_max": {
+            "type": "string",
+            "format": "date"
+          },
+          "last_update_date_min": {
+            "type": "string",
+            "format": "date"
+          },
+          "last_update_date_max": {
+            "type": "string",
+            "format": "date"
+          },
+          "foreclosure_date_min": {
+            "type": "string",
+            "format": "date"
+          },
+          "foreclosure_date_max": {
+            "type": "string",
+            "format": "date"
+          },
+          "living_square_feet_min": {
+            "type": "number",
+            "minimum": 0
+          },
+          "living_square_feet_max": {
+            "type": "number",
+            "minimum": 0
+          },
+          "building_square_feet_min": {
+            "type": "number",
+            "minimum": 0
+          },
+          "building_square_feet_max": {
+            "type": "number",
+            "minimum": 0
+          },
+          "search_range_min": {
+            "type": "string",
+            "format": "date"
+          },
+          "search_range_max": {
+            "type": "string",
+            "format": "date"
+          },
+          "polygon": {
+            "$ref": "#/components/schemas/PropertySearchPolygonLocationList"
+          },
+          "multi_polygon": {
+            "$ref": "#/components/schemas/PropertySearchMultiPolygonLocation"
+          },
+          "latitude": {
+            "type": "number"
+          },
+          "longitude": {
+            "type": "number"
+          },
+          "radius": {
+            "type": "number",
+            "minimum": 0.01,
+            "maximum": 1000
+          },
+          "ids": {
+            "$ref": "#/components/schemas/PropertySearchIDList"
+          },
+          "property_type": {
+            "$ref": "#/components/schemas/PropertySearchPropertyTypeEnums"
+          },
+          "property_use_code": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "$ref": "#/x-alt-definitions/property_use_code"
+              }
+            ]
+          },
+          "notice_type": {
+            "$ref": "#/components/schemas/PropertySearchNoticeTypeEnums"
+          },
+          "document_type_code": {
+            "anyOf": [
+              {
+                "type": "string",
+                "x-constraint": {
+                  "length": 4
+                }
+              },
+              {
+                "$ref": "#/x-alt-definitions/document_type_code"
+              }
+            ]
+          },
+          "document_type": {
+            "type": "string"
+          },
+          "flood_zone_type": {
+            "type": "string"
+          },
+          "loan_type_code_first": {
+            "$ref": "#/components/schemas/PropertySearchLoanTypeEnums"
+          },
+          "loan_type_code_second": {
+            "$ref": "#/components/schemas/PropertySearchLoanTypeEnums"
+          },
+          "loan_type_code_third": {
+            "$ref": "#/components/schemas/PropertySearchLoanTypeEnums"
+          },
+          "parcel_account_number": {
+            "type": "string"
+          },
+          "roof_construction_code": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "$ref": "#/x-alt-definitions/roof_construction_code"
+              }
+            ]
+          },
+          "roof_material_code": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "$ref": "#/x-alt-definitions/roof_material_code"
+              }
+            ]
+          },
+          "id": {
+            "type": "number"
+          },
+          "apn": {
+            "type": "string"
+          },
+          "stateId": {
+            "type": "string"
+          },
+          "countyId": {
+            "type": "string"
+          },
+          "searchType": {
+            "$ref": "#/components/schemas/AutoCompleteSearchTypeEnums"
+          },
+          "fips": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "neighborhood_id": {
+            "type": "number"
+          },
+          "neighborhood_name": {
+            "type": "string"
+          },
+          "year_built": {
+            "type": "number",
+            "minimum": 1
+          },
+          "year_built_operator": {
+            "$ref": "#/components/schemas/PropertySearchOperatorEnums"
+          },
+          "beds": {
+            "type": "number",
+            "minimum": 1
+          },
+          "baths": {
+            "type": "number",
+            "minimum": 1
+          },
+          "median_income": {
+            "type": "number",
+            "minimum": 1
+          },
+          "median_income_operator": {
+            "$ref": "#/components/schemas/PropertySearchOperatorEnums"
+          },
+          "years_owned": {
+            "type": "number",
+            "minimum": 1
+          },
+          "years_owned_operator": {
+            "$ref": "#/components/schemas/PropertySearchOperatorEnums"
+          },
+          "estimated_equity": {
+            "type": "number",
+            "minimum": 1
+          },
+          "equity_operator": {
+            "$ref": "#/components/schemas/PropertySearchOperatorEnums"
+          },
+          "equity_percent": {
+            "type": "number",
+            "minimum": 1,
+            "maximum": 100
+          },
+          "equity_percent_operator": {
+            "$ref": "#/components/schemas/PropertySearchOperatorEnums"
+          },
+          "last_sale_date": {
+            "type": "string",
+            "format": "date"
+          },
+          "last_sale_date_operator": {
+            "$ref": "#/components/schemas/PropertySearchOperatorEnums"
+          },
+          "exists": {
+            "$ref": "#/components/schemas/PropertySearchExistsObject"
+          },
+          "and": {
+            "type": "string"
+          },
+          "or": {
+            "type": "string"
+          },
+          "minimum_or_matches": {
+            "type": "number",
+            "minimum": 1
+          },
+          "filter": {
+            "$ref": "#/components/schemas/PropertySearchFilterObject"
+          },
+          "exclude": {
+            "$ref": "#/components/schemas/PropertySearchExcludeList"
+          }
+        }
+      },
+      "PropGPTModels": {
+        "type": "string",
+        "default": "gpt-4o-mini",
+        "enum": [
+          "gpt-4",
+          "gpt-4o",
+          "gpt-4o-mini",
+          "gpt-4-turbo",
+          "gpt-3.5-turbo"
+        ]
+      },
+      "PropGPTRequest": {
+        "type": "object",
+        "properties": {
+          "size": {
+            "type": "number"
+          },
+          "query": {
+            "type": "string"
+          },
+          "model": {
+            "$ref": "#/components/schemas/PropGPTModels"
+          }
+        },
+        "required": [
+          "query"
+        ]
+      },
+      "PropertyCompsRequest": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "address": {
+            "type": "string",
+            "minLength": 10
+          },
+          "max_radius_miles": {
+            "type": "number"
+          },
+          "max_days_back": {
+            "type": "number"
+          },
+          "living_square_feet_min": {
+            "type": "number"
+          },
+          "living_square_feet_max": {
+            "type": "number"
+          },
+          "living_square_feet_boost": {
+            "type": "number",
+            "minimum": 1,
+            "maximum": 50
+          },
+          "lot_square_feet_min": {
+            "type": "number"
+          },
+          "lot_square_feet_max": {
+            "type": "number"
+          },
+          "lot_square_feet_boost": {
+            "type": "number",
+            "minimum": 1,
+            "maximum": 50
+          },
+          "bedrooms_min": {
+            "type": "number"
+          },
+          "bedrooms_max": {
+            "type": "number"
+          },
+          "bedrooms_boost": {
+            "type": "number",
+            "minimum": 1,
+            "maximum": 50
+          },
+          "bathrooms_min": {
+            "type": "number"
+          },
+          "bathrooms_max": {
+            "type": "number"
+          },
+          "bathrooms_boost": {
+            "type": "number",
+            "minimum": 1,
+            "maximum": 50
+          },
+          "year_built_min": {
+            "type": "number"
+          },
+          "year_built_max": {
+            "type": "number"
+          },
+          "year_built_boost": {
+            "type": "number",
+            "minimum": 1,
+            "maximum": 50
+          },
+          "max_results": {
+            "type": "number",
+            "minimum": 1
+          },
+          "exact_match": {
+            "type": "boolean"
+          },
+          "same_county": {
+            "type": "boolean"
+          },
+          "same_census_tract": {
+            "type": "boolean"
+          },
+          "same_neighborhood": {
+            "type": "boolean"
+          },
+          "same_zip": {
+            "type": "boolean"
+          },
+          "same_beds": {
+            "type": "boolean"
+          },
+          "same_baths": {
+            "type": "boolean"
+          },
+          "arms_length": {
+            "type": "boolean"
+          },
+          "last_sale_price_min": {
+            "type": "number"
+          },
+          "last_sale_price_max": {
+            "type": "number"
+          },
+          "mls_listing_price_min": {
+            "type": "number",
+            "minimum": 0
+          },
+          "mls_listing_price_max": {
+            "type": "number",
+            "minimum": 1
+          }
+        }
+      },
+      "PropertyLiensRequest": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "address": {
+            "type": "string",
+            "minLength": 10
+          },
+          "zip": {
+            "type": "string",
+            "x-constraint": {
+              "length": 5
+            }
+          },
+          "apn": {
+            "type": "string",
+            "nullable": true
+          },
+          "fips": {
+            "type": "string",
+            "nullable": true,
+            "x-constraint": {
+              "length": 5
+            }
+          }
+        }
+      }
+    }
+  },
+  "tags": [],
+  "paths": {
+    "/v2/PropertySearch/odata": {
+      "get": {
+        "summary": "Get a list of property search results using the open data protocol for expressive querying",
+        "operationId": "getV2PropertysearchOdata",
+        "description": "Version 1.0",
+        "parameters": [
+          {
+            "name": "x-api-key",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          },
+          {
+            "name": "$filter",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "$top",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 1000
+            }
+          },
+          {
+            "name": "$skip",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 0
+            }
+          },
+          {
+            "name": "$orderby",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "$select",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "$count",
+            "in": "query",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "tags": [
+          "v2"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request - Invalid input parameters"
+          },
+          "401": {
+            "description": "Unauthorized - Authentication credentials are missing or invalid"
+          },
+          "403": {
+            "description": "Forbidden - You do not have permission to access this resource"
+          },
+          "404": {
+            "description": "Not Found - The requested resource was not found"
+          },
+          "500": {
+            "description": "Internal Server Error - An unexpected error occurred"
+          }
+        }
+      }
+    },
+    "/v2/AddressVerification": {
+      "post": {
+        "summary": "Verify addresses in bulk",
+        "operationId": "postV2Addressverification",
+        "description": "Version 2.0",
+        "parameters": [
+          {
+            "name": "x-user-id",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "x-api-key",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "tags": [
+          "v2"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddressVerificationRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request - Invalid input parameters"
+          },
+          "401": {
+            "description": "Unauthorized - Authentication credentials are missing or invalid"
+          },
+          "403": {
+            "description": "Forbidden - You do not have permission to access this resource"
+          },
+          "404": {
+            "description": "Not Found - The requested resource was not found"
+          },
+          "500": {
+            "description": "Internal Server Error - An unexpected error occurred"
+          }
+        }
+      }
+    },
+    "/v2/AutoComplete": {
+      "post": {
+        "summary": "Get a list of property detail results",
+        "operationId": "postV2Autocomplete",
+        "description": "Version 2.0",
+        "parameters": [
+          {
+            "name": "x-user-id",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "x-api-key",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "tags": [
+          "v2"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AutoCompleteRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request - Invalid input parameters"
+          },
+          "401": {
+            "description": "Unauthorized - Authentication credentials are missing or invalid"
+          },
+          "403": {
+            "description": "Forbidden - You do not have permission to access this resource"
+          },
+          "404": {
+            "description": "Not Found - The requested resource was not found"
+          },
+          "500": {
+            "description": "Internal Server Error - An unexpected error occurred"
+          }
+        }
+      }
+    },
+    "/v2/CSVBuilder": {
+      "post": {
+        "summary": "Get a list of property search results",
+        "operationId": "postV2Csvbuilder",
+        "description": "Version 1.0",
+        "parameters": [
+          {
+            "name": "x-user-id",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "x-api-key",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "tags": [
+          "v2"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CSVBuilderRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request - Invalid input parameters"
+          },
+          "401": {
+            "description": "Unauthorized - Authentication credentials are missing or invalid"
+          },
+          "403": {
+            "description": "Forbidden - You do not have permission to access this resource"
+          },
+          "404": {
+            "description": "Not Found - The requested resource was not found"
+          },
+          "500": {
+            "description": "Internal Server Error - An unexpected error occurred"
+          }
+        }
+      }
+    },
+    "/v2/MLSDetail": {
+      "post": {
+        "summary": "Retrieve detailed MLS information for a specific property using its MLS number, ID, or address",
+        "operationId": "postV2Mlsdetail",
+        "description": "Version 2.0",
+        "parameters": [
+          {
+            "name": "x-user-id",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "x-api-key",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "tags": [
+          "v2"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MLSDetailRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request - Invalid input parameters"
+          },
+          "401": {
+            "description": "Unauthorized - Authentication credentials are missing or invalid"
+          },
+          "403": {
+            "description": "Forbidden - You do not have permission to access this resource"
+          },
+          "404": {
+            "description": "Not Found - The requested resource was not found"
+          },
+          "500": {
+            "description": "Internal Server Error - An unexpected error occurred"
+          }
+        }
+      }
+    },
+    "/v2/MLSSearch": {
+      "post": {
+        "summary": "MLS Search API",
+        "operationId": "postV2Mlssearch",
+        "description": "Version 2.0",
+        "parameters": [
+          {
+            "name": "x-user-id",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "x-api-key",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "tags": [
+          "v2"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MLSSearchRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request - Invalid input parameters"
+          },
+          "401": {
+            "description": "Unauthorized - Authentication credentials are missing or invalid"
+          },
+          "403": {
+            "description": "Forbidden - You do not have permission to access this resource"
+          },
+          "404": {
+            "description": "Not Found - The requested resource was not found"
+          },
+          "500": {
+            "description": "Internal Server Error - An unexpected error occurred"
+          }
+        }
+      }
+    },
+    "/v2/PropertyAvm": {
+      "post": {
+        "summary": "Get AVM for a set of addresses",
+        "operationId": "postV2Propertyavm",
+        "description": "Version 2.0",
+        "parameters": [
+          {
+            "name": "x-user-id",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "x-api-key",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "tags": [
+          "v2"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PropertyAVMRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request - Invalid input parameters"
+          },
+          "401": {
+            "description": "Unauthorized - Authentication credentials are missing or invalid"
+          },
+          "403": {
+            "description": "Forbidden - You do not have permission to access this resource"
+          },
+          "404": {
+            "description": "Not Found - The requested resource was not found"
+          },
+          "500": {
+            "description": "Internal Server Error - An unexpected error occurred"
+          }
+        }
+      }
+    },
+    "/v2/PropertyAvmBulk": {
+      "post": {
+        "summary": "Get AVM for a set of addresses",
+        "operationId": "postV2Propertyavmbulk",
+        "description": "Version 2.0",
+        "parameters": [
+          {
+            "name": "x-user-id",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "x-api-key",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "tags": [
+          "v2"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PropertyAVMBulkRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request - Invalid input parameters"
+          },
+          "401": {
+            "description": "Unauthorized - Authentication credentials are missing or invalid"
+          },
+          "403": {
+            "description": "Forbidden - You do not have permission to access this resource"
+          },
+          "404": {
+            "description": "Not Found - The requested resource was not found"
+          },
+          "500": {
+            "description": "Internal Server Error - An unexpected error occurred"
+          }
+        }
+      }
+    },
+    "/v2/PropertyDetail": {
+      "post": {
+        "summary": "Get a list of property detail results",
+        "operationId": "postV2Propertydetail",
+        "description": "Version 2.0",
+        "parameters": [
+          {
+            "name": "x-user-id",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "x-api-key",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "tags": [
+          "v2"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PropertyDetailRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request - Invalid input parameters"
+          },
+          "401": {
+            "description": "Unauthorized - Authentication credentials are missing or invalid"
+          },
+          "403": {
+            "description": "Forbidden - You do not have permission to access this resource"
+          },
+          "404": {
+            "description": "Not Found - The requested resource was not found"
+          },
+          "500": {
+            "description": "Internal Server Error - An unexpected error occurred"
+          }
+        }
+      }
+    },
+    "/v2/PropertyDetailBulk": {
+      "post": {
+        "summary": "Get property detail results from a list of IDs",
+        "operationId": "postV2Propertydetailbulk",
+        "description": "Version 1.0",
+        "parameters": [
+          {
+            "name": "x-user-id",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "x-api-key",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "tags": [
+          "v2"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PropertyDetailBulkRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request - Invalid input parameters"
+          },
+          "401": {
+            "description": "Unauthorized - Authentication credentials are missing or invalid"
+          },
+          "403": {
+            "description": "Forbidden - You do not have permission to access this resource"
+          },
+          "404": {
+            "description": "Not Found - The requested resource was not found"
+          },
+          "500": {
+            "description": "Internal Server Error - An unexpected error occurred"
+          }
+        }
+      }
+    },
+    "/v2/PropertySearch": {
+      "post": {
+        "summary": "Get a list of property search results",
+        "operationId": "postV2Propertysearch",
+        "description": "Version 1.0",
+        "parameters": [
+          {
+            "name": "x-user-id",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "x-api-key",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "tags": [
+          "v2"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PropertySearchRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request - Invalid input parameters"
+          },
+          "401": {
+            "description": "Unauthorized - Authentication credentials are missing or invalid"
+          },
+          "403": {
+            "description": "Forbidden - You do not have permission to access this resource"
+          },
+          "404": {
+            "description": "Not Found - The requested resource was not found"
+          },
+          "500": {
+            "description": "Internal Server Error - An unexpected error occurred"
+          }
+        }
+      }
+    },
+    "/v2/PropGPT": {
+      "post": {
+        "summary": "PropGPT Beta semantic search",
+        "operationId": "postV2Propgpt",
+        "description": "Beta",
+        "parameters": [
+          {
+            "name": "x-user-id",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "x-api-key",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          },
+          {
+            "name": "x-openai-key",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "tags": [
+          "v2"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PropGPTRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request - Invalid input parameters"
+          },
+          "401": {
+            "description": "Unauthorized - Authentication credentials are missing or invalid"
+          },
+          "403": {
+            "description": "Forbidden - You do not have permission to access this resource"
+          },
+          "404": {
+            "description": "Not Found - The requested resource was not found"
+          },
+          "500": {
+            "description": "Internal Server Error - An unexpected error occurred"
+          }
+        }
+      }
+    },
+    "/v3/PropertyComps": {
+      "post": {
+        "summary": "Get a comparables for a property",
+        "operationId": "postV3Propertycomps",
+        "description": "Version 1.0",
+        "parameters": [
+          {
+            "name": "x-user-id",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "x-api-key",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "tags": [
+          "v3"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PropertyCompsRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request - Invalid input parameters"
+          },
+          "401": {
+            "description": "Unauthorized - Authentication credentials are missing or invalid"
+          },
+          "403": {
+            "description": "Forbidden - You do not have permission to access this resource"
+          },
+          "404": {
+            "description": "Not Found - The requested resource was not found"
+          },
+          "500": {
+            "description": "Internal Server Error - An unexpected error occurred"
+          }
+        }
+      }
+    },
+    "/v2/Reports/PropertyLiens": {
+      "post": {
+        "summary": "Retrieve property liens information including tax liens, judgment liens, and other encumbrances",
+        "operationId": "postV2ReportsPropertyliens",
+        "description": "Version 2.0",
+        "parameters": [
+          {
+            "name": "x-user-id",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "x-api-key",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "tags": [
+          "v2"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PropertyLiensRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request - Invalid input parameters"
+          },
+          "401": {
+            "description": "Unauthorized - Authentication credentials are missing or invalid"
+          },
+          "403": {
+            "description": "Forbidden - You do not have permission to access this resource"
+          },
+          "404": {
+            "description": "Not Found - The requested resource was not found"
+          },
+          "500": {
+            "description": "Internal Server Error - An unexpected error occurred"
+          }
+        }
+      }
+    }
+  },
+  "x-alt-definitions": {
+    "AutoCompleteSearchTypeEnums": {
+      "type": "string",
+      "enum": [
+        "A",
+        "S",
+        "C",
+        "N",
+        "G",
+        "Z",
+        "T",
+        "P"
+      ]
+    },
+    "AutoCompleteSearchTypeEnumArray": {
+      "type": "array",
+      "items": {
+        "$ref": "#/x-alt-definitions/AutoCompleteSearchTypeEnums"
+      }
+    },
+    "zip": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "x-constraint": {
+          "length": 5
+        }
+      }
+    },
+    "property_use_code": {
+      "type": "array",
+      "items": {
+        "type": "number"
+      }
+    },
+    "document_type_code": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "x-constraint": {
+          "length": 4
+        }
+      }
+    },
+    "roof_construction_code": {
+      "type": "array",
+      "items": {
+        "type": "number"
+      }
+    },
+    "roof_material_code": {
+      "type": "array",
+      "items": {
+        "type": "number"
+      }
+    },
+    "mls_board_code": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "public_property_use_code": {
+      "type": "array",
+      "items": {
+        "type": "number"
+      }
+    }
+  }
+}

@@ -1,0 +1,24 @@
+type: object
+description: Request schema for PropGPT endpoint
+required:
+  - query
+properties:
+  size:
+    type: integer
+    description: Number of results to return (maximum of 250).
+    format: int32
+    maximum: 250
+  query:
+    type: string
+    description: Natural language query that references data points in the Property Search API in order to retrieve a list of properties.
+    minLength: 3
+    example: "LAND Properties in Forsyth County Georgia with high equity"
+  model:
+    type: string
+    description: GPT model to use for processing
+    enum:
+      - gpt-4
+      - gpt-4o
+      - gpt-4o-mini
+      - gpt-4-turbo
+      - gpt-3.5-turbo
