@@ -1,0 +1,97 @@
+{
+	"info": {
+		"_postman_id": "bf1eb461-cb9e-4e3e-baea-f67f6c04293e",
+		"name": "Polygon Searches",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "37947041",
+		"_collection_link": "https://www.postman.com/realestateapis/realestateapi-property-search-api/collection/ulcuzk6/polygon-searches?action=share&source=collection_link&creator=37947041"
+	},
+	"item": [
+		{
+			"name": "Single Polygon of Points",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"size\": 100,\n    \"polygon\": [\n        {\n            \"lon\": \"-86.32762085355883\",\n            \"lat\": \"35.42300740560803\"\n        },\n        {\n            \"lon\": -86.43359069901402,\n            \"lat\": 35.19184584103132\n        },\n        {\n            \"lon\": \"-86.0572016901352\",\n            \"lat\": \"35.15490990082178\"\n        },\n        {\n            \"lon\": -86.00921468169653,\n            \"lat\": 35.45088715765438\n        },\n        {\n            \"lon\": \"-86.32762085355883\",\n            \"lat\": \"35.42300740560803\"\n        }\n  ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.realestateapi.com/v2/PropertySearch",
+					"protocol": "https",
+					"host": [
+						"api",
+						"realestateapi",
+						"com"
+					],
+					"path": [
+						"v2",
+						"PropertySearch"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Multi-Polygon Search (example coming soon...)",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "https://api.realestateapi.com/v2/PropertySearch",
+					"protocol": "https",
+					"host": [
+						"api",
+						"realestateapi",
+						"com"
+					],
+					"path": [
+						"v2",
+						"PropertySearch"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "apikey",
+		"apikey": [
+			{
+				"key": "value",
+				"value": "<Your-REAPI-Key>",
+				"type": "string"
+			},
+			{
+				"key": "key",
+				"value": "x-api-key",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

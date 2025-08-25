@@ -1,0 +1,76 @@
+{
+	"info": {
+		"_postman_id": "374d68d6-b33f-4b4b-a2fd-bfbc6a9a71b6",
+		"name": "Property Detail Bulk",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "37947041",
+		"_collection_link": "https://www.postman.com/realestateapis/realestateapi-property-detail-workspace/collection/rwq612j/property-detail-bulk?action=share&source=collection_link&creator=37947041"
+	},
+	"item": [
+		{
+			"name": "Property IDs Search",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"ids\": [718293, 920392, 811232]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.realestateapi.com/v2/PropertyDetailBulk",
+					"protocol": "https",
+					"host": [
+						"api",
+						"realestateapi",
+						"com"
+					],
+					"path": [
+						"v2",
+						"PropertyDetailBulk"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "apikey",
+		"apikey": [
+			{
+				"key": "value",
+				"value": "<<Your-API-Key>>",
+				"type": "string"
+			},
+			{
+				"key": "key",
+				"value": "x-api-key",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

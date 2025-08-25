@@ -1,0 +1,96 @@
+{
+	"info": {
+		"_postman_id": "60b06618-6662-4f27-90e3-0a4314c24ba1",
+		"name": "Document Type Code Searches",
+		"description": "Check out the full list of document type codes here: [https://developer.realestateapi.com/reference/document-type-codes](https://developer.realestateapi.com/reference/document-type-codes)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "37947041",
+		"_collection_link": "https://www.postman.com/realestateapis/realestateapi-property-search-api/collection/a6tu75y/document-type-code-searches?action=share&source=collection_link&creator=37947041"
+	},
+	"item": [
+		{
+			"name": "Affidavits",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "https://api.realestateapi.com/v2/PropertySearch",
+					"protocol": "https",
+					"host": [
+						"api",
+						"realestateapi",
+						"com"
+					],
+					"path": [
+						"v2",
+						"PropertySearch"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Beneficiary Deed",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "https://api.realestateapi.com/v2/PropertySearch",
+					"protocol": "https",
+					"host": [
+						"api",
+						"realestateapi",
+						"com"
+					],
+					"path": [
+						"v2",
+						"PropertySearch"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Survivorship Deed",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "https://api.realestateapi.com/v2/PropertySearch",
+					"protocol": "https",
+					"host": [
+						"api",
+						"realestateapi",
+						"com"
+					],
+					"path": [
+						"v2",
+						"PropertySearch"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Warranty Deed",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "https://api.realestateapi.com/v2/PropertySearch",
+					"protocol": "https",
+					"host": [
+						"api",
+						"realestateapi",
+						"com"
+					],
+					"path": [
+						"v2",
+						"PropertySearch"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

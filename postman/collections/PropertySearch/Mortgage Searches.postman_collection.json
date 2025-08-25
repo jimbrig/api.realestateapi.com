@@ -1,0 +1,256 @@
+{
+	"info": {
+		"_postman_id": "6a20508a-43f8-47ad-a2a3-2680ecc1f60c",
+		"name": "Mortgage Searches",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "37947041",
+		"_collection_link": "https://www.postman.com/realestateapis/realestateapi-property-search-api/collection/cjo3v0m/mortgage-searches?action=share&source=collection_link&creator=37947041"
+	},
+	"item": [
+		{
+			"name": "Adjustable Rate Flag Search",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"size\": 10,\n    \"city\": \"Arlington\",\n    \"state\": \"VA\",\n    \"adjustable_rate\": true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.realestateapi.com/v2/PropertySearch",
+					"protocol": "https",
+					"host": [
+						"api",
+						"realestateapi",
+						"com"
+					],
+					"path": [
+						"v2",
+						"PropertySearch"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Assumable Mortgage Flag Search",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"size\": 10,\n    \"city\": \"Arlington\",\n    \"state\": \"VA\",\n    \"assumable\": true,\n    \"mortgage_min\": 400000,\n    \"mortgage_max\": 700000\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.realestateapi.com/v2/PropertySearch",
+					"protocol": "https",
+					"host": [
+						"api",
+						"realestateapi",
+						"com"
+					],
+					"path": [
+						"v2",
+						"PropertySearch"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Free & Clear Properties",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"size\": 20,\n    \"city\": \"Arlington\",\n    \"state\": \"VA\",\n    \"free_clear\": true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.realestateapi.com/v2/PropertySearch",
+					"protocol": "https",
+					"host": [
+						"api",
+						"realestateapi",
+						"com"
+					],
+					"path": [
+						"v2",
+						"PropertySearch"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Open Mortgage Amount Range Search",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"size\": 20,\n    \"city\": \"Arlington\",\n    \"state\": \"VA\",\n    \"mortgage_min\": 200000,\n    \"mortgage_max\": 400000\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.realestateapi.com/v2/PropertySearch",
+					"protocol": "https",
+					"host": [
+						"api",
+						"realestateapi",
+						"com"
+					],
+					"path": [
+						"v2",
+						"PropertySearch"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "First Position Mortgage Loan Search",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \n  \"city\": \"Richmond\",\n  \"state\": \"VA\",\n  \"loan_type_first\": \"FHA\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.realestateapi.com/v2/PropertySearch",
+					"protocol": "https",
+					"host": [
+						"api",
+						"realestateapi",
+						"com"
+					],
+					"path": [
+						"v2",
+						"PropertySearch"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Second Position Mortgage Loan Search",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"city\": \"Richmond\",\n    \"state\": \"VA\",\n    \"loan_type_second\": \"FHA\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.realestateapi.com/v2/PropertySearch",
+					"protocol": "https",
+					"host": [
+						"api",
+						"realestateapi",
+						"com"
+					],
+					"path": [
+						"v2",
+						"PropertySearch"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Third Position Mortgage Loan Search",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"city\": \"Richmond\",\n    \"state\": \"VA\",\n    \"loan_type_third\": \"FHA\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.realestateapi.com/v2/PropertySearch",
+					"protocol": "https",
+					"host": [
+						"api",
+						"realestateapi",
+						"com"
+					],
+					"path": [
+						"v2",
+						"PropertySearch"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "apikey",
+		"apikey": [
+			{
+				"key": "value",
+				"value": "<Your-REAPI-Key>",
+				"type": "string"
+			},
+			{
+				"key": "key",
+				"value": "x-api-key",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

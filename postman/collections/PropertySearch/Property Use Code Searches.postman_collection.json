@@ -1,0 +1,131 @@
+{
+	"info": {
+		"_postman_id": "37bd5dfe-d7b2-44cf-af01-647658d566ef",
+		"name": "Property Use Code Searches",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "37947041",
+		"_collection_link": "https://www.postman.com/realestateapis/realestateapi-property-search-api/collection/end5t8r/property-use-code-searches?action=share&source=collection_link&creator=37947041"
+	},
+	"item": [
+		{
+			"name": "Get Duplexes",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"property_use_code\": 369,\n    \"city\": \"Charlottesville\",\n    \"state\": \"Virginia\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.realestateapi.com/v2/PropertySearch",
+					"protocol": "https",
+					"host": [
+						"api",
+						"realestateapi",
+						"com"
+					],
+					"path": [
+						"v2",
+						"PropertySearch"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Triplexes",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"property_use_code\": \"388\",\n    \"city\": \"Richmond\",\n    \"state\": \"Virginia\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.realestateapi.com/v2/PropertySearch",
+					"protocol": "https",
+					"host": [
+						"api",
+						"realestateapi",
+						"com"
+					],
+					"path": [
+						"v2",
+						"PropertySearch"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Townhouses",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"property_use_code\": \"386\",\n    \"city\": \"Arlington\",\n    \"state\": \"Virginia\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.realestateapi.com/v2/PropertySearch",
+					"protocol": "https",
+					"host": [
+						"api",
+						"realestateapi",
+						"com"
+					],
+					"path": [
+						"v2",
+						"PropertySearch"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Farms",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"property_use_code\": [101, 103, 105, 109, 113, 149]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.realestateapi.com/v2/PropertySearch",
+					"protocol": "https",
+					"host": [
+						"api",
+						"realestateapi",
+						"com"
+					],
+					"path": [
+						"v2",
+						"PropertySearch"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -1,0 +1,233 @@
+{
+	"info": {
+		"_postman_id": "8b710830-ce23-4260-8947-38d4dd811791",
+		"name": "AutoComplete Input Searches",
+		"description": "Use our AutoComplete API, specifically catered for Real Estate and PropTech contexts and use cases.\n\nWho needs Google AutoComplete at high prices when ours is unlimited with any of our monthly subscriptions.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "37947041",
+		"_collection_link": "https://www.postman.com/realestateapis/realestateapi-property-search-api/collection/t2nup95/autocomplete-input-searches?action=share&source=collection_link&creator=37947041"
+	},
+	"item": [
+		{
+			"name": "City/State (\"S\")",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"searchType\": \"S\",\n    \"countyId\": \"059\",\n    \"stateId\": \"51\",\n    \"fips\": \"51059\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.realestateapi.com/v2/PropertySearch",
+					"protocol": "https",
+					"host": [
+						"api",
+						"realestateapi",
+						"com"
+					],
+					"path": [
+						"v2",
+						"PropertySearch"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "County (\"C\")",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"search_type\": \"C\",\n    \"countyId\": \"001\",\n    \"stateId\": \"36\",\n    \"fips\": \"36001\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.realestateapi.com/v2/PropertySearch",
+					"protocol": "https",
+					"host": [
+						"api",
+						"realestateapi",
+						"com"
+					],
+					"path": [
+						"v2",
+						"PropertySearch"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Full Address (\"A\")",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"search_type\": \"A\",\n    \"apn\": \"38  01121-0000-00002\",\n    \"countyId\": \"005\",\n    \"stateId\": \"34\",\n    \"fips\": \"34005\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.realestateapi.com/v2/PropertySearch",
+					"protocol": "https",
+					"host": [
+						"api",
+						"realestateapi",
+						"com"
+					],
+					"path": [
+						"v2",
+						"PropertySearch"
+					]
+				},
+				"description": "Begin typing a full address and call this endpoint with a request body with searchType: \"A\" and the other autocomplete params.\n\nPerfect for Google AutoComplete-like keypress to keypress full address suggestions/typeaheads."
+			},
+			"response": []
+		},
+		{
+			"name": "Neighborhood (\"G\")",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"searchType\": \"G\",\n    \"neighborhood_id\": \"285347\",\n    \"neighborhood_name\": \"Loudon Hills\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.realestateapi.com/v2/PropertySearch",
+					"protocol": "https",
+					"host": [
+						"api",
+						"realestateapi",
+						"com"
+					],
+					"path": [
+						"v2",
+						"PropertySearch"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "State (\"T\")",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"searchType\": \"T\",\n    \"title\": \"Virginia, USA\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.realestateapi.com/v2/PropertySearch",
+					"protocol": "https",
+					"host": [
+						"api",
+						"realestateapi",
+						"com"
+					],
+					"path": [
+						"v2",
+						"PropertySearch"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Zipcode (\"Z\")",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"searchType\": \"Z\",\n    \"apn\": \"13-010-007\",\n    \"countyId\": \"013\",\n    \"stateId\": \"51\",\n    \"fips\": \"51013\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.realestateapi.com/v2/PropertySearch",
+					"protocol": "https",
+					"host": [
+						"api",
+						"realestateapi",
+						"com"
+					],
+					"path": [
+						"v2",
+						"PropertySearch"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "apikey",
+		"apikey": [
+			{
+				"key": "in",
+				"value": "header",
+				"type": "string"
+			},
+			{
+				"key": "value",
+				"value": "<Your-API-Key>",
+				"type": "string"
+			},
+			{
+				"key": "key",
+				"value": "x-api-key",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
