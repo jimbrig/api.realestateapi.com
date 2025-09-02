@@ -1,0 +1,2910 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Real Estate API - Focused Specification",
+    "version": "2.0.0",
+    "termsOfService": "https://developer.realestateapi.com/reference/",
+    "x-logo": {
+      "altText": "Real Estate API Logo",
+      "url": "https://files.readme.io/06c0d730f64296d5fbee8f6dd105e2d5f92a9188c6d08b9d4f84c61a4fc6b9cc-realestateapi-logo-color_2.svg",
+      "href": "https://developer.realestateapi.com"
+    },
+    "summary": "OpenAPI specification for Real Estate API, tailored for use with the `{landrise.reapi}` R package.\n",
+    "description": "# Real Estate API - Focused Specification\n\n> OpenAPI specification for <api.realestateapi.com> tailored for use with the `{landrise.reapi}` R package.\n\n## Endpoints\n\nIncludes specifications for the Real Estate API endpoints used by the `{landrise.reapi}` R package:\n\n- `/v1/PropertyParcel`\n- `/v2/AutoComplete`\n- `/v2/PropertyDetail`\n- `/v2/PropertySearch`\n- `/v2/PropertySearch/odata`\n- `/v2/PropGPT`\n- `/v3/PropertyComps`\n\n## Specification Details\n\nThis specification was generated using a hybrid approach, consolidating information from multiple sources:\n\n- Original [`swagger.json`](https://api.realestateapi.com/swagger.json) Specification from [Real Estate API Swagger UI](https://api.realestateapi.com/swagger#/v2)\n\n- Official Documentation from <developer.realestateapi.com/reference> \n\n- Downloaded request and response schemas from each endpoint's dedicated documentation sources:\n  - [AutoComplete API](https://developer.realestateapi.com/reference/autocomplete-api.md)\n  - [Property Boundary (Parcel) API](https://developer.realestateapi.com/reference/property-parcel-api.md)\n  - [Property Detail API](https://developer.realestateapi.com/reference/property-detail-api-1.md)\n  - [Property Search API](https://developer.realestateapi.com/reference/property-search-api.md)\n  - [Property Comps (v3) API](https://developer.realestateapi.com/reference/v3-comps-response-object.md)\n  - [PropGPT API](https://developer.realestateapi.com/reference/propgpt-api.md)\n\n- [RealEstateApi/docs](https://github.com/RealEstateApi/docs) GitHub repository\n\n- Enhanced request schemas with validation rules through API usage and patterns\n- Captured response structures from live API traffic\n- Real examples from actual usage\n- Complete documentation for all endpoints\n\n## Authentication\n\n<SecurityDefinitions />\n",
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    },
+    "contact": {
+      "name": "Real Estate API Support",
+      "url": "https://developer.realestateapi.com"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://api.realestateapi.com",
+      "description": "Production server"
+    }
+  ],
+  "security": [
+    {
+      "apiKey": []
+    }
+  ],
+  "paths": {
+    "/v1/PropertyParcel": {
+      "post": {
+        "summary": "Property Parcel and Boundary Information",
+        "description": "Get property parcel boundaries and information in GeoJSON format.\nPerfect for mapping applications showing property boundaries.\n",
+        "operationId": "propertyParcel",
+        "tags": [
+          "v1",
+          "Parcel"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/ApiKeyHeader"
+          },
+          {
+            "$ref": "#/components/parameters/UserIdHeader"
+          }
+        ],
+        "requestBody": {
+          "description": "Property parcel request",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PropertyParcelRequest"
+              },
+              "examples": {
+                "byId": {
+                  "summary": "Lookup by property ID",
+                  "value": {
+                    "id": "148046016"
+                  }
+                },
+                "byAddress": {
+                  "summary": "Lookup by address",
+                  "value": {
+                    "address": "2025 Peachtree Rd NE, Atlanta GA 30309",
+                    "state": "GA",
+                    "county": "Fulton"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response with property parcel data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PropertyParcelResponse"
+                },
+                "examples": {
+                  "success": {
+                    "summary": "Property parcel with GeoJSON boundary",
+                    "value": {
+                      "input": {
+                        "id": "148046016"
+                      },
+                      "data": {
+                        "id": "148046016",
+                        "address": {
+                          "address": "2025 Peachtree Rd NE, Atlanta GA 30309",
+                          "street": "2025 Peachtree Rd NE",
+                          "city": "Atlanta",
+                          "county": "Fulton",
+                          "state": "GA",
+                          "zip": "30309"
+                        },
+                        "apn": "170110LL0333",
+                        "geometry": {
+                          "type": "Polygon",
+                          "coordinates": [
+                            [
+                              [
+                                -84.387901,
+                                33.748912
+                              ],
+                              [
+                                -84.387801,
+                                33.748912
+                              ],
+                              [
+                                -84.387801,
+                                33.749012
+                              ],
+                              [
+                                -84.387901,
+                                33.749012
+                              ],
+                              [
+                                -84.387901,
+                                33.748912
+                              ]
+                            ]
+                          ]
+                        },
+                        "properties": {
+                          "acres": 0.25,
+                          "sqft": 10890
+                        }
+                      },
+                      "statusCode": 200,
+                      "live": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          }
+        },
+        "security": [
+          {
+            "apiKey": []
+          }
+        ]
+      }
+    },
+    "/v2/AutoComplete": {
+      "post": {
+        "summary": "Address and Location AutoComplete",
+        "description": "Search for addresses, cities, neighborhoods, and other location types with autocomplete functionality.\nSupports various search types including addresses, streets, cities, neighborhoods, counties, APNs, states, and ZIP codes.\n",
+        "operationId": "autoComplete",
+        "tags": [
+          "v2",
+          "Search"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/ApiKeyHeader"
+          },
+          {
+            "$ref": "#/components/parameters/UserIdHeader"
+          }
+        ],
+        "requestBody": {
+          "description": "AutoComplete search request",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AutoCompleteRequest"
+              },
+              "examples": {
+                "basic": {
+                  "summary": "Basic search",
+                  "value": {
+                    "search": "peachtree"
+                  }
+                },
+                "withLocation": {
+                  "summary": "Search with location bias",
+                  "value": {
+                    "search": "peachtree",
+                    "latitude": 33.749,
+                    "longitude": -84.388
+                  }
+                },
+                "filtered": {
+                  "summary": "Search with type filters",
+                  "value": {
+                    "search": "peachtree",
+                    "search_types": [
+                      "A",
+                      "C"
+                    ],
+                    "latitude": 33.749,
+                    "longitude": -84.388
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response with autocomplete suggestions",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AutoCompleteResponse"
+                },
+                "examples": {
+                  "success": {
+                    "summary": "Autocomplete response",
+                    "value": {
+                      "input": {
+                        "search": "peachtree",
+                        "latitude": 33.749,
+                        "longitude": -84.388
+                      },
+                      "data": [
+                        {
+                          "city": "Peachtree City",
+                          "searchType": "C",
+                          "state": "GA",
+                          "title": "Peachtree City, GA"
+                        },
+                        {
+                          "city": "Peachtree Corners",
+                          "searchType": "C",
+                          "state": "GA",
+                          "title": "Peachtree Corners, GA"
+                        }
+                      ],
+                      "totalResults": 25,
+                      "returnedResults": 2,
+                      "statusCode": 200,
+                      "live": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          }
+        }
+      }
+    },
+    "/v2/PropertyDetail": {
+      "post": {
+        "summary": "Detailed Property Information",
+        "description": "Get comprehensive details about a specific property including ownership, valuation, characteristics,\nsales history, and financial indicators. Can search by ID, address, or APN.\n",
+        "operationId": "propertyDetail",
+        "tags": [
+          "v2",
+          "Detail"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/ApiKeyHeader"
+          },
+          {
+            "$ref": "#/components/parameters/UserIdHeader"
+          }
+        ],
+        "requestBody": {
+          "description": "Property detail request",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PropertyDetailRequest"
+              },
+              "examples": {
+                "byId": {
+                  "summary": "Lookup by property ID",
+                  "value": {
+                    "id": "148046016"
+                  }
+                },
+                "byAddress": {
+                  "summary": "Lookup by full address",
+                  "value": {
+                    "address": "2025 Peachtree Rd NE, Atlanta GA 30309"
+                  }
+                },
+                "byAddressParts": {
+                  "summary": "Lookup by address components",
+                  "value": {
+                    "house": "2025",
+                    "street": "Peachtree Rd NE",
+                    "city": "Atlanta",
+                    "state": "GA",
+                    "zip": "30309"
+                  }
+                },
+                "byApn": {
+                  "summary": "Lookup by APN",
+                  "value": {
+                    "apn": "170110LL0333",
+                    "state": "GA",
+                    "county": "Fulton"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response with detailed property information",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PropertyDetailResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          }
+        }
+      }
+    },
+    "/v2/PropertySearch": {
+      "post": {
+        "summary": "Property Search and Filtering",
+        "description": "Search and filter properties with advanced criteria including geographic, demographic, and financial filters.\nSupports pagination and various output formats. Perfect for list building and property analytics.\n",
+        "operationId": "propertySearch",
+        "tags": [
+          "v2",
+          "Search"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/ApiKeyHeader"
+          },
+          {
+            "$ref": "#/components/parameters/UserIdHeader"
+          }
+        ],
+        "requestBody": {
+          "$ref": "#/components/requestBodies/PropertySearch"
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response with property search results",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PropertySearchResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          }
+        }
+      }
+    },
+    "/v2/PropertySearch/odata": {
+      "get": {
+        "summary": "Property Search with OData Query Syntax",
+        "description": "Query properties using OData syntax for advanced filtering and querying.\nSupports standard OData operators like $filter, $select, $top, and $skip.\n",
+        "operationId": "propertySearchOData",
+        "tags": [
+          "v2",
+          "Search",
+          "OData"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/ApiKeyHeader"
+          },
+          {
+            "$ref": "#/components/parameters/UserIdHeader"
+          },
+          {
+            "name": "$filter",
+            "in": "query",
+            "description": "OData filter expression",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "examples": {
+              "location": {
+                "summary": "Filter by location",
+                "value": "state eq 'GA' and county eq 'Fulton'"
+              },
+              "value": {
+                "summary": "Filter by property value",
+                "value": "estimatedValue gt 200000 and estimatedValue lt 500000"
+              },
+              "features": {
+                "summary": "Filter by property features",
+                "value": "bedrooms ge 3 and bathrooms ge 2"
+              }
+            }
+          },
+          {
+            "name": "$select",
+            "in": "query",
+            "description": "Comma-separated list of fields to return",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "example": "id,address,bedrooms,bathrooms,assessedValue"
+          },
+          {
+            "name": "$top",
+            "in": "query",
+            "description": "Number of results to return",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 1000,
+              "default": 10
+            },
+            "example": 25
+          },
+          {
+            "name": "$skip",
+            "in": "query",
+            "description": "Number of results to skip for pagination",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "default": 0
+            },
+            "example": 50
+          },
+          {
+            "name": "$orderby",
+            "in": "query",
+            "description": "Field to sort by with optional direction",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "examples": {
+              "value_asc": {
+                "summary": "Sort by value ascending",
+                "value": "estimatedValue asc"
+              },
+              "date_desc": {
+                "summary": "Sort by date descending",
+                "value": "lastSaleDate desc"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful OData query response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PropertySearchResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          }
+        }
+      }
+    },
+    "/v2/PropGPT": {
+      "post": {
+        "summary": "AI-Powered Property Search and Analysis",
+        "description": "Use natural language queries to search for properties and get AI-powered insights and analysis.\nLeverages GPT models to understand complex search requirements and provide intelligent results.\n",
+        "operationId": "propGPT",
+        "tags": [
+          "v2",
+          "AI",
+          "Search"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/ApiKeyHeader"
+          },
+          {
+            "$ref": "#/components/parameters/UserIdHeader"
+          },
+          {
+            "name": "X-OpenAI-Key",
+            "in": "header",
+            "description": "OpenAI API key for GPT processing (optional if configured server-side)",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "PropGPT natural language query",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PropGPTRequest"
+              },
+              "examples": {
+                "basic": {
+                  "summary": "Basic natural language query",
+                  "value": {
+                    "query": "Properties in Forsyth County Georgia",
+                    "size": 5,
+                    "model": "gpt-4o-mini"
+                  }
+                },
+                "detailed": {
+                  "summary": "Complex investment query",
+                  "value": {
+                    "query": "Find high equity single family homes in Atlanta with 3+ bedrooms under $400k",
+                    "size": 10,
+                    "model": "gpt-4o"
+                  }
+                },
+                "market_analysis": {
+                  "summary": "Market analysis query",
+                  "value": {
+                    "query": "What are the trends in the Buckhead neighborhood?",
+                    "size": 5,
+                    "model": "gpt-4o"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful AI-powered search response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PropGPTResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          }
+        }
+      }
+    },
+    "/v3/PropertyComps": {
+      "post": {
+        "summary": "Property Comparables Analysis",
+        "description": "Find comparable properties for valuation and analysis purposes.\nIncludes advanced filtering and market analysis features.\n",
+        "operationId": "propertyComps",
+        "tags": [
+          "v3",
+          "Comparables",
+          "Valuation"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/ApiKeyHeader"
+          },
+          {
+            "$ref": "#/components/parameters/UserIdHeader"
+          }
+        ],
+        "requestBody": {
+          "description": "Property comparables request",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PropertyCompsRequest"
+              },
+              "examples": {
+                "basic": {
+                  "summary": "Find comps by property ID",
+                  "value": {
+                    "id": "148046016",
+                    "comp_count": 10,
+                    "radius": 1.5
+                  }
+                },
+                "by_address": {
+                  "summary": "Find comps by address",
+                  "value": {
+                    "address": "2025 Peachtree Rd NE, Atlanta GA 30309",
+                    "comp_count": 15,
+                    "radius": 2
+                  }
+                },
+                "filtered": {
+                  "summary": "Find comps with filters",
+                  "value": {
+                    "id": "148046016",
+                    "comp_count": 20,
+                    "radius": 3,
+                    "bedrooms": 3,
+                    "bathrooms": 2,
+                    "property_type": [
+                      "SFR"
+                    ],
+                    "sale_date_min": "2022-01-01"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response with comparable properties",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PropertyCompsResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "apiKey": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "x-api-key",
+        "description": "API key provided by Real Estate API"
+      }
+    },
+    "examples": {
+      "PropertySearchRequestBasic": {
+        "summary": "Basic Property Search Request",
+        "value": {
+          "size": 10,
+          "state": "GA",
+          "county": "Forsyth",
+          "lot_size_min": 435600,
+          "lot_size_max": 8712000,
+          "property_type": "LAND"
+        }
+      },
+      "PropertySearchRequestCount": {
+        "summary": "Count Only Property Search Request",
+        "value": {
+          "state": "GA",
+          "count": true
+        }
+      },
+      "PropertySearchRequestIDsOnly": {
+        "$ref": "#/components/examples/PropertySearchrequestIDsOnly",
+        "description": "IDs Only Property Search Request"
+      },
+      "PropertySearchRequestRadius": {
+        "summary": "Radius Property Search Request",
+        "value": {
+          "latitude": 33.7878,
+          "longitude": -84.4455,
+          "radius": 3,
+          "size": 10
+        }
+      },
+      "PropertySearchRequestSummary": {
+        "summary": "Basic Property Search Request",
+        "value": {
+          "summary": true,
+          "size": 10,
+          "state": "GA",
+          "county": "Forsyth",
+          "lot_size_min": 435600,
+          "lot_size_max": 8712000,
+          "property_type": "LAND"
+        }
+      },
+      "PropertySearchRequestObfuscated": {
+        "summary": "Basic Property Search Request",
+        "value": {
+          "obfuscate": true,
+          "size": 10,
+          "state": "GA",
+          "county": "Forsyth",
+          "lot_size_min": 435600,
+          "lot_size_max": 8712000,
+          "property_type": "LAND"
+        }
+      },
+      "PropertySearchRequestCompound": {
+        "summary": "Basic Property Search Request",
+        "value": {
+          "size": 3,
+          "state": "GA",
+          "property_type": "LAND",
+          "lot_size_min": 435600,
+          "lot_size_max": 1000000,
+          "or": [
+            {
+              "fips": "13057"
+            },
+            {
+              "fips": "13063"
+            },
+            {
+              "fips": "13067"
+            },
+            {
+              "fips": "13077"
+            },
+            {
+              "fips": "13085"
+            },
+            {
+              "fips": "13089"
+            },
+            {
+              "fips": "13097"
+            },
+            {
+              "fips": "13113"
+            },
+            {
+              "fips": "13117"
+            },
+            {
+              "fips": "13121"
+            },
+            {
+              "fips": "13135"
+            },
+            {
+              "fips": "13151"
+            },
+            {
+              "fips": "13217"
+            },
+            {
+              "fips": "13223"
+            },
+            {
+              "fips": "13247"
+            },
+            {
+              "fips": "13297"
+            }
+          ]
+        }
+      },
+      "PropertySearchRequestPolygon": {
+        "summary": "Polygon Property Search Request",
+        "value": {
+          "size": 3,
+          "multi_polygon": [
+            [
+              {
+                "lon": -84.8367,
+                "lat": 33.511
+              },
+              {
+                "lon": -84.6213,
+                "lat": 33.5113
+              },
+              {
+                "lon": -84.6094,
+                "lat": 33.5026
+              },
+              {
+                "lon": -84.5957,
+                "lat": 33.5181
+              },
+              {
+                "lon": -84.4587,
+                "lat": 33.5509
+              },
+              {
+                "lon": -84.453,
+                "lat": 33.644
+              },
+              {
+                "lon": -84.3499,
+                "lat": 33.6479
+              },
+              {
+                "lon": -84.3474,
+                "lat": 33.9681
+              },
+              {
+                "lon": -84.3179,
+                "lat": 33.9666
+              },
+              {
+                "lon": -84.2771,
+                "lat": 33.9576
+              },
+              {
+                "lon": -84.2581,
+                "lat": 33.9682
+              },
+              {
+                "lon": -84.2623,
+                "lat": 33.9874
+              },
+              {
+                "lon": -84.2547,
+                "lat": 33.9861
+              },
+              {
+                "lon": -84.2483,
+                "lat": 33.9983
+              },
+              {
+                "lon": -84.2125,
+                "lat": 34.0038
+              },
+              {
+                "lon": -84.2021,
+                "lat": 33.9971
+              },
+              {
+                "lon": -84.2048,
+                "lat": 33.9901
+              },
+              {
+                "lon": -84.1809,
+                "lat": 33.9987
+              },
+              {
+                "lon": -84.1681,
+                "lat": 34.0287
+              },
+              {
+                "lon": -84.1212,
+                "lat": 34.0343
+              },
+              {
+                "lon": -84.0977,
+                "lat": 34.0507
+              },
+              {
+                "lon": -84.1536,
+                "lat": 34.0599
+              },
+              {
+                "lon": -84.1783,
+                "lat": 34.0704
+              },
+              {
+                "lon": -84.1894,
+                "lat": 34.0855
+              },
+              {
+                "lon": -84.2138,
+                "lat": 34.0991
+              },
+              {
+                "lon": -84.2446,
+                "lat": 34.1027
+              },
+              {
+                "lon": -84.259,
+                "lat": 34.1096
+              },
+              {
+                "lon": -84.259,
+                "lat": 34.1859
+              },
+              {
+                "lon": -84.3286,
+                "lat": 34.1862
+              },
+              {
+                "lon": -84.3562,
+                "lat": 34.1743
+              },
+              {
+                "lon": -84.3621,
+                "lat": 34.1242
+              },
+              {
+                "lon": -84.4184,
+                "lat": 34.109
+              },
+              {
+                "lon": -84.4191,
+                "lat": 34.0552
+              },
+              {
+                "lon": -84.4012,
+                "lat": 34.0259
+              },
+              {
+                "lon": -84.3942,
+                "lat": 34.0027
+              },
+              {
+                "lon": -84.375,
+                "lat": 33.9873
+              },
+              {
+                "lon": -84.3838,
+                "lat": 33.9667
+              },
+              {
+                "lon": -84.4301,
+                "lat": 33.9251
+              },
+              {
+                "lon": -84.4466,
+                "lat": 33.9121
+              },
+              {
+                "lon": -84.4438,
+                "lat": 33.8785
+              },
+              {
+                "lon": -84.4605,
+                "lat": 33.8421
+              },
+              {
+                "lon": -84.4555,
+                "lat": 33.8268
+              },
+              {
+                "lon": -84.4689,
+                "lat": 33.8273
+              },
+              {
+                "lon": -84.6329,
+                "lat": 33.699
+              },
+              {
+                "lon": -84.6303,
+                "lat": 33.6931
+              },
+              {
+                "lon": -84.6527,
+                "lat": 33.6836
+              },
+              {
+                "lon": -84.659,
+                "lat": 33.6578
+              },
+              {
+                "lon": -84.7297,
+                "lat": 33.6369
+              },
+              {
+                "lon": -84.7358,
+                "lat": 33.6246
+              },
+              {
+                "lon": -84.7504,
+                "lat": 33.6321
+              },
+              {
+                "lon": -84.7623,
+                "lat": 33.6152
+              },
+              {
+                "lon": -84.8061,
+                "lat": 33.5861
+              },
+              {
+                "lon": -84.8331,
+                "lat": 33.5457
+              },
+              {
+                "lon": -84.8174,
+                "lat": 33.5192
+              },
+              {
+                "lon": -84.8367,
+                "lat": 33.511
+              }
+            ]
+          ]
+        }
+      },
+      "PropertySearchrequestIDsOnly": {
+        "summary": "IDs Only Only Property Search Request",
+        "value": {
+          "ids_only": true,
+          "state": "GA",
+          "county": "Fulton",
+          "property_type": "LAND",
+          "size": 10
+        }
+      }
+    },
+    "parameters": {
+      "ApiKeyHeader": {
+        "name": "x-api-key",
+        "in": "header",
+        "description": "API key for authentication",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      "OpenAIApiKeyHeader": {
+        "name": "x-openai-key",
+        "in": "header",
+        "description": "OpenAI API Key to attach to all your requests to this endpoint for token spend tracking.",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      "UserIdHeader": {
+        "name": "x-user-id",
+        "in": "header",
+        "description": "Optional user identifier for tracking and analytics",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      }
+    },
+    "requestBodies": {
+      "PropertySearch": {
+        "description": "Property Search Request Body",
+        "required": true,
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/PropertySearchRequest"
+            },
+            "examples": {
+              "Basic": {
+                "$ref": "#/components/examples/PropertySearchRequestBasic",
+                "description": "Basic Property Search Request"
+              },
+              "Count": {
+                "$ref": "#/components/examples/PropertySearchRequestCount",
+                "description": "Count Property Search Request"
+              },
+              "IDsOnly": {
+                "$ref": "#/components/examples/PropertySearchrequestIDsOnly",
+                "description": "IDs Only Property Search Request"
+              },
+              "Radius": {
+                "$ref": "#/components/examples/PropertySearchRequestRadius",
+                "description": "Radius Property Search Request"
+              },
+              "Summary": {
+                "$ref": "#/components/examples/PropertySearchRequestSummary",
+                "description": "Summary Property Search Request"
+              },
+              "Obfuscated": {
+                "$ref": "#/components/examples/PropertySearchRequestObfuscated",
+                "description": "Obfuscated Property Search Request"
+              },
+              "Compound": {
+                "$ref": "#/components/examples/PropertySearchRequestCompound",
+                "description": "Compound Property Search Request"
+              },
+              "Polygon": {
+                "$ref": "#/components/examples/PropertySearchRequestPolygon",
+                "description": "Polygon Property Search Request"
+              }
+            }
+          }
+        }
+      },
+      "PropGPT": {
+        "description": "PropGPT request body schema",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/PropGPTRequest"
+            }
+          }
+        }
+      }
+    },
+    "schemas": {
+      "AutoCompleteRequest": {
+        "type": "object",
+        "description": "Request schema for AutoComplete endpoint",
+        "required": [
+          "search"
+        ],
+        "properties": {
+          "search": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 100,
+            "description": "The search query string (minimum 2 characters)",
+            "example": "peachtree"
+          },
+          "search_types": {
+            "oneOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "A",
+                  "C",
+                  "G",
+                  "N",
+                  "P",
+                  "S",
+                  "T",
+                  "Z"
+                ]
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "A",
+                    "C",
+                    "G",
+                    "N",
+                    "P",
+                    "S",
+                    "T",
+                    "Z"
+                  ]
+                },
+                "uniqueItems": true
+              }
+            ],
+            "description": "Search type codes:\n- A: Address\n- S: Street\n- C: City\n- G: Neighborhood\n- N: County\n- P: APN (Assessor's Parcel Number)\n- T: State\n- Z: ZIP Code\n",
+            "example": [
+              "A",
+              "C"
+            ]
+          },
+          "latitude": {
+            "type": "number",
+            "minimum": -90,
+            "maximum": 90,
+            "description": "Latitude to bias the search results",
+            "example": 33.749
+          },
+          "longitude": {
+            "type": "number",
+            "minimum": -180,
+            "maximum": 180,
+            "description": "Longitude to bias the search results",
+            "example": -84.388
+          },
+          "precision": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 10,
+            "description": "Number of precision digits for coordinates",
+            "default": 3
+          }
+        }
+      },
+      "AutoCompleteResponse": {
+        "type": "object",
+        "description": "Response schema for AutoComplete endpoint",
+        "properties": {
+          "input": {
+            "type": "object",
+            "description": "Echo of the input parameters"
+          },
+          "data": {
+            "type": "array",
+            "description": "Array of autocomplete suggestions",
+            "items": {
+              "type": "object",
+              "properties": {
+                "title": {
+                  "type": "string",
+                  "description": "Display title for the suggestion"
+                },
+                "searchType": {
+                  "type": "string",
+                  "enum": [
+                    "A",
+                    "C",
+                    "G",
+                    "N",
+                    "P",
+                    "S",
+                    "T",
+                    "Z"
+                  ],
+                  "description": "Type of the suggestion"
+                },
+                "city": {
+                  "type": "string",
+                  "description": "City name"
+                },
+                "state": {
+                  "type": "string",
+                  "description": "State abbreviation"
+                },
+                "zip": {
+                  "type": "string",
+                  "description": "ZIP code"
+                },
+                "county": {
+                  "type": "string",
+                  "description": "County name"
+                }
+              }
+            }
+          },
+          "totalResults": {
+            "type": "integer",
+            "description": "Total number of suggestions found"
+          },
+          "returnedResults": {
+            "type": "integer",
+            "description": "Number of suggestions returned"
+          },
+          "statusCode": {
+            "type": "integer",
+            "description": "HTTP status code"
+          },
+          "live": {
+            "type": "boolean",
+            "description": "Indicates if data is live"
+          }
+        }
+      },
+      "PropertyCompsRequest": {
+        "type": "object",
+        "description": "Request schema for PropertyComps endpoint",
+        "properties": {
+          "id": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "integer"
+              }
+            ],
+            "description": "Unique property identifier to find comps for",
+            "example": "148046016"
+          },
+          "address": {
+            "type": "string",
+            "description": "Full property address",
+            "example": "2025 Peachtree Rd NE, Atlanta GA 30309"
+          },
+          "apn": {
+            "type": "string",
+            "description": "Assessor's Parcel Number",
+            "example": "170110LL0333"
+          },
+          "lat": {
+            "type": "number",
+            "description": "Property latitude",
+            "minimum": -90,
+            "maximum": 90,
+            "example": 33.7489
+          },
+          "lon": {
+            "type": "number",
+            "description": "Property longitude",
+            "minimum": -180,
+            "maximum": 180,
+            "example": -84.3879
+          },
+          "radius": {
+            "type": "number",
+            "description": "Search radius in miles for finding comps",
+            "minimum": 0.1,
+            "maximum": 25,
+            "default": 1,
+            "example": 1.5
+          },
+          "comp_count": {
+            "type": "integer",
+            "description": "Number of comparable properties to return",
+            "minimum": 1,
+            "maximum": 50,
+            "default": 10,
+            "example": 10
+          },
+          "bedrooms": {
+            "type": "integer",
+            "description": "Number of bedrooms for filtering",
+            "minimum": 0,
+            "maximum": 20
+          },
+          "bathrooms": {
+            "type": "number",
+            "description": "Number of bathrooms for filtering",
+            "minimum": 0,
+            "maximum": 20
+          },
+          "sqft_min": {
+            "type": "integer",
+            "description": "Minimum square footage for comps",
+            "minimum": 0
+          },
+          "sqft_max": {
+            "type": "integer",
+            "description": "Maximum square footage for comps",
+            "minimum": 0
+          },
+          "property_type": {
+            "type": "array",
+            "description": "Property types to include in comps",
+            "items": {
+              "type": "string",
+              "enum": [
+                "SFR",
+                "MFR",
+                "CON",
+                "TH",
+                "MOB",
+                "APT",
+                "COM",
+                "IND",
+                "VAC"
+              ]
+            }
+          },
+          "sale_date_min": {
+            "type": "string",
+            "format": "date",
+            "description": "Minimum sale date for comparable properties",
+            "example": "2022-01-01"
+          },
+          "sale_date_max": {
+            "type": "string",
+            "format": "date",
+            "description": "Maximum sale date for comparable properties",
+            "example": "2024-12-31"
+          }
+        }
+      },
+      "PropertyCompsResponse": {
+        "type": "object",
+        "description": "Response schema for PropertyComps endpoint",
+        "properties": {
+          "input": {
+            "type": "object",
+            "description": "Echo of the input parameters"
+          },
+          "subject_property": {
+            "type": "object",
+            "description": "Details of the subject property"
+          },
+          "data": {
+            "type": "array",
+            "description": "Array of comparable properties",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "description": "Comparable property identifier"
+                },
+                "address": {
+                  "type": "object",
+                  "description": "Comparable property address"
+                },
+                "distance": {
+                  "type": "number",
+                  "description": "Distance from subject property in miles"
+                },
+                "similarity_score": {
+                  "type": "number",
+                  "description": "Similarity score compared to subject property",
+                  "minimum": 0,
+                  "maximum": 1
+                }
+              }
+            }
+          },
+          "analysis": {
+            "type": "object",
+            "description": "Comparative market analysis",
+            "properties": {
+              "estimated_value": {
+                "type": "number",
+                "description": "Estimated value based on comps"
+              },
+              "value_range": {
+                "type": "object",
+                "properties": {
+                  "low": {
+                    "type": "number"
+                  },
+                  "high": {
+                    "type": "number"
+                  }
+                }
+              }
+            }
+          },
+          "totalResults": {
+            "type": "integer",
+            "description": "Total comparable properties found"
+          },
+          "returnedResults": {
+            "type": "integer",
+            "description": "Number of comps returned"
+          },
+          "statusCode": {
+            "type": "integer",
+            "description": "HTTP status code"
+          },
+          "live": {
+            "type": "boolean",
+            "description": "Indicates if data is live"
+          }
+        }
+      },
+      "PropertyDetailRequest": {
+        "type": "object",
+        "description": "Request schema for PropertyDetail endpoint",
+        "properties": {
+          "id": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "integer"
+              }
+            ],
+            "description": "Unique property identifier",
+            "example": "148046016"
+          },
+          "address": {
+            "type": "string",
+            "description": "Full property address",
+            "minLength": 5,
+            "example": "2025 Peachtree Rd NE, Atlanta GA 30309"
+          },
+          "house": {
+            "type": "string",
+            "description": "House number component",
+            "example": "2025"
+          },
+          "unit": {
+            "type": "string",
+            "description": "Unit number component"
+          },
+          "street": {
+            "type": "string",
+            "description": "Street name component",
+            "example": "Peachtree Rd NE"
+          },
+          "city": {
+            "type": "string",
+            "description": "City name",
+            "example": "Atlanta"
+          },
+          "state": {
+            "type": "string",
+            "description": "State abbreviation",
+            "pattern": "^[A-Z]{2}$",
+            "example": "GA"
+          },
+          "zip": {
+            "type": "string",
+            "description": "ZIP code",
+            "pattern": "^[0-9]{5}(-[0-9]{4})?$",
+            "example": "30309"
+          },
+          "county": {
+            "type": "string",
+            "description": "County name",
+            "example": "Fulton"
+          },
+          "apn": {
+            "type": "string",
+            "description": "Assessor's Parcel Number",
+            "example": "170110LL0333"
+          },
+          "exact_match": {
+            "type": "boolean",
+            "description": "Require exact address match",
+            "default": true
+          },
+          "prior_owner": {
+            "type": "boolean",
+            "description": "Include prior owner information",
+            "default": false
+          },
+          "comps": {
+            "type": "boolean",
+            "description": "Include comparable properties",
+            "default": false
+          },
+          "lat": {
+            "type": "number",
+            "description": "Property latitude",
+            "minimum": -90,
+            "maximum": 90
+          },
+          "lon": {
+            "type": "number",
+            "description": "Property longitude",
+            "minimum": -180,
+            "maximum": 180
+          }
+        }
+      },
+      "PropertyDetailResponse": {
+        "type": "object",
+        "description": "Response schema for PropertyDetail endpoint",
+        "properties": {
+          "input": {
+            "type": "object",
+            "description": "Echo of the input parameters"
+          },
+          "data": {
+            "type": "object",
+            "description": "Comprehensive property details",
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "Unique property identifier"
+              },
+              "address": {
+                "type": "object",
+                "description": "Property address information"
+              },
+              "location": {
+                "type": "object",
+                "description": "Geographic coordinates"
+              },
+              "characteristics": {
+                "type": "object",
+                "description": "Property characteristics"
+              },
+              "valuation": {
+                "type": "object",
+                "description": "Property valuation information"
+              },
+              "ownership": {
+                "type": "object",
+                "description": "Property ownership information"
+              },
+              "sales": {
+                "type": "object",
+                "description": "Sales history information"
+              },
+              "features": {
+                "type": "object",
+                "description": "Property features and amenities"
+              }
+            }
+          },
+          "statusCode": {
+            "type": "integer",
+            "description": "HTTP status code"
+          },
+          "live": {
+            "type": "boolean",
+            "description": "Indicates if data is live"
+          }
+        }
+      },
+      "PropertyParcelRequest": {
+        "type": "object",
+        "description": "Request schema for PropertyParcel endpoint",
+        "properties": {
+          "id": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "integer"
+              }
+            ],
+            "description": "Unique property identifier",
+            "example": "148046016"
+          },
+          "address": {
+            "type": "string",
+            "description": "Full property address",
+            "minLength": 5,
+            "example": "2025 Peachtree Rd NE, Atlanta GA 30309"
+          },
+          "apn": {
+            "type": "string",
+            "description": "Assessor's Parcel Number",
+            "example": "170110LL0333"
+          },
+          "house": {
+            "type": "string",
+            "description": "House number",
+            "example": "2025"
+          },
+          "street": {
+            "type": "string",
+            "description": "Street name",
+            "example": "Peachtree Rd NE"
+          },
+          "city": {
+            "type": "string",
+            "description": "City name",
+            "example": "Atlanta"
+          },
+          "state": {
+            "type": "string",
+            "description": "State abbreviation",
+            "pattern": "^[A-Z]{2}$",
+            "example": "GA"
+          },
+          "zip": {
+            "type": "string",
+            "description": "ZIP code",
+            "pattern": "^[0-9]{5}(-[0-9]{4})?$",
+            "example": "30309"
+          },
+          "county": {
+            "type": "string",
+            "description": "County name",
+            "example": "Fulton"
+          }
+        }
+      },
+      "PropertyParcelResponse": {
+        "type": "object",
+        "description": "Response schema for PropertyParcel endpoint",
+        "properties": {
+          "input": {
+            "type": "object",
+            "description": "Echo of the input parameters"
+          },
+          "data": {
+            "type": "object",
+            "description": "Property parcel data with GeoJSON boundaries",
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "Property identifier"
+              },
+              "address": {
+                "type": "object",
+                "description": "Property address information"
+              },
+              "apn": {
+                "type": "string",
+                "description": "Assessor's Parcel Number"
+              },
+              "geometry": {
+                "type": "object",
+                "description": "GeoJSON geometry for property boundaries",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "enum": [
+                      "Polygon",
+                      "MultiPolygon"
+                    ]
+                  },
+                  "coordinates": {
+                    "type": "array",
+                    "description": "GeoJSON coordinate arrays"
+                  }
+                }
+              },
+              "properties": {
+                "type": "object",
+                "description": "Additional property metadata",
+                "properties": {
+                  "acres": {
+                    "type": "number",
+                    "description": "Property size in acres"
+                  },
+                  "sqft": {
+                    "type": "number",
+                    "description": "Property size in square feet"
+                  }
+                }
+              }
+            }
+          },
+          "statusCode": {
+            "type": "integer",
+            "description": "HTTP status code"
+          },
+          "live": {
+            "type": "boolean",
+            "description": "Indicates if data is live"
+          }
+        }
+      },
+      "PropertySearchRequest": {
+        "type": "object",
+        "description": "Request schema for PropertySearch endpoint",
+        "properties": {
+          "count": {
+            "type": "boolean",
+            "description": "Return only the count of matching properties"
+          },
+          "ids": {
+            "type": "array",
+            "description": "List of specific property IDs to retrieve",
+            "items": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            }
+          },
+          "ids_only": {
+            "type": "boolean",
+            "description": "Return only property IDs, not full property data"
+          },
+          "obfuscate": {
+            "type": "boolean",
+            "description": "Obfuscate sensitive property information"
+          },
+          "summary": {
+            "type": "boolean",
+            "description": "Return summarized property data"
+          },
+          "resultIndex": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Starting index for pagination"
+          },
+          "size": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 1000,
+            "description": "Number of results to return",
+            "default": 10
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Maximum number of results"
+          },
+          "county": {
+            "type": "string",
+            "description": "County name to search within",
+            "example": "Forsyth"
+          },
+          "state": {
+            "type": "string",
+            "description": "State abbreviation",
+            "pattern": "^[A-Z]{2}$",
+            "example": "GA"
+          },
+          "city": {
+            "type": "string",
+            "description": "City name"
+          },
+          "address": {
+            "type": "string",
+            "description": "Full address string"
+          },
+          "latitude": {
+            "type": "number",
+            "minimum": -90,
+            "maximum": 90,
+            "description": "Latitude for radius search"
+          },
+          "longitude": {
+            "type": "number",
+            "minimum": -180,
+            "maximum": 180,
+            "description": "Longitude for radius search"
+          },
+          "radius": {
+            "type": "number",
+            "minimum": 0.01,
+            "maximum": 1000,
+            "description": "Search radius in miles"
+          },
+          "polygon": {
+            "type": "array",
+            "description": "Polygon coordinates for geographic search",
+            "items": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            }
+          },
+          "beds_min": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 99,
+            "description": "Minimum number of bedrooms"
+          },
+          "beds_max": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 99,
+            "description": "Maximum number of bedrooms"
+          },
+          "baths_min": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 99,
+            "description": "Minimum number of bathrooms"
+          },
+          "baths_max": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 99,
+            "description": "Maximum number of bathrooms"
+          },
+          "value_min": {
+            "type": "number",
+            "minimum": 0,
+            "description": "Minimum property value"
+          },
+          "value_max": {
+            "type": "number",
+            "minimum": 0,
+            "description": "Maximum property value"
+          },
+          "year_built_min": {
+            "type": "integer",
+            "minimum": 1800,
+            "maximum": 2100,
+            "description": "Minimum year built"
+          },
+          "year_built_max": {
+            "type": "integer",
+            "minimum": 1800,
+            "maximum": 2100,
+            "description": "Maximum year built"
+          },
+          "lot_size_min": {
+            "type": "number",
+            "minimum": 0,
+            "description": "Minimum lot size in square feet"
+          },
+          "lot_size_max": {
+            "type": "number",
+            "minimum": 0,
+            "description": "Maximum lot size in square feet"
+          },
+          "building_size_min": {
+            "type": "number",
+            "minimum": 0,
+            "description": "Minimum building size in square feet"
+          },
+          "building_size_max": {
+            "type": "number",
+            "minimum": 0,
+            "description": "Maximum building size in square feet"
+          },
+          "property_type": {
+            "type": "array",
+            "description": "Property type filters",
+            "items": {
+              "type": "string",
+              "enum": [
+                "SFR",
+                "MFR",
+                "CON",
+                "TH",
+                "MOB",
+                "APT",
+                "COM",
+                "IND",
+                "VAC"
+              ]
+            }
+          },
+          "for_sale": {
+            "type": "boolean",
+            "description": "Filter for properties currently for sale"
+          },
+          "owner_occupied": {
+            "type": "boolean",
+            "description": "Filter for owner-occupied properties"
+          },
+          "absentee_owner": {
+            "type": "boolean",
+            "description": "Filter for absentee owner properties"
+          },
+          "corporate_owned": {
+            "type": "boolean",
+            "description": "Filter for corporate-owned properties"
+          },
+          "high_equity": {
+            "type": "boolean",
+            "description": "Filter for high equity properties"
+          },
+          "foreclosure": {
+            "type": "boolean",
+            "description": "Filter for properties in foreclosure"
+          },
+          "pre_foreclosure": {
+            "type": "boolean",
+            "description": "Filter for properties in pre-foreclosure"
+          },
+          "auction": {
+            "type": "boolean",
+            "description": "Filter for properties going to auction"
+          },
+          "cash_buyer": {
+            "type": "boolean",
+            "description": "Filter for cash buyer properties"
+          },
+          "investor_buyer": {
+            "type": "boolean",
+            "description": "Filter for investor buyer properties"
+          }
+        }
+      },
+      "PropertySearchResponse": {
+        "type": "object",
+        "description": "Response schema for PropertySearch endpoint",
+        "properties": {
+          "live": {
+            "type": "boolean",
+            "description": "Indicates if the data is live from the API",
+            "example": true
+          },
+          "input": {
+            "$ref": "#/components/schemas/PropertySearchRequestInput"
+          },
+          "data": {
+            "type": "array",
+            "description": "Array of property results",
+            "items": {
+              "$ref": "#/components/schemas/PropertyObject"
+            }
+          },
+          "resultCount": {
+            "type": "integer",
+            "description": "Total number of results found",
+            "example": 150
+          },
+          "resultIndex": {
+            "type": "integer",
+            "description": "Index of the last record returned in the current response data",
+            "example": 250
+          },
+          "recordCount": {
+            "type": "integer",
+            "description": "Number of records returned in the current response data",
+            "example": 50
+          },
+          "statusCode": {
+            "type": "integer",
+            "description": "HTTP status code of the response",
+            "example": 200
+          },
+          "statusMessage": {
+            "type": "string",
+            "description": "Status message corresponding to the status code",
+            "example": "OK"
+          },
+          "requestExecutionTimeMS": {
+            "type": "string",
+            "description": "Time taken to execute the request in milliseconds",
+            "example": "150ms"
+          }
+        }
+      },
+      "PropGPTRequest": {
+        "type": "object",
+        "description": "Request schema for PropGPT endpoint",
+        "required": [
+          "query"
+        ],
+        "properties": {
+          "size": {
+            "type": "integer",
+            "description": "Number of results to return (maximum of 250).",
+            "format": "int32",
+            "maximum": 250
+          },
+          "query": {
+            "type": "string",
+            "description": "Natural language query that references data points in the Property Search API in order to retrieve a list of properties.",
+            "minLength": 3,
+            "example": "LAND Properties in Forsyth County Georgia with high equity"
+          },
+          "model": {
+            "type": "string",
+            "description": "GPT model to use for processing",
+            "enum": [
+              "gpt-4",
+              "gpt-4o",
+              "gpt-4o-mini",
+              "gpt-4-turbo",
+              "gpt-3.5-turbo"
+            ]
+          }
+        }
+      },
+      "PropGPTResponse": {
+        "type": "object",
+        "description": "Response schema for PropGPT endpoint",
+        "properties": {
+          "input": {
+            "type": "object",
+            "description": "Echo of the input parameters"
+          },
+          "data": {
+            "type": "array",
+            "description": "Array of properties found matching the query",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "description": "Property identifier"
+                },
+                "address": {
+                  "type": "object",
+                  "description": "Property address"
+                },
+                "confidence": {
+                  "type": "number",
+                  "description": "AI confidence score for this match",
+                  "minimum": 0,
+                  "maximum": 1
+                }
+              }
+            }
+          },
+          "gpt_response": {
+            "type": "object",
+            "description": "GPT model analysis and explanation",
+            "properties": {
+              "analysis": {
+                "type": "string",
+                "description": "AI analysis of the query and results"
+              },
+              "reasoning": {
+                "type": "string",
+                "description": "Explanation of why these properties were selected"
+              },
+              "suggestions": {
+                "type": "array",
+                "description": "Suggestions for refining the search",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "totalResults": {
+            "type": "integer",
+            "description": "Total number of matching properties"
+          },
+          "returnedResults": {
+            "type": "integer",
+            "description": "Number of results returned"
+          },
+          "statusCode": {
+            "type": "integer",
+            "description": "HTTP status code"
+          },
+          "live": {
+            "type": "boolean",
+            "description": "Indicates if data is live"
+          },
+          "usage": {
+            "type": "object",
+            "description": "Token usage information",
+            "properties": {
+              "prompt_tokens": {
+                "type": "integer"
+              },
+              "completion_tokens": {
+                "type": "integer"
+              },
+              "total_tokens": {
+                "type": "integer"
+              }
+            }
+          }
+        }
+      },
+      "PropertyObject": {
+        "type": "object",
+        "properties": {
+          "absenteeOwner": {
+            "type": "boolean",
+            "example": false,
+            "default": true
+          },
+          "address": {
+            "type": "object",
+            "properties": {
+              "address": {
+                "type": "string",
+                "example": "13723 Neil Armstrong Ave Unit 308, Herndon, Va 20171"
+              },
+              "city": {
+                "type": "string",
+                "example": "Herndon"
+              },
+              "county": {
+                "type": "string",
+                "example": "Fairfax"
+              },
+              "state": {
+                "type": "string",
+                "example": "VA"
+              },
+              "street": {
+                "type": "string",
+                "example": "13723 Neil Armstrong Ave Unit 308"
+              },
+              "zip": {
+                "type": "string",
+                "example": "20171"
+              }
+            }
+          },
+          "adjustableRate": {
+            "type": "boolean",
+            "example": false,
+            "default": true
+          },
+          "airConditioningAvailable": {
+            "type": "boolean",
+            "example": false,
+            "default": true
+          },
+          "assessedImprovementValue": {
+            "type": "integer",
+            "example": 326590,
+            "default": 0
+          },
+          "assessedLandValue": {
+            "type": "integer",
+            "example": 82000,
+            "default": 0
+          },
+          "assessedValue": {
+            "type": "integer",
+            "example": 408590,
+            "default": 0
+          },
+          "auction": {
+            "type": "boolean",
+            "example": false,
+            "default": true
+          },
+          "basement": {
+            "type": "boolean",
+            "example": false,
+            "default": true
+          },
+          "bathrooms": {
+            "type": "integer",
+            "example": 2,
+            "default": 0
+          },
+          "bedrooms": {
+            "type": "integer",
+            "example": 2,
+            "default": 0
+          },
+          "cashBuyer": {
+            "type": "boolean",
+            "example": false,
+            "default": true
+          },
+          "corporateOwned": {
+            "type": "boolean",
+            "example": false,
+            "default": true
+          },
+          "death": {
+            "type": "boolean",
+            "example": false,
+            "default": true
+          },
+          "distressed": {
+            "type": "boolean",
+            "example": false,
+            "default": true
+          },
+          "documentType": {
+            "type": "string",
+            "example": "Grant Deed"
+          },
+          "documentTypeCode": {
+            "type": "string",
+            "example": "DTGD"
+          },
+          "equity": {
+            "type": "boolean",
+            "example": false,
+            "default": true
+          },
+          "equityPercent": {
+            "type": "integer",
+            "example": 38,
+            "default": 0
+          },
+          "estimatedEquity": {
+            "type": "integer",
+            "example": 189084,
+            "default": 0
+          },
+          "estimatedValue": {
+            "type": "integer",
+            "example": 490308,
+            "default": 0
+          },
+          "floodZone": {
+            "type": "boolean",
+            "example": true,
+            "default": true
+          },
+          "floodZoneDescription": {
+            "type": "string",
+            "example": "AREA OF MINIMAL FLOOD HAZARD"
+          },
+          "floodZoneType": {
+            "type": "string",
+            "example": "X"
+          },
+          "foreclosure": {
+            "type": "boolean",
+            "example": false,
+            "default": true
+          },
+          "forSale": {
+            "type": "boolean",
+            "example": false,
+            "default": true
+          },
+          "freeClear": {
+            "type": "boolean",
+            "example": false,
+            "default": true
+          },
+          "garage": {
+            "type": "boolean",
+            "example": false,
+            "default": true
+          },
+          "highEquity": {
+            "type": "boolean",
+            "example": false,
+            "default": true
+          },
+          "id": {
+            "type": "string",
+            "example": "253175355"
+          },
+          "inherited": {
+            "type": "boolean",
+            "example": false,
+            "default": true
+          },
+          "inStateAbsenteeOwner": {
+            "type": "boolean",
+            "example": false,
+            "default": true
+          },
+          "investorBuyer": {
+            "type": "boolean",
+            "example": false,
+            "default": true
+          },
+          "landUse": {
+            "type": "string",
+            "example": "Residential"
+          },
+          "lastMortgage1Amount": {},
+          "lastSaleAmount": {
+            "type": "string",
+            "example": "418000"
+          },
+          "lastSaleDate": {
+            "type": "string",
+            "example": "2020-07-23"
+          },
+          "latitude": {
+            "type": "number",
+            "example": 38.9207,
+            "default": 0
+          },
+          "lenderName": {
+            "type": "string",
+            "example": "One American Mtg"
+          },
+          "listingAmount": {},
+          "longitude": {
+            "type": "number",
+            "example": -77.4218,
+            "default": 0
+          },
+          "lotSquareFeet": {
+            "type": "integer",
+            "example": 0,
+            "default": 0
+          },
+          "mailAddress": {
+            "type": "object",
+            "properties": {
+              "address": {
+                "type": "string",
+                "example": "13723 Neil Armstrong Ave Unit 308, Herndon, Va 20171"
+              },
+              "city": {
+                "type": "string",
+                "example": "Herndon"
+              },
+              "county": {
+                "type": "string",
+                "example": "Fairfax"
+              },
+              "state": {
+                "type": "string",
+                "example": "VA"
+              },
+              "street": {
+                "type": "string",
+                "example": "13723 Neil Armstrong Ave Unit 308"
+              },
+              "zip": {
+                "type": "string",
+                "example": "20171"
+              }
+            }
+          },
+          "medianIncome": {
+            "type": "string",
+            "example": "150066"
+          },
+          "MFH2to4": {
+            "type": "boolean",
+            "example": false,
+            "default": true
+          },
+          "MFH5plus": {
+            "type": "boolean",
+            "example": false,
+            "default": true
+          },
+          "mlsActive": {
+            "type": "boolean",
+            "example": true,
+            "default": true
+          },
+          "mlsCancelled": {
+            "type": "boolean",
+            "example": false,
+            "default": true
+          },
+          "mlsDaysOnMarket": {
+            "type": "integer",
+            "example": 101,
+            "default": 0
+          },
+          "mlsFailed": {
+            "type": "boolean",
+            "example": false,
+            "default": true
+          },
+          "mlsHasPhotos": {
+            "type": "boolean",
+            "example": false,
+            "default": true
+          },
+          "mlsLastSaleDate": {
+            "type": "string",
+            "example": "2020-07-23"
+          },
+          "mlsLastStatusDate": {
+            "type": "string",
+            "example": "2023-04-15"
+          },
+          "mlsListingDate": {
+            "type": "string",
+            "example": "2023-04-15"
+          },
+          "mlsListingPrice": {
+            "type": "integer",
+            "example": 2500,
+            "default": 0
+          },
+          "mlsPending": {
+            "type": "boolean",
+            "example": false,
+            "default": true
+          },
+          "mlsSold": {
+            "type": "boolean",
+            "example": false,
+            "default": true
+          },
+          "mlsStatus": {
+            "type": "string",
+            "example": "Active"
+          },
+          "mlsType": {
+            "type": "string",
+            "example": "ForSale"
+          },
+          "negativeEquity": {
+            "type": "boolean",
+            "example": false,
+            "default": true
+          },
+          "neighborhood": {
+            "type": "object",
+            "properties": {
+              "center": {
+                "type": "string",
+                "example": "POINT(-77.421701188095 38.919564722822)"
+              },
+              "id": {
+                "type": "string",
+                "example": "63205"
+              },
+              "name": {
+                "type": "string",
+                "example": "Discovery Square"
+              },
+              "type": {
+                "type": "string",
+                "example": "subdivision"
+              }
+            }
+          },
+          "openMortgageBalance": {
+            "type": "integer",
+            "example": 313500,
+            "default": 0
+          },
+          "outOfStateAbsenteeOwner": {
+            "type": "boolean",
+            "example": false,
+            "default": true
+          },
+          "owner1FirstName": {
+            "type": "string",
+            "example": "Attili"
+          },
+          "owner1LastName": {
+            "type": "string",
+            "example": "Srinivas"
+          },
+          "owner2FirstName": {
+            "type": "string",
+            "example": "Attili"
+          },
+          "owner2LastName": {
+            "type": "string",
+            "example": "Manjusha"
+          },
+          "ownerOccupied": {
+            "type": "boolean",
+            "example": true,
+            "default": true
+          },
+          "preForeclosure": {
+            "type": "boolean",
+            "example": false,
+            "default": true
+          },
+          "privateLender": {
+            "type": "boolean",
+            "example": false,
+            "default": true
+          },
+          "propertyId": {
+            "type": "string",
+            "example": "253175355"
+          },
+          "propertyType": {
+            "type": "string",
+            "example": "CONDO"
+          },
+          "propertyUse": {
+            "type": "string",
+            "example": "Condominium"
+          },
+          "propertyUseCode": {
+            "type": "integer",
+            "example": 366,
+            "default": 0
+          },
+          "rentAmount": {},
+          "reo": {
+            "type": "boolean",
+            "example": false,
+            "default": true
+          },
+          "roomsCount": {
+            "type": "integer",
+            "example": 5,
+            "default": 0
+          },
+          "squareFeet": {
+            "type": "integer",
+            "example": 1323,
+            "default": 0
+          },
+          "suggestedRent": {
+            "type": "string",
+            "example": "2070"
+          },
+          "unitsCount": {
+            "type": "integer",
+            "example": 0,
+            "default": 0
+          },
+          "vacant": {
+            "type": "boolean",
+            "example": false,
+            "default": true
+          },
+          "yearBuilt": {
+            "type": "integer",
+            "example": 2015,
+            "default": 0
+          },
+          "yearsOwned": {
+            "type": "integer",
+            "example": 3,
+            "default": 0
+          }
+        }
+      },
+      "PropertyAddress": {
+        "type": "object",
+        "properties": {
+          "address": {
+            "type": "string",
+            "description": "Full address of the property",
+            "example": "Mashburn Dr, Cumming, GA 30041"
+          },
+          "city": {
+            "type": "string",
+            "description": "City where the property is located",
+            "example": "Cumming"
+          },
+          "county": {
+            "type": "string",
+            "description": "County where the property is located",
+            "example": "Forsyth County"
+          },
+          "fips": {
+            "type": "string",
+            "maxLength": 5,
+            "description": "Federal Information Processing Standard (FIPS) Code",
+            "example": "13117"
+          },
+          "state": {
+            "type": "string",
+            "description": "State abbreviation where the property is located",
+            "example": "GA",
+            "maxLength": 2
+          },
+          "street": {
+            "type": "string",
+            "description": "Street address of the property",
+            "example": "Mashburn Dr"
+          },
+          "zip": {
+            "type": "string",
+            "description": "ZIP code where the property is located",
+            "example": "30041",
+            "maxLength": 5
+          }
+        }
+      },
+      "MailingAddress": {
+        "type": "object",
+        "properties": {
+          "address": {
+            "type": "string",
+            "description": "Full mailing address",
+            "example": "5325 Mashburn Dr, Cumming, GA 30041"
+          },
+          "city": {
+            "type": "string",
+            "description": "City where the mailing address is located",
+            "example": "Cumming"
+          },
+          "county": {
+            "type": "string",
+            "description": "County where the mailing address is located",
+            "example": "Forsyth County"
+          },
+          "state": {
+            "type": "string",
+            "description": "State abbreviation where the mailing address is located",
+            "example": "GA",
+            "maxLength": 2
+          },
+          "street": {
+            "type": "string",
+            "description": "Street address of the mailing address",
+            "example": "5325 Mashburn Dr"
+          },
+          "zip": {
+            "type": "string",
+            "description": "ZIP code where the mailing address is located",
+            "example": "30041",
+            "maxLength": 5
+          }
+        }
+      },
+      "PropertySearchRequestInput": {
+        "type": "object",
+        "description": "Response input parameters for a Property Search request"
+      }
+    },
+    "responses": {
+      "400": {
+        "description": "Bad Request Response",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "statusCode": {
+                  "type": "integer",
+                  "example": 400
+                },
+                "error": {
+                  "type": "string",
+                  "example": "Bad Request"
+                },
+                "message": {
+                  "type": "string",
+                  "example": "\"x-api-key\" is required"
+                },
+                "validation": {
+                  "type": "object",
+                  "properties": {
+                    "source": {
+                      "type": "string",
+                      "example": "headers"
+                    },
+                    "keys": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "example": [
+                        "x-api-key"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "401": {
+        "description": "Unauthorized Response",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "statusCode": {
+                  "type": "integer",
+                  "example": 401
+                },
+                "error": {
+                  "type": "string",
+                  "example": "Unauthorized"
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Your test key has expired. Please contact support to continue testing."
+                }
+              }
+            }
+          }
+        }
+      },
+      "404": {
+        "description": "Not Found Response",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "live": {
+                  "type": "boolean",
+                  "example": false
+                },
+                "input": {
+                  "type": "object",
+                  "description": "The input query parameters sent in the request."
+                },
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "type": "object"
+                  },
+                  "description": "Array of property records matching the query. Empty if no records found.",
+                  "example": []
+                },
+                "count": {
+                  "type": "integer",
+                  "description": "Total number of property records matching the query.",
+                  "example": 0
+                },
+                "statusCode": {
+                  "type": "integer",
+                  "example": 404
+                },
+                "statusMessage": {
+                  "type": "string",
+                  "example": "Not Found"
+                },
+                "requestExecutionTimeMS": {
+                  "type": "string",
+                  "description": "Time taken to execute the request.",
+                  "example": "18ms"
+                }
+              },
+              "required": [
+                "statusCode",
+                "statusMessage"
+              ]
+            }
+          }
+        }
+      },
+      "400BadRequest": {
+        "$ref": "#/components/responses/400"
+      },
+      "401Unauthorized": {
+        "$ref": "#/components/responses/401"
+      },
+      "BadRequest": {
+        "description": "Bad Request - Invalid input parameters",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "example": "Bad Request"
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Invalid input parameters"
+                },
+                "statusCode": {
+                  "type": "integer",
+                  "example": 400
+                },
+                "details": {
+                  "type": "object",
+                  "description": "Additional error details"
+                }
+              }
+            }
+          }
+        }
+      },
+      "Unauthorized": {
+        "description": "Unauthorized - Invalid or missing API key",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "example": "Unauthorized"
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Invalid or missing API key"
+                },
+                "statusCode": {
+                  "type": "integer",
+                  "example": 401
+                }
+              }
+            }
+          }
+        }
+      },
+      "NotFound": {
+        "description": "Not Found - Resource not found",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "example": "Not Found"
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Property not found"
+                },
+                "statusCode": {
+                  "type": "integer",
+                  "example": 404
+                }
+              }
+            }
+          }
+        }
+      },
+      "InternalServerError": {
+        "description": "Internal Server Error",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "example": "Internal Server Error"
+                },
+                "message": {
+                  "type": "string",
+                  "example": "An unexpected error occurred"
+                },
+                "statusCode": {
+                  "type": "integer",
+                  "example": 500
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "$schema": "http://json-schema.org/draft-04/schema#"
+}
